@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Team9project - #{content_for(:title)}
+    %title Vendor Management Self-Service Platform - #{content_for(:title)}
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
     %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
@@ -27,21 +27,61 @@
     #wrap
       %header
         %nav#main-nav.navbar.navbar-dark.bg-dark.navbar-expand-lg.fixed-top
-          .container
-            .navbar-header
-              = link_to :root, class: 'navbar-brand hidden-sm' do
-                Team9project
+          .navbar-header
+            = link_to :root, class: 'navbar-brand hidden-sm d-flex' do
+              %img{:src => "https://www.sheffield.ac.uk/themes/custom/uos/images/uos-crest.svg", :height => '60em'}
+              .ml-2.align-self-center
+                Vendor Management
+                %br
+                Self-Service Platform
+          .container.mx-2
             %button.navbar-toggler{ aria: { controls: "navbar-content", expanded: false, label: "Toggle navigation" }, data: { target: "#navbar-content", toggle: "collapse" }, type: "button" }
               %span.navbar-toggler-icon
 
             .collapse.navbar-collapse#navbar-content
               %ul.nav.navbar-nav
-                = navbar_link_to :root, title: "Go to the home page", identifier: :home do
-                  = icon 'fas', 'home'
-                  Home
-                = navbar_link_to '#', title: "Go to an unavailable page", class: 'disabled', identifier: :unavailable_page do
-                  = icon 'fas', 'ban'
-                  Unavailable Page
+                -# demo nav
+                - if @current_nav_identifier == :home
+                  = navbar_link_to :root, title: "Go to the home page", identifier: :home do
+                    = icon 'fas', 'home'
+                    Home
+                  = navbar_link_to '#', title: "Go to an unavailable page", class: 'disabled', identifier: :unavailable_page do
+                    = icon 'fas', 'ban'
+                    Unavailable Page
+                -# admin nav
+                - if @current_nav_identifier == :admin_home || @current_nav_identifier == :admin_tasks || @current_nav_identifier == :admin_assessment || @current_nav_identifier == :admin_venders || @current_nav_identifier == :admin_settings
+                  = navbar_link_to :root, title: "Go to the admin home page", identifier: :admin_home do
+                    = icon 'fas', 'home'
+                    Home
+                  = navbar_link_to :root, title: "Go to the task management page", identifier: :admin_tasks do
+                    = icon 'fas', 'tasks'
+                    Tasks
+                  = navbar_link_to :root, title: "Go to the vender management page", identifier: :admin_venders do
+                    = icon 'fas', 'user-circle'
+                    Venders
+                  = navbar_link_to :root, title: "Go to the admin settings page", identifier: :admin_settings do
+                    = icon 'fas', 'cogs'
+                    Settings
+                -# vender nav
+                - if @current_nav_identifier == :vender_home || @current_nav_identifier == :vender_tasks || @current_nav_identifier == :vender_assessment || @current_nav_identifier == :vender_settings
+                  = navbar_link_to :root, title: "Go to the vender home page", identifier: :vender_home do
+                    = icon 'fas', 'home'
+                    Home
+                  = navbar_link_to :root, title: "Go to the vender tasks page", identifier: :vender_tasks do
+                    = icon 'fas', 'tasks'
+                    Tasks
+                  = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
+                    = icon 'fas', 'cogs'
+                    Settings
+
+              -# login nav button
+              - if @current_nav_identifier == :login
+                %ul.nav.navbar-nav.ml-auto
+                  %a.btn.btn-primary{ href: "#", title: "Contact Univeristy" }
+                    Contact
+                    %br
+                    Univeristy
+
               -# - if user_signed_in?
               -#   %ul.nav.navbar-nav.ml-auto
               -#     %li.nav-item.dropdown
@@ -56,8 +96,8 @@
         #main-container.container
           = yield
 
-    %footer#footer
+    %footer#footer.mt-auto.py-3.bg-light
       .container
-        %p
-          &copy; #{Date.today.year}
-          = link_to 'epiGenesys', 'https://www.epigenesys.org.uk', target: '_blank', title: 'Go to the epiGenesys website'
+        %p.text-muted
+          Copyright &copy; #{Date.today.year}
+          = link_to 'The University of Sheffield', 'https://www.sheffield.ac.uk/', target: '_blank', title: 'Go to The University of Sheffield website'
