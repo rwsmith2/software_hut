@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_175129) do
+ActiveRecord::Schema.define(version: 2021_03_18_192124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", id: false, force: :cascade do |t|
+    t.string "house_name", null: false
+    t.string "city_town", null: false
+    t.string "country", null: false
+    t.string "postcode", null: false
+    t.integer "vendor_id"
+  end
+
+  create_table "admins", primary_key: "admin_id", id: :serial, force: :cascade do |t|
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -59,7 +70,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_175129) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "vendors", force: :cascade do |t|
+  create_table "vendors", primary_key: "vendor_id", id: :serial, force: :cascade do |t|
     t.string "company_name", null: false
     t.integer "company_number", null: false
     t.boolean "validated", default: false
@@ -69,4 +80,5 @@ ActiveRecord::Schema.define(version: 2021_03_18_175129) do
     t.integer "risk_rating"
   end
 
+  add_foreign_key "addresses", "vendors", primary_key: "vendor_id", on_delete: :cascade
 end

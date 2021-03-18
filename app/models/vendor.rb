@@ -2,7 +2,6 @@
 #
 # Table name: vendors
 #
-#  id             :bigint           not null, primary key
 #  company_name   :string           not null
 #  company_number :integer          not null
 #  credit_rating  :integer
@@ -10,6 +9,8 @@
 #  kpi            :integer
 #  risk_rating    :integer
 #  validated      :boolean          default(FALSE)
+#  vendor_id      :integer          not null, primary key
 #
 class Vendor < ApplicationRecord
+    has_one :address
 end
