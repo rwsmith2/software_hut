@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint           not null, primary key
+#  accepted               :boolean          default(FALSE)
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
@@ -16,8 +16,8 @@
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
 #  unlock_token           :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  user_name              :string           not null
+#  user_id                :integer          not null, primary key
 #
 # Indexes
 #

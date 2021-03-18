@@ -9,7 +9,12 @@
 #  kpi            :integer
 #  risk_rating    :integer
 #  validated      :boolean          default(FALSE)
+#  user_id        :integer
 #  vendor_id      :integer          not null, primary key
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
 #
 FactoryBot.define do
   factory :vendor do

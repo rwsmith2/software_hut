@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_192124) do
+ActiveRecord::Schema.define(version: 2021_03_18_200923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2021_03_18_192124) do
   end
 
   create_table "admins", primary_key: "admin_id", id: :serial, force: :cascade do |t|
+    t.integer "user_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -50,9 +51,11 @@ ActiveRecord::Schema.define(version: 2021_03_18_192124) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", primary_key: "user_id", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "user_name", null: false
+    t.boolean "accepted", default: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -64,8 +67,6 @@ ActiveRecord::Schema.define(version: 2021_03_18_192124) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -78,7 +79,10 @@ ActiveRecord::Schema.define(version: 2021_03_18_192124) do
     t.integer "credit_rating"
     t.integer "kpi"
     t.integer "risk_rating"
+    t.integer "user_id"
   end
 
   add_foreign_key "addresses", "vendors", primary_key: "vendor_id", on_delete: :cascade
+  add_foreign_key "admins", "users", primary_key: "user_id", on_delete: :cascade
+  add_foreign_key "vendors", "users", primary_key: "user_id", on_delete: :cascade
 end
