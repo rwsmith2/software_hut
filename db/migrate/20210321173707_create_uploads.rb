@@ -12,4 +12,5 @@ class CreateUploads < ActiveRecord::Migration[6.0]
     
     end
     add_foreign_key :uploads, :answers, column: :answer_id,  primary_key: "answer_id", on_delete: :cascade
+  end
 end
