@@ -12,4 +12,5 @@
 #  fk_rails_...  (answer_id => answers.answer_id) ON DELETE => cascade
 #
 class Upload < ApplicationRecord
+    has_one :answers
 end

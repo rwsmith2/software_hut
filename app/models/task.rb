@@ -14,4 +14,5 @@
 #  fk_rails_...  (admin_id => admins.admin_id)
 #
 class Task < ApplicationRecord
+    has_many :assessment_linker
 end

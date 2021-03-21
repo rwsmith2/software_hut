@@ -18,4 +18,5 @@
 #
 class Vendor < ApplicationRecord
     has_one :address
+    has_many :given_task
 end
