@@ -1,0 +1,2 @@
+class GivenTask < ApplicationRecord
+end

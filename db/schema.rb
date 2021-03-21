@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_18_200923) do
+ActiveRecord::Schema.define(version: 2021_03_21_180645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,21 @@ ActiveRecord::Schema.define(version: 2021_03_18_200923) do
 
   create_table "admins", primary_key: "admin_id", id: :serial, force: :cascade do |t|
     t.integer "user_id"
+  end
+
+  create_table "answers", primary_key: "answer_id", id: :serial, force: :cascade do |t|
+    t.string "answer_text", null: false
+    t.string "additional_response"
+    t.integer "question_id"
+  end
+
+  create_table "assessment_linker", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "assessment_id"
+  end
+
+  create_table "assessments", primary_key: "assessment_id", id: :serial, force: :cascade do |t|
+    t.string "assessment_title", null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -42,6 +57,21 @@ ActiveRecord::Schema.define(version: 2021_03_18_200923) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "given_task", primary_key: "given_task_id", id: :serial, force: :cascade do |t|
+    t.date "set_date", null: false
+    t.date "due_date", null: false
+    t.integer "priority"
+    t.integer "repeatable", null: false
+    t.boolean "complete", default: false
+    t.integer "vendor_id"
+    t.integer "task_id"
+  end
+
+  create_table "questions", primary_key: "question_id", id: :serial, force: :cascade do |t|
+    t.string "question_text", null: false
+    t.integer "assessment_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -49,6 +79,20 @@ ActiveRecord::Schema.define(version: 2021_03_18_200923) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
+  end
+
+  create_table "tasks", primary_key: "task_id", id: :serial, force: :cascade do |t|
+    t.string "task_title", null: false
+    t.string "task_description"
+    t.integer "upload_type", null: false
+    t.integer "estimation", null: false
+    t.integer "admin_id"
+  end
+
+  create_table "uploads", primary_key: "upload_id", id: :serial, force: :cascade do |t|
+    t.integer "upload_type"
+    t.string "upload_description"
+    t.integer "answer_id"
   end
 
   create_table "users", primary_key: "user_id", id: :serial, force: :cascade do |t|
@@ -71,6 +115,17 @@ ActiveRecord::Schema.define(version: 2021_03_18_200923) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vendor_answers", force: :cascade do |t|
+    t.integer "given_task_id"
+    t.integer "answer_id"
+  end
+
+  create_table "vendor_uploads", force: :cascade do |t|
+    t.integer "given_task_id"
+    t.integer "upload_id"
+    t.binary "data"
+  end
+
   create_table "vendors", primary_key: "vendor_id", id: :serial, force: :cascade do |t|
     t.string "company_name", null: false
     t.integer "company_number", null: false
@@ -84,5 +139,17 @@ ActiveRecord::Schema.define(version: 2021_03_18_200923) do
 
   add_foreign_key "addresses", "vendors", primary_key: "vendor_id", on_delete: :cascade
   add_foreign_key "admins", "users", primary_key: "user_id", on_delete: :cascade
+  add_foreign_key "answers", "questions", primary_key: "question_id", on_delete: :cascade
+  add_foreign_key "assessment_linker", "assessments", primary_key: "assessment_id", on_delete: :cascade
+  add_foreign_key "assessment_linker", "tasks", primary_key: "task_id"
+  add_foreign_key "given_task", "tasks", primary_key: "task_id", on_delete: :cascade
+  add_foreign_key "given_task", "vendors", primary_key: "vendor_id", on_delete: :cascade
+  add_foreign_key "questions", "assessments", primary_key: "assessment_id"
+  add_foreign_key "tasks", "admins", primary_key: "admin_id"
+  add_foreign_key "uploads", "answers", primary_key: "answer_id", on_delete: :cascade
+  add_foreign_key "vendor_answers", "answers", primary_key: "answer_id"
+  add_foreign_key "vendor_answers", "given_task", primary_key: "given_task_id", on_delete: :cascade
+  add_foreign_key "vendor_uploads", "given_task", primary_key: "given_task_id", on_delete: :cascade
+  add_foreign_key "vendor_uploads", "uploads", primary_key: "upload_id"
   add_foreign_key "vendors", "users", primary_key: "user_id", on_delete: :cascade
 end

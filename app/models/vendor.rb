@@ -18,5 +18,4 @@
 #
 class Vendor < ApplicationRecord
     has_one :address
-    has_one :user
 end
