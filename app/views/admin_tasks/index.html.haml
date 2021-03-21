@@ -1,107 +1,109 @@
 - content_for :title, "[Admin] tasks management"
 
 
-%body
-  .container.my-5
-    .row
-      .col-8
-        .card
-          .card-header.d-flex.justify-content-between.align-items-center
-            %h5 Tasks
-            %form.d-flex
-              %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
-              %button.btn.btn-outline-success{:type => "submit"} Search
-          .card-body
-            .row
-              .col-4.border-end
-                %ul.list-group
-                  %li.list-group-item.active{"aria-current" => "true"} Task 001
-                  %li.list-group-item Task 002
-                  %li.list-group-item Task 003
-                  %li.list-group-item Task 004
-                  %li.list-group-item Task 005
-                %nav.mt-2{"aria-label" => "Page navigation"}
-                  %ul.pagination.d-flex.justify-content-center
-                    %li.page-item.disabled
-                      %a.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :href => "#", :tabindex => "-1"}
-                        %span{"aria-hidden" => "true"} «
-                    %li.page-item.active
-                      %a.page-link{:href => "#"} 1
-                    %li.page-item
-                      %a.page-link{:href => "#"} 2
-                    %li.page-item
-                      %a.page-link{:href => "#"} 3
-                    %li.page-item
-                      %a.page-link{"aria-label" => "Next", :href => "#"}
-                        %span{"aria-hidden" => "true"} »
-              .col-8
-                %p
-                  %span.fw-bold> Task ID:
-                  8c7845ef-3592-4e67-b971-7047a0f527d9
-                %p
-                  %span.fw-bold> Name:
-                  Task 001
-                %p
-                  %span.fw-bold> Vender:
-                  Vender A
-                %p
-                  %span.fw-bold> Task Type:
-                  Triage Assessment
-                %p
-                  %span.fw-bold> Due date:
-                  xx/xx/xxxx
-                %p
-                  %span.fw-bold> Description:
-                  Lorem ipsum dolor sit amet, graeci senserit cu pro, usu perfecto suavitate vulputate ex. Te esse oratio vix, at novum iudicabit sententiae usu. No choro civibus aliquando qui, appareat omittantur eu nec, novum insolens vulputate est ut. Est te laudem albucius quaerendum, ea quot verear quaerendum nam. Cu eos unum sonet deterruisset.
-                .d-flex.flex-row-reverse.mt-3
-                  %button.btn.btn-danger.mx-1.w-25{:type => "button"}
-                    Cancel
-                  %button.btn.btn-primary.mx-1.w-25{:type => "button"}
-                    Duplicate
-      .col-4
-        .card
-          .card-header.d-flex.justify-content-between.align-items-center
-            %h5 New Task
-            %button.btn.btn-outline-success{:type => "submit"} Create
-          .card-body
-            %form
-              .mb-3
-                %label.form-label{:for => "taskNameInput"} Task Name
-                %input#taskNameInput.form-control{:placeholder => "", :type => "text"}/
-              .mb-3
-                %label.form-label{:for => "venderList"} Vender list
-                %input#venderList.form-control{:list => "venderListOptions", :placeholder => ""}/
-                %datalist#venderListOptions
-                  %option{:value => "Vender A"}
-                  %option{:value => "Vender B"}
-                  %option{:value => "Vender C"}
-                  %option{:value => "Vender D"}
-                  %option{:value => "Vender E"}
-              .mb-3
-                %label.form-label{:for => "taskType"} Task Type
-                %input#taskType.form-control{:list => "taskTypeOptions", :placeholder => ""}/
-                %datalist#taskTypeOptions
-                  %option{:value => "Triage Assessment"}
-                  %option{:value => "Upload certificates"}
-                  %option{:value => "Assessment 001"}
-                  %option{:value => "Assessment 002"}
-                  %option{:value => "Assessment 003"}
-              .mb-3
-                %label.form-label{:for => "scheduleDate"} Schedule
-                .d-flex
-                  %input#scheduleDate.form-control{:placeholder => "", :type => "date"}/
-                  .btn-group{"aria-label" => "scheduleType", :role => "group"}
-                    %input#btnradio1.btn-check{:autocomplete => "off", :checked => "checked", :name => "btnradio", :type => "radio"}/
-                    %label.btn.btn-outline-primary{:for => "btnradio1"} no repeat
-                    %input#btnradio2.btn-check{:autocomplete => "off", :name => "btnradio", :type => "radio"}/
-                    %label.btn.btn-outline-primary{:for => "btnradio2"} quarterly
-                    %input#btnradio3.btn-check{:autocomplete => "off", :name => "btnradio", :type => "radio"}/
-                    %label.btn.btn-outline-primary{:for => "btnradio3"} monthly
-              .mb-3
-                .card
-                  .card-header
-                    %label.form-label{:for => "descriptionTextarea"} Description
-                  .card-body
-                    %textarea#descriptionTextarea.form-control{:rows => "3"}
-
-                    
+.d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
+  #tasks-panel.card.m-2.w-100.h-100
+    .card-header.d-flex.justify-content-between.align-items-center
+      %h5.m-0 Tasks
+      %form.d-flex
+        %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
+        %button.btn.btn-outline-primary{:type => "submit"} Search
+    .card-body.p-0.d-flex
+      #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
+        .list-group.overflow-auto.p-1
+          %button.list-group-item.list-group-item-action.active{"aria-current" => "true", :type => "button"} Task 001
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 002
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 003
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 004
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 005
+        %nav.mt-2{"aria-label" => "Page navigation"}
+          %ul.pagination.justify-content-center
+            %li.page-item.disabled
+              %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+                %span{"aria-hidden" => "true"} «
+            %li.page-item.active
+              %button.page-link 1
+            %li.page-item
+              %button.page-link 2
+            %li.page-item
+              %button.page-link 3
+            %li.page-item
+              %button.page-link{"aria-label" => "Next"}
+                %span{"aria-hidden" => "true"} »
+      #task-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
+        .overflow-auto
+          %p
+            %span.font-weight-bold> Task ID:&nbsp;
+            8c7845ef-3592-4e67-b971-7047a0f527d9
+          %p
+            %span.font-weight-bold> Name:&nbsp;
+            Task 001
+          %p
+            %span.font-weight-bold> Vender:&nbsp;
+            Vender A
+          %p
+            %span.font-weight-bold> Task Type:&nbsp;
+            Triage Assessment
+          %p
+            %span.font-weight-bold> Due date:&nbsp;
+            xx/xx/xxxx
+          %p
+            %span.font-weight-bold> Description:&nbsp;
+            Lorem ipsum dolor sit amet, graeci senserit cu pro, usu perfecto suavitate vulputate ex. Te esse oratio vix, at novum iudicabit sententiae usu. No choro civibus aliquando qui, appareat omittantur eu nec, novum insolens vulputate est ut. Est te laudem albucius quaerendum, ea quot verear quaerendum nam. Cu eos unum sonet deterruisset.
+        .d-flex.flex-row-reverse.mt-3
+          %button.btn.btn-danger.mx-1.w-25{:type => "button"}
+            Cancel
+          %button.btn.btn-primary.mx-1.w-25{:type => "button"}
+            Duplicate
+  #new-task-panel.card.m-2.w-50.h-100
+    .card-header.d-flex.justify-content-between.align-items-center
+      %h5.m-0 New Task
+      %button.btn.btn-outline-primary{:type => "submit"} Create
+    .card-body.overflow-auto
+      %form
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-taskname.input-group-text 
+              = icon 'fas', 'file-alt'
+          %input.form-control{"aria-describedby" => "basic-addon-taskname", "aria-label" => "Task name", :placeholder => "Task name", :type => "text"}/
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-venders.input-group-text 
+              = icon 'fas', 'user'
+          %input.form-control{"aria-describedby" => "basic-addon-venders", "aria-label" => "Venders", :placeholder => "Venders", :type => "text"}/
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-tasktype.input-group-text 
+              = icon 'fas', 'tasks'
+          %input.form-control{"aria-describedby" => "basic-addon-tasktype", "aria-label" => "Task type", :list => "tasktypeOptions", :placeholder => "Task type", :type => "text"}/
+          %datalist#tasktypeOptions
+            %option{:value => "Triage Assessment"}
+            %option{:value => "Upload certificates"}
+            %option{:value => "Assessment 001"}
+            %option{:value => "Assessment 002"}
+            %option{:value => "Assessment 003"}
+        .card.mb-3
+          .card-header.py-1.px-3
+            %label.form-label.my-0{:for => "scheduleDate"} 
+              = icon 'fas', 'calendar'
+              %span.ml-1 Schedule
+          .card-body.p-2
+            .mb-2
+              %input#scheduleDate.form-control{:placeholder => "", :type => "date", :value => "2021-03-01"}/
+            .btn-group.btn-group-toggle{"data-toggle" => "buttons"}
+              %label.btn.btn-outline-primary.active
+                %input#option-no-repeat{:checked => "checked", :name => "options", :type => "radio"}/
+                no repeat
+              %label.btn.btn-outline-primary
+                %input#option-quarterly{:name => "options", :type => "radio"}/
+                quarterly
+              %label.btn.btn-outline-primary
+                %input#option-monthly{:name => "options", :type => "radio"}/
+                monthly
+        .card.mb-3
+          .card-header.py-1.px-3
+            %label.form-label.my-0{:for => "descriptionTextarea"} 
+              = icon 'fas', 'align-left'
+              %span.ml-1 Description
+          .card-body.p-2
+            %textarea#descriptionTextarea.form-control{:rows => "3"} Lorem ipsum dolor sit amet, graeci senserit cu pro, usu perfecto suavitate vulputate ex. Te esse oratio vix, at novum iudicabit sententiae usu. No choro civibus aliquando qui, appareat omittantur eu nec, novum insolens vulputate est ut. Est te laudem albucius quaerendum, ea quot verear quaerendum nam. Cu eos unum sonet deterruisset
