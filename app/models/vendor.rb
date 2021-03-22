@@ -18,5 +18,5 @@
 #
 class Vendor < ApplicationRecord
     has_one :address
-    has_one :user
+    has_many :given_task
 end

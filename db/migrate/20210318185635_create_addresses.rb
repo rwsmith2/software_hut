@@ -7,6 +7,6 @@ class CreateAddresses < ActiveRecord::Migration[6.0]
       t.string :postcode, null: false
 
     end
-    #add_foreign_key :vendors, :addresses, column: :vendor_id,  primary_key: "lng_id", on_delete: :cascade
+    
   end
 end
