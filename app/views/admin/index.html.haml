@@ -1,4 +1,4 @@
-- content_for :adminhome, "Admin Home"
+- content_for :title, "Admin Home"
 .card
   .card-header
     %h3.panel-title Admin Dashboard
@@ -20,9 +20,9 @@
               %a.nav-link{:href => "#"} Recently Completed
       //Second Column, containing the task dashboard table  
       .col-8
-        %table.table.table-striped.table-bordered
+        %table.table.table-striped.table-bordered.table-hover
           %thead
-            %tr 
+            %tr.active 
               %th Vendor
               %th Priority
               %th Due Date
@@ -46,13 +46,13 @@
             %tr
               %td Vendor9
               %td Low
-              %td 27/01/2021
+              %td.warning 27/01/2021
               %td Upload cv
             %tr
               %td Vendor2
               %td High
               %td 14/12/2020
-              %td Email admins
+              %td.danger Email admins
           //This section is for the table, when the controller is functional
           -# %tbody
           -#   - @tasks.each do |task|

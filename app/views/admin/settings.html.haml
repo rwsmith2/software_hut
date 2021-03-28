@@ -1,0 +1,27 @@
+- content_for :title, "Admin Settings"
+
+.card
+  .card-header
+    %h3.panel-title Admin Settings
+  .card-body
+    %form 
+      .form-group.row 
+        %label.col-sm-2.col-form-label{:for => "adminName"}Name
+        .col-sm-10 
+          %input.form-control{:type => "text", :id => "adminName", :placeholder => "Bob Smith", :disabled => true}
+      .form-group.row 
+        %label.col-sm-2.col-form-label{:for => "adminUsername"}Name
+        .col-sm-10 
+          %input.form-control{:type => "text", :id => "adminUsername", :placeholder => "BSmith365"}
+      .form-group.row 
+        %label.col-sm-2.col-form-label{:for => "adminEmail"}Email
+        .col-sm-10 
+          %input.form-control{:type => "email", :id => "adminEmail", :placeholder => "SmithyBoy365@gmail.com"}
+      
+      .form-group.row 
+        .col-sm-10.offset-sm-2 
+          %button.btn.btn-primary{:type => "submit"}Update Settings
+
+   
+
+    
