@@ -1,0 +1,27 @@
+.card.mb-3
+  %br
+  .card-header
+    Assessment page
+  .card-body
+
+    = simple_form_for :form_examples do |f|
+     
+      = f.check_box :id => :checkbox 
+      = 'ISO-27001 Certified'
+      %br
+      = f.check_box :checkbox
+      = 'PCI-DSS Certified'
+      %br
+      = f.check_box :check_boxes
+      = 'Processing card transactions'
+      %br
+      = f.check_box :check_boxes
+      = 'Processing univeristy personal data'
+      %br
+      %br
+      %br
+      = f.text_field :attr, placeholder: "isocertificate.pdf"
+      %form{:action=>"/upload",:method=>"post",:enctype=>"multipart/form-data"}
+      %input{:type=>"file",:name=>"file"}
+      %input{:type=>"submit",:value=>"Upload"}
+
