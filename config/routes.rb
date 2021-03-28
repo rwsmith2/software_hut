@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   root to: "pages#home"
   get "login", to: "login#index"
 
+  get "admin/home", to: "admin#index"
+  get "admin/settings", to: "admin#settings"
+  
   get "admin_tasks", to: "admin_tasks#index"
   
 
