@@ -1,0 +1,79 @@
+- content_for :adminhome, "Admin Home"
+.card
+  .card-header
+    %h3.panel-title Admin Dashboard
+  .card-body
+    .row  
+      //First Column, containing the sort by menu
+      .col-4 
+        .card.mb-2
+          .card-header.font-weight-bold
+            Sort By
+          .card-body
+            %nav.nav.flex-column.nav-fill.nav-pills
+              %a.nav-link{:href => "#"} All Tasks
+              %a.nav-link{:href => "#"} Upcoming Tasks
+              %a.nav-link.active{:href => "#"} Overdue Tasks
+              %a.nav-link{:href => "#"} Priority Descending
+              %a.nav-link{:href => "#"} Priority Ascending
+              %a.nav-link{:href => "#"} Vendor Risk Tasks Descending
+              %a.nav-link{:href => "#"} Recently Completed
+      //Second Column, containing the task dashboard table  
+      .col-8
+        %table.table.table-striped.table-bordered
+          %thead
+            %tr 
+              %th Vendor
+              %th Priority
+              %th Due Date
+              %th Task Title
+          %tbody
+            %tr
+              %td Vendor8
+              %td High
+              %td 05/01/2021
+              %td Upload cv
+            %tr
+              %td Vendor5
+              %td Medium
+              %td 03/02/2021
+              %td Answer questions
+            %tr
+              %td Vendor3
+              %td Medium
+              %td 15/01/2021
+              %td Complete Survey
+            %tr
+              %td Vendor9
+              %td Low
+              %td 27/01/2021
+              %td Upload cv
+            %tr
+              %td Vendor2
+              %td High
+              %td 14/12/2020
+              %td Email admins
+          //This section is for the table, when the controller is functional
+          -# %tbody
+          -#   - @tasks.each do |task|
+          -#     %tr
+          -#       %td= task.vendor_name 
+          -#       %td= task.priority 
+          -#       %td= task.due_date
+          -#       %td= task.title
+
+        %ul.pagination.justify-content-center
+          %li.page-item 
+            %a.page-link{:href => "#"} Prev
+          %li.page-item 
+            %a.page-link{:href => "#"} 1
+          %li.page-item  
+            %a.page-link{:href => "#"} 2
+          %li.page-item  
+            %a.page-link{:href => "#"} 3
+          %li.page-item  
+            %a.page-link{:href => "#"} 4
+          %li.page-item  
+            %a.page-link{:href => "#"} 5
+          %li.page-item  
+            %a.page-link{:href => "#"} Next

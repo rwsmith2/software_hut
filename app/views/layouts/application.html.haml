@@ -48,6 +48,8 @@
                   = navbar_link_to '#', title: "Go to an unavailable page", class: 'disabled', identifier: :unavailable_page do
                     = icon 'fas', 'ban'
                     Unavailable Page
+                  = navbar_link_to 'vendor/index', title: "Vendor Home" , identifier: :vendor do
+                    Vendor Home
                 -# admin nav
                 - if @current_nav_identifier == :admin_home || @current_nav_identifier == :admin_tasks || @current_nav_identifier == :admin_assessment || @current_nav_identifier == :admin_venders || @current_nav_identifier == :admin_settings
                   = navbar_link_to :root, title: "Go to the admin home page", identifier: :admin_home do
