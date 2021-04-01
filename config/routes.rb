@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   
   get "admin_tasks", to: "admin_tasks#index"
 
+  get "assessment", to: "assessment#index"
+
   resources :vendor
   resources :admins
   
