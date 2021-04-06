@@ -41,17 +41,15 @@
             .collapse.navbar-collapse#navbar-content
               %ul.nav.navbar-nav
                 -# demo nav
-                - if @current_nav_identifier == :home
+                - if !user_signed_in?
                   = navbar_link_to :root, title: "Go to the home page", identifier: :home do
                     = icon 'fas', 'home'
                     Home
                   = navbar_link_to '#', title: "Go to an unavailable page", class: 'disabled', identifier: :unavailable_page do
                     = icon 'fas', 'ban'
                     Unavailable Page
-                  = navbar_link_to 'vendor/index', title: "Vendor Home" , identifier: :vendor do
-                    Vendor Home
                 -# admin nav
-                - if @current_nav_identifier == :admin_home || @current_nav_identifier == :admin_tasks || @current_nav_identifier == :admin_assessment || @current_nav_identifier == :admin_venders || @current_nav_identifier == :admin_settings
+                - if user_signed_in? && current_user.is_admin?
                   = navbar_link_to :root, title: "Go to the admin home page", identifier: :admin_home do
                     = icon 'fas', 'home'
                     Home
@@ -64,8 +62,10 @@
                   = navbar_link_to :root, title: "Go to the admin settings page", identifier: :admin_settings do
                     = icon 'fas', 'cogs'
                     Settings
+                  = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
+                    Log out
                 -# vender nav
-                - if @current_nav_identifier == :vender_home || @current_nav_identifier == :vender_tasks || @current_nav_identifier == :vender_assessment || @current_nav_identifier == :vender_settings
+                - if user_signed_in? && !current_user.is_admin?
                   = navbar_link_to :root, title: "Go to the vender home page", identifier: :vender_home do
                     = icon 'fas', 'home'
                     Home
@@ -75,6 +75,8 @@
                   = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
                     = icon 'fas', 'cogs'
                     Settings
+                  = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
+                    Log out
 
               -# login nav button
               - if @current_nav_identifier == :login

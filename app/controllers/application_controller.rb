@@ -25,6 +25,22 @@ class ApplicationController < ActionController::Base
     instance_variable_set(:"@#{resource_name}", val)
   end
 
+
+  def after_sign_in_path_for(resource)
+    if current_user.is_admin?
+      puts("Admin")
+      admin_home_url(resource)
+      #redirect_to '/admin/home'
+      #admin_home_page(resource)
+    else
+      puts("Vendor")
+      vendor_home_url(resource)
+      #redirect_to '/vendor/home'
+      #render "vendor/index"
+      #vendor_home_page(resource)
+    end
+  end
+
   # Catch NotFound exceptions and handle them neatly, when URLs are mistyped or mislinked
   rescue_from ActiveRecord::RecordNotFound do
     render template: 'errors/error_404', status: 404
