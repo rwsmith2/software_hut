@@ -5,13 +5,12 @@
 #  estimation       :integer          not null
 #  task_description :string
 #  task_title       :string           not null
-#  upload_type      :integer          not null
-#  admin_id         :integer
 #  task_id          :integer          not null, primary key
+#  user_id          :integer
 #
 # Foreign Keys
 #
-#  fk_rails_...  (admin_id => admins.admin_id)
+#  fk_rails_...  (user_id => users.user_id)
 #
 FactoryBot.define do
   factory :task do

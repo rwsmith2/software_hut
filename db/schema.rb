@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_161149) do
+ActiveRecord::Schema.define(version: 2021_04_07_162106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,9 +84,8 @@ ActiveRecord::Schema.define(version: 2021_04_06_161149) do
   create_table "tasks", primary_key: "task_id", id: :serial, force: :cascade do |t|
     t.string "task_title", null: false
     t.string "task_description"
-    t.integer "upload_type", null: false
     t.integer "estimation", null: false
-    t.integer "admin_id"
+    t.integer "user_id"
   end
 
   create_table "uploads", primary_key: "upload_id", id: :serial, force: :cascade do |t|
@@ -146,7 +145,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_161149) do
   add_foreign_key "given_task", "tasks", primary_key: "task_id", on_delete: :cascade
   add_foreign_key "given_task", "vendors", primary_key: "vendor_id", on_delete: :cascade
   add_foreign_key "questions", "assessments", primary_key: "assessment_id"
-  add_foreign_key "tasks", "admins", primary_key: "admin_id"
+  add_foreign_key "tasks", "users", primary_key: "user_id"
   add_foreign_key "uploads", "answers", primary_key: "answer_id", on_delete: :cascade
   add_foreign_key "vendor_answers", "answers", primary_key: "answer_id"
   add_foreign_key "vendor_answers", "given_task", primary_key: "given_task_id", on_delete: :cascade

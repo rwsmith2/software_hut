@@ -1,0 +1,133 @@
+- content_for :title, "[Admin] tasks management"
+
+.d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
+  #tasks-panel.card.m-2.w-100.h-100
+    .card-header.d-flex.justify-content-between.align-items-center
+      %h5.m-0 Tasks
+      %form.d-flex
+        %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
+        %button.btn.btn-outline-primary{:type => "submit"} Search
+    .card-body.p-0.d-flex
+      #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
+        .list-group.overflow-auto.p-1
+          %button.list-group-item.list-group-item-action.active{"aria-current" => "true", :type => "button"} Task 001
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 002
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 003
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 004
+          %button.list-group-item.list-group-item-action{:type => "button"} Task 005
+        %nav.mt-2{"aria-label" => "Page navigation"}
+          %ul.pagination.justify-content-center
+            %li.page-item.disabled
+              %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+                %span{"aria-hidden" => "true"} «
+            %li.page-item.active
+              %button.page-link 1
+            %li.page-item
+              %button.page-link 2
+            %li.page-item
+              %button.page-link 3
+            %li.page-item
+              %button.page-link{"aria-label" => "Next"}
+                %span{"aria-hidden" => "true"} »
+      #task-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
+        .overflow-auto
+          %p
+            %span.font-weight-bold> Task ID:&nbsp;
+            8c7845ef-3592-4e67-b971-7047a0f527d9
+          %p
+            %span.font-weight-bold> Name:&nbsp;
+            Task 001
+          %p
+            %span.font-weight-bold> Vender:&nbsp;
+            Vender A
+          %p
+            %span.font-weight-bold> Task Type:&nbsp;
+            Triage Assessment
+          %p
+            %span.font-weight-bold> Due date:&nbsp;
+            xx/xx/xxxx
+          %p
+            %span.font-weight-bold> Description:&nbsp;
+            Lorem ipsum dolor sit amet, graeci senserit cu pro, usu perfecto suavitate vulputate ex. Te esse oratio vix, at novum iudicabit sententiae usu. No choro civibus aliquando qui, appareat omittantur eu nec, novum insolens vulputate est ut. Est te laudem albucius quaerendum, ea quot verear quaerendum nam. Cu eos unum sonet deterruisset.
+        .d-flex.flex-row-reverse.mt-3
+          %button.btn.btn-danger.mx-1.w-25{:type => "button"}
+            Cancel
+          %button.btn.btn-primary.mx-1.w-25{:type => "button"}
+            Duplicate
+  #new-task-panel.card.m-2.w-50.h-100
+    //All the input elements will be defaulted to the form-control class
+    = simple_form_for @task, url: tasks_path(@task), defaults: {input_html: {class: 'form-control'}} do |f|
+
+      = f.error_notification
+      = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+      .card-header.d-flex.justify-content-between.align-items-center
+        %h5.m-0 New Task
+        //%button.btn.btn-outline-primary Create
+        = f.button :submit, 'Create!', class: 'btn btn-outline-primary'
+      .card-body.overflow-auto
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-taskname.input-group-text 
+              = icon 'fas', 'file-alt'
+          //%input.form-control{"aria-describedby" => "basic-addon-taskname", "aria-label" => "Task name", :placeholder => "Task name", :type => "string"}/
+          = f.input_field :task_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Task name"
+          
+        .card.mb-3
+          .card-header.py-1.px-3
+            %label.form-label.my-0{:for => "descriptionTextarea"} 
+              = icon 'fas', 'align-left'
+              %span.ml-1 Description
+          .card-body.p-2
+            //%textarea#descriptionTextarea.form-control{:rows => "3"} Description placeholder text
+            = f.input_field :task_description, as: :text, input_html: {id: "descriptionTextarea"}, placeholder: "Description", rows: "3"
+
+
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-tasktype.input-group-text 
+              = icon 'fas', 'clock'
+          = f.input_field :estimation, placeholder: "Estimated time",  as: :integer, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task estimation"}
+
+          //Below this, not gonna implement yet, but gonna add a way to select assessments, so can add the assessment when creating the task
+            
+
+
+
+        //Not sure whether vendors should be in this form, I think they should be set after the task is created
+        -# .input-group.mb-3
+        -#   .input-group-prepend
+        -#     %span#basic-addon-venders.input-group-text 
+        -#       = icon 'fas', 'user'
+        -#   %input.form-control{"aria-describedby" => "basic-addon-venders", "aria-label" => "Venders", :placeholder => "Venders", :type => "string"}/
+        -# .input-group.mb-3
+        -#   .input-group-prepend
+        -#     %span#basic-addon-tasktype.input-group-text 
+        -#       = icon 'fas', 'tasks'
+        -#   //%input.form-control{"aria-describedby" => "basic-addon-tasktype", "aria-label" => "Task type", :list => "tasktypeOptions", :placeholder => "Task type", :type => "text"}/
+        -#   = f.input_field :upload_type, placeholder: "Task type",  as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task ntypeame"}, list: "tasktypeOptions"
+        -#   //Not sure which options needed, or if the task type is even needed? Not sure 
+        -#   %datalist#tasktypeOptions
+        -#     %option{:value => "Assessment"}
+        -#     %option{:value => "Document Upload"}
+
+          //I think that the calender and vendor choosing should be after the task creation, where the task can clicked on, then assigned to people
+          -# .card.mb-3
+          -#   .card-header.py-1.px-3
+          -#     %label.form-label.my-0{:for => "scheduleDate"} 
+          -#       = icon 'fas', 'calendar'
+          -#       %span.ml-1 Schedule
+          -#   .card-body.p-2
+          -#     .mb-2
+          -#       %input#scheduleDate.form-control{:placeholder => "", :type => "date", :value => "2021-03-01"}/
+          -#     .btn-group.btn-group-toggle{"data-toggle" => "buttons"}
+          -#       %label.btn.btn-outline-primary.active
+          -#         %input#option-no-repeat{:checked => "checked", :name => "options", :type => "radio"}/
+          -#         no repeat
+          -#       %label.btn.btn-outline-primary
+          -#         %input#option-quarterly{:name => "options", :type => "radio"}/
+          -#         quarterly
+          -#       %label.btn.btn-outline-primary
+          -#         %input#option-monthly{:name => "options", :type => "radio"}/
+          -#         monthly
+          

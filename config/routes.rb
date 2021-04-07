@@ -13,20 +13,23 @@ Rails.application.routes.draw do
   get :ie_warning, to: 'errors#ie_warning'
   get :javascript_warning, to: 'errors#javascript_warning'
 
-  get "vendor/home" => "vendor#index"
+  get "vendor/home" => "vendors#index"
 
-  root to: "pages#home"
+  
   get "login", to: "login#index"
 
-  get "admin/home", to: "admin#index"
-  get "admin/settings", to: "admin#settings"
+  get "admin/home", to: "admins#index"
+  get "admin/settings", to: "admins#settings"
   
-  get "admin_tasks", to: "admin_tasks#index"
+  get "admin/tasks", to: "tasks#index"
 
-  get "assessment", to: "assessment#index"
+  get "vendor/assessment", to: "assessments#index"
 
-  resources :vendor
+  root to: "pages#home"
+
+  resources :vendors
   resources :admins
+  resources :tasks
   
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
