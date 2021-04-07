@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   
   get "admin/tasks", to: "tasks#index"
 
-  get "vendor/assessment", to: "assessments#index"
+  get "assessments/index", to: "assessments#index"
 
   root to: "pages#home"
 
