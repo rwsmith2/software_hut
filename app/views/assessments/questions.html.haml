@@ -1,0 +1,53 @@
+- content_for :title, ''
+
+.card
+  %br
+  .card-header
+    Assessment page - Triage
+  .card-body
+    = simple_form_for :form_examples do |f|
+      %table.table
+        %thead
+          %tr.active 
+            %th Question 1
+            %th Question 2
+        %tbody
+          %tr
+            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 1'  
+            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 2'  
+          %thead
+          %tr.active 
+            %th Question 3
+            %th Question 4
+        %tbody         
+          %tr
+            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 3'  
+            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 4'  
+          %thead
+          %tr.active 
+            %th Question 3
+            %th Question 4
+        %tbody         
+          %tr
+            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 5'  
+            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 6'  
+      %ul.pagination.justify-content-center
+        %li.page-item.disabled
+          %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+            %span{"aria-hidden" => "true"} «
+        %li.page-item
+          %button.page-link 1
+        = link_to "index page", assessments_index_path
+        %li.page-item.active
+          %button.page-link 2
+        %li.page-item
+          %button.page-link 3
+        %li.page-item
+          %button.page-link{"aria-label" => "Next"}
+            %span{"aria-hidden" => "true"} »
+        %br
+      %ul.pagination.justify-content-center
+        %li 
+          = f.button :submit, "Save", class: 'btn btn-outline-primary'
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
+          
