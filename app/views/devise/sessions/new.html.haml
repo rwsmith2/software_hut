@@ -1,14 +1,50 @@
-- content_for :title, 'Log In'
+- content_for :title, "Log In"
+- @current_nav_identifier = :login
 
-.row.justify-content-center
-  .col-sm-6.col-lg-4
-    .card.card-light
-      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-        .card-header
-          Log In
-        .card-body
-          = f.input :email, autofocus: true, required: true
-          = f.input :password, required: true
-        .card-footer
-          = submit_button 'Log in'
+%div.d-flex.justify-content-center.align-items-center{:style => "height:80vh"}
+  .card.text-center{:style => "width:30em"}
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .card-header
+        Login
+
+      .card-bodys.m-4
+        -# = f.input :email, autofocus: true, required: true, label: false
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon1.input-group-text Email
+          -# %input.form-control{"aria-describedby" => "basic-addon1", "aria-label" => "Username", :placeholder => "Username/email", :type => "text"}/
+          %input.form-control{"aria-describedby" => "basic-addon1",
+             "autofocus" => "autofocus", 
+             "required" => "required", 
+             "aria-required" => "true", 
+             "aria-label" => "Email", 
+             :placeholder => "Email", 
+             :type => :email,
+             "name" => 'user[email]',
+             "value" => resource.email}/
+          
+
+        .input-group.mb-3
+          -# = f.input :password, required: true
+          .input-group-prepend
+            %span#basic-addon2.input-group-text Password
+          -# %input.form-control{"aria-describedby" => "inputGroup-sizing-default", "aria-label" => "Sizing example input", :placeholder => "Password", :type => "password"}/
+          %input.form-control.password.required{"aria-describedby" => "basic-addon2", 
+             "required" => "required", 
+             "aria-required" => "true", 
+             :type => :password,
+             "name" => 'user[password]',
+             "id" => 'user_password',
+             "aria-label" => "Password", 
+             :placeholder => "Password"}/
+
+        %div
+          -# = f.button :submit, "Log in"
+          -# %button.btn.btn-primary.w-100{:type => "button"} Login
+          = f.button :button, "<i class=\"fas fa-check\"></i> Log in".html_safe, :class => "btn btn-md btn-primary w-100 mb-3", "data-disable-with" => "<i class='fa fa-fw fa-spin fa-spinner'></i> Logging in...".html_safe
+          %button.btn.btn-success.w-100{:type => "button"} Request an account
           .mt-3= render "devise/shared/links"
+
+      .card-footer.text-muted
+        For security reasons, please log out and exit your web browser when you have finished accessing services that require authentication.
+
