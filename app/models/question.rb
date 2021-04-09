@@ -11,4 +11,7 @@
 #  fk_rails_...  (assessment_id => assessments.assessment_id)
 #
 class Question < ApplicationRecord
+  has_many :answers
+  belongs_to :assessment, optional: true
+  accepts_nested_attributes_for :answers, allow_destroy: true
 end

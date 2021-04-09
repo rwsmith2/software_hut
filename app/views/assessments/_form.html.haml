@@ -1,0 +1,23 @@
+//= simple_form_for @assessment, url: new_assessment_path(@assessment), defaults: {input_html: {class: 'form-control'}} do |f|
+= simple_form_for @assessment, defaults: {input_html: {class: 'form-control'}} do |f|
+
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .card-header.d-flex.justify-content-between.align-items-center
+    = f.button :submit, 'Save!', class: 'btn btn-outline-primary'
+  .card-body.overflow-auto
+    .input-group.mb-3
+      .input-group-prepend
+        %span#basic-addon-taskname.input-group-text 
+          = icon 'fas', 'file-alt'
+        = f.input_field :assessment_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Assessment Name"}, placeholder: "Assessment Name"
+
+    .input_fields_wrap.questions
+      = f.simple_fields_for :questions do |question|
+        =render "question_fields", f: question
+        
+      = link_to_add_association "Add Question", f, :questions, class: 'btn btn-primary', data: {association_insertion_node: '.questions', association_insertion_method: :append}
+           
+
+          
