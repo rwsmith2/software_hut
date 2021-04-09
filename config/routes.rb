@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   
   get "admin/tasks", to: "tasks#index"
 
+  get "admin/assessments", to: "assessments#new"
+
   get "assessments/index", to: "assessments#index"
 
   root to: "pages#home"
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   resources :vendors
   resources :admins
   resources :tasks
+  resources :assessments
   
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

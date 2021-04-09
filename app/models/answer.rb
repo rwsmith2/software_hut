@@ -12,5 +12,5 @@
 #  fk_rails_...  (question_id => questions.question_id) ON DELETE => cascade
 #
 class Answer < ApplicationRecord
-    has_one :question
+    belongs_to :question, optional: true
 end

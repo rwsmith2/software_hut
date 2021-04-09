@@ -9,3 +9,5 @@
 //= require modal
 //= require select2
 //= require select2_init
+//= require dynamic_list.js
+//= require cocoon
