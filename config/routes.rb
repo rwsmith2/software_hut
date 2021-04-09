@@ -24,15 +24,23 @@ Rails.application.routes.draw do
   get "admin/tasks", to: "tasks#index"
 
   get "admin/assessments", to: "assessments#new"
+  get "admin/assessments/edit_question", to: "assessments#_edit_question"
 
   get "assessments/index", to: "assessments#index"
 
   root to: "pages#home"
 
+  resources :assessments do
+    resources :questions do
+      resources :answers 
+    end
+  end
+
   resources :vendors
   resources :admins
   resources :tasks
   resources :assessments
+  resources :questions
   
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

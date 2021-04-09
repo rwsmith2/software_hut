@@ -1,0 +1,14 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      %h4.modal-title Editing Question
+      %button.close{ type: :button, data: { dismiss: :modal } }
+        %span &times;
+      .modal-body
+        = f.simple_fields_for :answers do |answer|
+          //=render "answer_fields", f: answer
+        = link_to_add_association "Add Answer", f, :answers, class: 'btn btn-primary', data: {association_insertion_node: '.answers', association_insertion_method: :append}
+      .modal-footer
+        .pull-left
+          = dismiss_modal_button
+        = f.button :submit, class: 'btn btn-outline-dark'

@@ -1,6 +1,17 @@
 %fieldset.nested-fields
-  %div
+  %li.list-group-item
     = f.label :question_text
     = f.text_field :question_text
+
+
+    //= render "edit_question", f: f
+    %div.add_wrapper
+      = link_to_add_association "Add Answer", f, :answers, class: 'btn btn-primary', data: {association_insertion_node: '.answers', association_insertion_method: :append }
+
+      .answers.input-group.mb-3.input_fields_wrap
+        = f.simple_fields_for :answers do |answer|
+          =render "answer_fields", f: answer
+      //= link_to 'Edit Question',admin_assessments_edit_question_path(@assessment), class: 'ajax-modal'
+    %div.delete_wrapper
+      = link_to_remove_association "Remove Question", f, class: 'btn btn-danger btn-xs'
   %div
-  = link_to_remove_association "Remove Question", f, class: 'btn btn-primary btn-xs'

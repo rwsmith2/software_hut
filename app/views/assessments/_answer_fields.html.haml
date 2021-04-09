@@ -1,0 +1,11 @@
+%fieldset.nested-fields
+  %div
+    = f.label :answer_text
+    = f.text_field :answer_text
+    = f.label :additional_response
+    = f.text_field :additional_response
+    //= f.input :upload_needed, as: :boolean, checked_value: true, unchecked_value: false
+
+  %div
+  //btn-primary btn-xs
+  = link_to_remove_association "Remove Answer", f, class: 'btn'
