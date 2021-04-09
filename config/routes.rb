@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   
   get "login", to: "login#index"
+  get "request", to: "request#index"
 
   get "admin/home", to: "admins#index"
   get "admin/settings", to: "admins#settings"

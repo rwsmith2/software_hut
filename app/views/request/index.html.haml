@@ -1,0 +1,70 @@
+- content_for :title, "Home"
+
+-# :coffee
+-#   $ ->
+-#     $('#show-flash').on 'click', ->
+-#       $.flashAlert('Hello world!', 'alert-success')
+
+
+%div.d-flex.justify-content-center.align-items-center{:style => "height:80vh"}
+  .card.text-center{:style => "width:30em"}
+    .card-header
+      Request for account
+
+    .card-bodys.m-4
+      .btn-group.btn-group-toggle.mb-3.w-50{"data-toggle" => "buttons"}
+
+      %form.needs-validation{:novalidate => ""}
+      .form-row
+        %label{:for => "validationCustom01"} Email:
+        %input#validationCustom01.form-control{:required => "", :type => "text", :value => "Mark"}/
+        .valid-feedback
+          Looks good!
+      %p
+      .form-row
+        %label{:for => "validationCustom01"} Company name:
+        %input#validationCustom01.form-control{:required => "", :type => "text", :value => "Mark"}/
+        .valid-feedback
+          Looks good!
+      %p
+      .form-row
+        %label{:for => "validationCustom03"} Address line:
+        %input#validationCustom03.form-control{:required => "", :type => "text"}/
+        .invalid-feedback
+          Please provide a valid house address.
+
+        .col-md-6.mb-3
+          %label{:for => "validationCustom03"} City/Town:
+          %input#validationCustom03.form-control{:required => "", :type => "text"}/
+          .invalid-feedback
+            Please provide a valid city/town.
+
+        .col-md-6.mb-3
+          %label{:for => "validationCustom05"} Post code:
+          %input#validationCustom05.form-control{:required => "", :type => "text"}/
+          .invalid-feedback
+            Please provide a valid post code.
+
+      .form-row
+        %label{:for => "validationCustom03"} Country/Region:
+        %input#validationCustom03.form-control{:required => "", :type => "text"}/
+        .invalid-feedback
+          Please provide a valid country/region.
+      %p
+      .form-group
+        .form-check
+          %input#invalidCheck.form-check-input{:required => "", :type => "checkbox", :value => ""}/
+          %label.form-check-label{:for => "invalidCheck"}
+            Agree to terms and conditions
+          .invalid-feedback
+            You must agree before submitting.
+
+      
+      
+      
+      %div
+        %button.btn.btn-success.w-100{:type => "button"} Request
+
+    .card-footer.text-muted
+      For security reasons, please log out and exit your web browser when you have finished accessing services that require authentication.
+

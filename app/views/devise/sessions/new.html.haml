@@ -42,7 +42,7 @@
           -# = f.button :submit, "Log in"
           -# %button.btn.btn-primary.w-100{:type => "button"} Login
           = f.button :button, "<i class=\"fas fa-check\"></i> Log in".html_safe, :class => "btn btn-md btn-primary w-100 mb-3", "data-disable-with" => "<i class='fa fa-fw fa-spin fa-spinner'></i> Logging in...".html_safe
-          %button.btn.btn-success.w-100{:type => "button"} Request an account
+          %a.btn.btn-success.w-100{:type => "button", "href" => "/request"} Request an account
           .mt-3= render "devise/shared/links"
 
       .card-footer.text-muted
