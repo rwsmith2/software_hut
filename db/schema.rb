@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_162106) do
+ActiveRecord::Schema.define(version: 2021_04_09_141041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_162106) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
-  create_table "given_task", primary_key: "given_task_id", id: :serial, force: :cascade do |t|
+  create_table "given_tasks", primary_key: "given_task_id", id: :serial, force: :cascade do |t|
     t.date "set_date", null: false
     t.date "due_date", null: false
     t.integer "priority"
@@ -142,14 +142,14 @@ ActiveRecord::Schema.define(version: 2021_04_07_162106) do
   add_foreign_key "answers", "questions", primary_key: "question_id", on_delete: :cascade
   add_foreign_key "assessment_linker", "assessments", primary_key: "assessment_id", on_delete: :cascade
   add_foreign_key "assessment_linker", "tasks", primary_key: "task_id"
-  add_foreign_key "given_task", "tasks", primary_key: "task_id", on_delete: :cascade
-  add_foreign_key "given_task", "vendors", primary_key: "vendor_id", on_delete: :cascade
+  add_foreign_key "given_tasks", "tasks", primary_key: "task_id", on_delete: :cascade
+  add_foreign_key "given_tasks", "vendors", primary_key: "vendor_id", on_delete: :cascade
   add_foreign_key "questions", "assessments", primary_key: "assessment_id"
   add_foreign_key "tasks", "users", primary_key: "user_id"
   add_foreign_key "uploads", "answers", primary_key: "answer_id", on_delete: :cascade
   add_foreign_key "vendor_answers", "answers", primary_key: "answer_id"
-  add_foreign_key "vendor_answers", "given_task", primary_key: "given_task_id", on_delete: :cascade
-  add_foreign_key "vendor_uploads", "given_task", primary_key: "given_task_id", on_delete: :cascade
+  add_foreign_key "vendor_answers", "given_tasks", primary_key: "given_task_id", on_delete: :cascade
+  add_foreign_key "vendor_uploads", "given_tasks", primary_key: "given_task_id", on_delete: :cascade
   add_foreign_key "vendor_uploads", "uploads", primary_key: "upload_id"
   add_foreign_key "vendors", "users", primary_key: "user_id", on_delete: :cascade
 end
