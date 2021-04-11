@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get "admin/assessments/edit_question", to: "assessments#_edit_question"
 
   get "assessments/index", to: "assessments#index"
+  get 'completedtasks/index', to: "completedtasks#index"
 
   root to: "pages#home"
 
