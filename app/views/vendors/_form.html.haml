@@ -1,0 +1,32 @@
+#new-task-panel.card.m-2.w-100.h-100
+  = simple_form_for @user, url: vendor_path(@user),remote: true ,defaults: {input_html: {class: 'form-control'}} do |f|
+
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+    
+    .card-header.d-flex.justify-content-between.align-items-center.form-inputs
+      %h5.m-0 Vendor Settings
+      = f.button :submit, 'Update', class: 'btn btn-outline-primary'
+    .card-body.overflow-auto
+      .input-group.mb-3
+        .input-group-prepend
+          %span#basic-addon-taskname.input-group-text 
+            = icon 'fas', 'user'
+        = f.input_field :user_name, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Username"}
+      .input-group.mb-3
+        .input-group-prepend
+          %span#basic-addon-taskname.input-group-text 
+            = icon 'fas', 'at'
+        = f.input_field :email, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Email"}
+      = f.simple_fields_for :vendor, @user.vendor do |t|
+        .input-group.mb-3
+          .input-group-prepend
+            =t.label :company_name
+          = t.input_field :company_name, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Company Name"}
+        .input-group.mb-3
+          .input-group-prepend
+            =t.label :company_number
+          = t.input_field :company_number, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Company Number"}
+      = link_to "Change your password", edit_user_registration_path 
+

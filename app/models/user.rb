@@ -32,6 +32,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
     
   has_one :address
+  has_one :admin
+  has_one :vendor
+  accepts_nested_attributes_for :vendor, allow_destroy: true
 
   
 end

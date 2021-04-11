@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "login", to: "login#index"
 
   get "admin/home", to: "admins#index"
-  get "admin/settings", to: "admins#settings"
+  #get "admin/settings", to: "admins#settings"
   
   get "admin/tasks", to: "tasks#index"
 
@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   resources :vendors
   resources :admins
+  resources :users
   resources :tasks
   resources :assessments
   resources :questions

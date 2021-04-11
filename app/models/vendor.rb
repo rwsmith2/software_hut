@@ -19,4 +19,5 @@
 class Vendor < ApplicationRecord
     has_one :address
     has_many :given_task
+    belongs_to :user, optional: true
 end
