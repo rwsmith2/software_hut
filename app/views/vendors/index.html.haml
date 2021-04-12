@@ -22,22 +22,19 @@
         %thead
             %tr
                 %th Task
+                %th Description
                 %th Set Date
                 %th Due Date
                 %th Link
-            %tr
-                %td Task Example
-                %td 15/02/2021
-                %td 31/04/2021
-                %td Link
-            %tr
-                %td Another Example
-                %td 20/02/2021
-                %td 29/04/2021
-                %td Link
-            - Task.all.each do |task|
+                
+            
                 %tr
-                    %td= task.task_title
+                    %td= @task.task_title
+                    %td= @task.task_description
+                    %td= @givenTask.set_date
+                    %td= @givenTask.due_date
+            
+
 
 
             
