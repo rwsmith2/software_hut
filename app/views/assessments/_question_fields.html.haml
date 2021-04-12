@@ -1,17 +1,31 @@
-%fieldset.nested-fields
+-# %fieldset.nested-fields
+-#   %li.list-group-item.create_answers
+-#     = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Question"
+-#     .row 
+-#       #add_new_answer= link_to_add_association "Add Answer", f, :answers, class: 'btn btn-primary add_answer_button', data: {association_insertion_node: '.create_answers', association_insertion_method: :append }
+
+-#     //= render "edit_question", f: f
+-#     .row
+-#       .input-group.mb-3.input_fields_wrap.add_answer_form
+-#         = f.simple_fields_for :answers do |answer|
+-#           =render "answer_fields", f: answer
+-#       //= link_to 'Edit Question',admin_assessments_edit_question_path(@assessment), class: 'ajax-modal'
+
+    
+-#   %div
+-#   = link_to_remove_association "Remove Question", f, class: 'btn btn-danger btn-xs'
+
+.nested-fields
   %li.list-group-item
-    = f.label :question_text
-    = f.text_field :question_text
+    = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Question"
 
+  = link_to_remove_association "remove question", f, class: 'btn btn-danger btn-xs'
 
-    //= render "edit_question", f: f
-    %div.add_wrapper
-      = link_to_add_association "Add Answer", f, :answers, class: 'btn btn-primary', data: {association_insertion_node: '.answers', association_insertion_method: :append }
-
-      .answers.input-group.mb-3.input_fields_wrap
-        = f.simple_fields_for :answers do |answer|
-          =render "answer_fields", f: answer
-      //= link_to 'Edit Question',admin_assessments_edit_question_path(@assessment), class: 'ajax-modal'
-    %div.delete_wrapper
-      = link_to_remove_association "Remove Question", f, class: 'btn btn-danger btn-xs'
-  %div
+  .row
+    .col-lg-12
+      .add_answer= link_to_add_association 'Add Answer', f, :answers, class: 'btn btn-primary add_answer_button'
+  .row.input-group.mb-3
+    .col-lg-12
+      .answer_form
+        = f.simple_fields_for :answers do |answer_form|
+          = render 'answer_fields', f: answer_form

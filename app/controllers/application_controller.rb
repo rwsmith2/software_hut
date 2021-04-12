@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ie_warning
   before_action :authenticate_user!
+  # before_action :set_user
 
   ## The following are used by our Responder service classes so we can access
   ## the instance variable for the current resource easily via a standard method
@@ -67,6 +68,16 @@ class ApplicationController < ActionController::Base
     def ie_warning
       return redirect_to(ie_warning_path) if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ /Trident\/7.0/
     end
+
+    # def set_user
+    #   if current_user != nil
+    #     if current_user.is_admin?
+    #       @admin = Admin.find(user_id: current_user)
+    #     else
+    #       @vendor = Vendor.find(user_id: current_user)
+    #     end
+    #   end
+    # end
 
   protected
     def configure_permitted_parameters

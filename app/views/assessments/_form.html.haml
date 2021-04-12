@@ -1,6 +1,4 @@
-//= simple_form_for @assessment, url: new_assessment_path(@assessment), defaults: {input_html: {class: 'form-control'}} do |f|
-= simple_form_for @assessment, remote: true ,defaults: {input_html: {class: 'form-control'}} do |f|
-
+= simple_form_for @assessment, defaults: {input_html: {class: 'form-control'}} do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
@@ -12,17 +10,13 @@
         %span#basic-addon-taskname.input-group-text 
           = icon 'fas', 'file-alt'
         = f.input_field :assessment_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Assessment Name"}, placeholder: "Assessment Name"
-
-
-    //= link_to_add_association "Add Question", f, :questions, class: 'btn btn-primary', data: {association_insertion_node: '.questions', association_insertion_method: :append}
-    %h5 Questions:
-    = link_to_add_association "Add Question", f, :questions, class: 'btn btn-primary', data: {association_insertion_node: '.questions', association_insertion_method: :append}
-    .card
+  %h3 Questions
+  #questions
+    .card 
       %ul.input-group.mb-3.input_fields_wrap.questions.list-group.list-group-flush
         = f.simple_fields_for :questions do |question|
-          =render "question_fields", f: question
+          = render 'question_fields', f: question
+      .links
+        = link_to_add_association "Add Question", f, :questions, class: 'btn btn-primary'
 
-    
-           
 
-          
