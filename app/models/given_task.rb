@@ -11,7 +11,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
+#  task_id  (task_id => tasks.task_id) ON DELETE => cascade
 #
 class GivenTask < ApplicationRecord
     belongs_to :task
