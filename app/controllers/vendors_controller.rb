@@ -5,10 +5,8 @@ class VendorsController < ApplicationController
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)
 
-      @givenTask = GivenTask.find_by(vendor_id: @vendor.vendor_id)
+      @vendorTask = GivenTask.where(vendor_id: @vendor.vendor_id).order(params[:sort])
       @task = Task.find_by(task_id: @givenTask.task_id)
-
-
 
       render :index
 

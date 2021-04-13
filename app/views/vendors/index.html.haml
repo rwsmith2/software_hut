@@ -13,9 +13,9 @@
         %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             Sort By
         .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
-            %a.dropdown-item Date Due
-            %a.dropdown-item Date Set action
-            %a.dropdown-item Importance here
+            %a.dropdown-item= link_to "Date Due", :sort => "due_date"
+            %a.dropdown-item= link_to "Date Set" , :sort => "set_date"
+            %a.dropdown-item= link_to "Defualt"
 
 .card-body
     %table.table.table-hover
@@ -27,12 +27,14 @@
                 %th Due Date
                 %th Link
                 
-            
+            -@vendorTask.each do |vtask|
                 %tr
+                    -@task = Task.find_by(task_id: vtask.task_id)
                     %td= @task.task_title
                     %td= @task.task_description
-                    %td= @givenTask.set_date
-                    %td= @givenTask.due_date
+                    %td= vtask.set_date
+                    %td= vtask.due_date
+
             
 
 
