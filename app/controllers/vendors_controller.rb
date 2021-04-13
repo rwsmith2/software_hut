@@ -3,9 +3,15 @@ class VendorsController < ApplicationController
 
     def index
       @user = current_user
- 
+      @vendor = Vendor.find_by(user_id: @user.user_id)
 
-      #@vendor = Vendor.find_by(user_id: @user.user_id)
+      @givenTask = GivenTask.find_by(vendor_id: @vendor.vendor_id)
+      @task = Task.find_by(task_id: @givenTask.task_id)
+
+
+
+      render :index
+
     end
 
     def edit

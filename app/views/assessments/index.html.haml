@@ -3,7 +3,7 @@
 .card.mb-3
   %br
   .card-header
-    Assessment page
+    Assessment page - Triage
   .card-body
     = simple_form_for :form_examples do |f|
       %ul.pagination.justify-content-center
@@ -46,9 +46,10 @@
       %br
       #task-detail-panel.w-40.p-5.d-flex.flex-column.justify-content-between
         .d-flex.flex-row-reverse
-          %input{:type=>"submit",:value=>"Submit"}
-          ​​  
-          %input{:type=>"submit",:value=>"Save"}
+          /%input{:type=>"submit",:value=>"Submit"}
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
+          = f.button :submit, "Save", class: 'btn btn-outline-primary'
+          /%input{:type=>"submit",:value=>"Save"}
       %nav.mt-2{"aria-label" => "Page navigation"}
         %ul.pagination.justify-content-center
           %li.page-item.disabled
@@ -56,11 +57,12 @@
               %span{"aria-hidden" => "true"} «
           %li.page-item.active
             %button.page-link 1
+            = link_to "Questions page", assessments_questions_path
           %li.page-item
             %button.page-link 2
           %li.page-item
-            %button.page-link 3
+            //%button.page-link 3
+            = f.button :submit, 3, class: 'btn btn-outline-primary'
           %li.page-item
             %button.page-link{"aria-label" => "Next"}
               %span{"aria-hidden" => "true"} »
-
