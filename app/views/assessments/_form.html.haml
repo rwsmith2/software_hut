@@ -3,7 +3,8 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
   .card-header.d-flex.justify-content-between.align-items-center
-    = f.button :submit, 'Save!', class: 'btn btn-outline-primary'
+    =link_to 'Back', admin_assessments_path(), class: "btn btn-outline-danger"
+    = f.button :submit, 'Save!', class: 'btn btn-outline-primary d-flex'
   .card-body.overflow-auto
     .input-group.mb-3
       .input-group-prepend

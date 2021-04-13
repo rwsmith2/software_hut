@@ -1,5 +1,5 @@
 class AssessmentsController < ApplicationController
-    before_action :set_assessment, only: [:_edit_question]
+    before_action :set_assessment, only: [:_edit_question, :edit, :destroy , :select_assessment]
   
     def index 
       @assessments = Assessment.all
@@ -8,6 +8,23 @@ class AssessmentsController < ApplicationController
     def new 
         @assessment = Assessment.new
         @assessment.questions.build.answers.build
+    end
+
+    def admin_index
+      @assessments = Assessment.all
+      @assessment = Assessment.first
+    end
+
+    def edit
+      @assessment = Assessment.find(params[:assessment_id])
+
+    end
+
+    def select_assessment
+      @selected = Assessment.find(params[:assessment_id])
+      respond_to do |format|
+        format.js
+      end
     end
 
     def create
@@ -25,6 +42,13 @@ class AssessmentsController < ApplicationController
 
     def _edit_question
       render layout: false
+    end
+
+    def destroy
+      puts("test")
+      @assessment.destroy
+
+      redirect_to admin_assessments_path, notice: 'Assessment was successfully destroyed.'
     end
 
     private

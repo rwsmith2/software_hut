@@ -24,11 +24,14 @@ Rails.application.routes.draw do
   get "admin/tasks", to: "tasks#index"
 
   get "admin/assessments", to: "assessments#admin_index"
+
+  #delete 'admin/assessments/:id', to: "assessments#destroy"
+
   get "admin/assessments/new", to: "assessments#new"
   get "admin/assessments/edit_question", to: "assessments#_edit_question"
 
 
-  get "/fetch_assessment", to: 'assessments#select_assessment', as: 'fetch_assessment'
+  get "fetch_assessment", to: 'assessments#select_assessment', as: 'fetch_assessment'
 
 
   get "assessments/questions", to: "assessments#questions"

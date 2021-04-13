@@ -1,0 +1,13 @@
+
+#assessment-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
+  .overflow-auto
+    .assessment_box
+      %p
+        %span.font-weight-bold> Task ID:&nbsp;
+        = assessment.assessment_id 
+      %p 
+        %span.font-weight-bold> Assessment Name:&nbsp;
+        = assessment.assessment_title
+    .d-flex.flex-row-reverse.mt-3
+      = link_to 'Destroy', assessment_path(@assessment), method: :delete, data:{ confirm: 'Are you sure?'}, class: "btn btn-danger mx-1.w-25", type: "button"
+      = link_to 'Edit', edit_assessment_path(assessment), class: "btn btn-primary mx-1.w-25", type: "button"

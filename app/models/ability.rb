@@ -35,7 +35,7 @@ class Ability
 
     if user.is_admin?
       can [:read, :update, :create, :destroy], Task
-
+      can [:read, :update, :create, :destroy, :edit], Assessment
     else
       can :read, Task
     end
