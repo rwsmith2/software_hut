@@ -23,8 +23,11 @@ Rails.application.routes.draw do
   
   get "admin/tasks", to: "tasks#index"
 
-  get "admin/assessments", to: "assessments#new"
+  get "admin/assessments", to: "assessments#admin_index"
+  get "admin/assessments/new", to: "assessments#new"
   get "admin/assessments/edit_question", to: "assessments#_edit_question"
+
+  get "/fetch_assessment", to: 'assessments#select_assessment', as: 'fetch_assessment'
 
   get "assessments/index", to: "assessments#index"
   get 'completedtasks/index', to: "completedtasks#index"
