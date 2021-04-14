@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_09_141041) do
+ActiveRecord::Schema.define(version: 2021_04_14_173429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_04_09_141041) do
     t.integer "question_id"
   end
 
-  create_table "assessment_linker", force: :cascade do |t|
+  create_table "assessment_linkers", force: :cascade do |t|
     t.integer "task_id"
     t.integer "assessment_id"
   end
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(version: 2021_04_09_141041) do
   add_foreign_key "addresses", "vendors", primary_key: "vendor_id", on_delete: :cascade
   add_foreign_key "admins", "users", primary_key: "user_id", on_delete: :cascade
   add_foreign_key "answers", "questions", primary_key: "question_id", on_delete: :cascade
-  add_foreign_key "assessment_linker", "assessments", primary_key: "assessment_id", on_delete: :cascade
-  add_foreign_key "assessment_linker", "tasks", primary_key: "task_id"
+  add_foreign_key "assessment_linkers", "assessments", primary_key: "assessment_id", on_delete: :cascade
+  add_foreign_key "assessment_linkers", "tasks", primary_key: "task_id"
   add_foreign_key "given_tasks", "tasks", primary_key: "task_id", on_delete: :cascade
   add_foreign_key "given_tasks", "vendors", primary_key: "vendor_id", on_delete: :cascade
   add_foreign_key "questions", "assessments", primary_key: "assessment_id"

@@ -8,6 +8,7 @@
 class Assessment < ApplicationRecord
   has_many :assessment_linker
   has_many :questions
+  belongs_to :task
   accepts_nested_attributes_for :questions, allow_destroy: true
   
 end

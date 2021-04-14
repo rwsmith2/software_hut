@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
 
   get "fetch_assessment", to: 'assessments#select_assessment', as: 'fetch_assessment'
+  get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
 
 
   get "assessments/questions", to: "assessments#questions"

@@ -1,0 +1,40 @@
+= simple_form_for task, url: tasks_path(task), defaults: {input_html: {class: 'form-control'}} do |f|
+
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .card-header.d-flex.justify-content-between.align-items-center
+    %h5.m-0 New Task
+    //%button.btn.btn-outline-primary Create
+    = f.button :submit, 'Create!', class: 'btn btn-outline-primary'
+  .card-body.overflow-auto
+    .input-group.mb-3
+      .input-group-prepend
+        %span#basic-addon-taskname.input-group-text 
+          = icon 'fas', 'file-alt'
+      //%input.form-control{"aria-describedby" => "basic-addon-taskname", "aria-label" => "Task name", :placeholder => "Task name", :type => "string"}/
+      = f.input_field :task_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Task name"
+      
+    .card.mb-3
+      .card-header.py-1.px-3
+        %label.form-label.my-0{:for => "descriptionTextarea"} 
+          = icon 'fas', 'align-left'
+          %span.ml-1 Description
+      .card-body.p-2
+        //%textarea#descriptionTextarea.form-control{:rows => "3"} Description placeholder text
+        = f.input_field :task_description, as: :text, input_html: {id: "descriptionTextarea"}, placeholder: "Description", rows: "3"
+
+
+    .input-group.mb-3
+      .input-group-prepend
+        %span#basic-addon-tasktype.input-group-text 
+          = icon 'fas', 'clock'
+      = f.input_field :estimation, placeholder: "Estimated time (Minutes)",  as: :integer, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task estimation"}
+    
+    = f.simple_fields_for :assessment_linker do |a_linker|
+      .input-group.mb-3
+        .input-group-prepend
+          %span#basic-addon-taskname.input-group-text{:for => "assessmentDropDown"}
+            = icon 'fas', 'list-ol'
+        = a_linker.input_field :assessment_id, as: :select, collection: assessments, label_method: :assessment_title, value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"}, promt: 'Select Assessment', label: false, prompt: "No Assessment"
+        //= f.association :assessment, label_method: :assessment_title,  value_method: :assessment_id, as: :select, input_html: {multiple: false, id: "assessmentDropDown"}, promt: 'Select Assessment', label: false

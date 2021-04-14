@@ -34,7 +34,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
 
     if user.is_admin?
-      can [:read, :update, :create, :destroy], Task
+      can [:read, :update, :create, :destroy, :select_task], Task
       can [:read, :update, :create, :destroy, :edit], Assessment
     else
       can :read, Task

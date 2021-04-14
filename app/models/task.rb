@@ -13,7 +13,10 @@
 #  fk_rails_...  (user_id => users.user_id)
 #
 class Task < ApplicationRecord
-    has_many :assessment_linker
+    has_one :assessment_linker,  dependent: :destroy
+
+
+    accepts_nested_attributes_for :assessment_linker, allow_destroy: true
     validates :task_title, :task_description, :estimation, presence: true
 
 end

@@ -12,12 +12,8 @@
       #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
         #assessment-list.list-group.overflow-auto.p-1
           - @assessments.each do |assessment|
-            //%button.list-group-item.list-group-item-action.active{"aria-current" => "true", :type => "button"} Assessment 001
             = link_to assessment.assessment_title, fetch_assessment_path(assessment_id: assessment.assessment_id), remote: true, class: "list-group-item list-group-item-action", type: "button"
-            //%button#assessment-swag.list-group-item.list-group-item-action{type: "button"}= assessment.assessment_title
-            //%button.list-group-item.list-group-item-action{:type => "button"} Assessment 003
-            //%button.list-group-item.list-group-item-action{:type => "button"} Assessment 004
-            //%button.list-group-item.list-group-item-action{:type => "button"} Assessment 005
+
         %nav.mt-2{"aria-label" => "Page navigation"}
           %ul.pagination.justify-content-center
             %li.page-item.disabled
@@ -32,30 +28,5 @@
             %li.page-item
               %button.page-link{"aria-label" => "Next"}
                 %span{"aria-hidden" => "true"} »
-      %div#admin_index
+      #admin_index
         = render partial: "show_assessment", locals: {assessment: @assessment}
-      -# #task-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
-      -#   .overflow-auto
-      -#     %p
-      -#       %span.font-weight-bold> Task ID:&nbsp;
-      -#       8c7845ef-3592-4e67-b971-7047a0f527d9
-      -#     %p
-      -#       %span.font-weight-bold> Name:&nbsp;
-      -#       Task 001
-      -#     %p
-      -#       %span.font-weight-bold> Vender:&nbsp;
-      -#       Vender A
-      -#     %p
-      -#       %span.font-weight-bold> Task Type:&nbsp;
-      -#       Triage Assessment
-      -#     %p
-      -#       %span.font-weight-bold> Due date:&nbsp;
-      -#       xx/xx/xxxx
-      -#     %p
-      -#       %span.font-weight-bold> Description:&nbsp;
-      -#       Lorem ipsum dolor sit amet, graeci senserit cu pro, usu perfecto suavitate vulputate ex. Te esse oratio vix, at novum iudicabit sententiae usu. No choro civibus aliquando qui, appareat omittantur eu nec, novum insolens vulputate est ut. Est te laudem albucius quaerendum, ea quot verear quaerendum nam. Cu eos unum sonet deterruisset.
-      -#   .d-flex.flex-row-reverse.mt-3
-      -#     %button.btn.btn-danger.mx-1.w-25{:type => "button"}
-      -#       Cancel
-      -#     %button.btn.btn-primary.mx-1.w-25{:type => "button"}
-      -#       Duplicate
