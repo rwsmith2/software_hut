@@ -31,6 +31,11 @@ Rails.application.routes.draw do
   resources :vendors
   resources :admins
   resources :tasks
+
+  resources :request do
+    post :create, on: :collection
+  end
+
   
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
