@@ -1,6 +1,7 @@
 class VendorsController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_vendor
-
+    
     def index
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)

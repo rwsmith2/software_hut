@@ -1,6 +1,7 @@
 class AssessmentsController < ApplicationController
+    before_action :authenticate_user!
     before_action :set_assessment, only: [:_edit_question, :edit, :destroy , :select_assessment]
-  
+    
     def index 
       @assessments = Assessment.all
     end

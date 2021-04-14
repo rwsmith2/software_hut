@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   
   get "login", to: "login#index"
+  get "request", to: "request#index"
 
   get "admin/home", to: "admins#index"
   #get "admin/settings", to: "admins#settings"
@@ -53,6 +54,11 @@ Rails.application.routes.draw do
   resources :tasks
   resources :assessments
   resources :questions
+
+  resources :request do
+    post :create, on: :collection
+  end
+
   
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

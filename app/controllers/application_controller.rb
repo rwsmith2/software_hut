@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller
   # check_authorization
@@ -9,8 +10,9 @@ class ApplicationController < ActionController::Base
   before_action :update_headers_to_disable_caching
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :ie_warning
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   # before_action :set_user
+
 
   ## The following are used by our Responder service classes so we can access
   ## the instance variable for the current resource easily via a standard method
