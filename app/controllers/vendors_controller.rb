@@ -1,13 +1,13 @@
 class VendorsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :set_vendor
-    
+  before_action :authenticate_user!
+  before_action :set_vendor
+
     def index
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)
 
       @vendorTask = GivenTask.where(vendor_id: @vendor.vendor_id).order(params[:sort])
-      @task = Task.find_by(task_id: @givenTask.task_id)
+      
 
       render :index
 
