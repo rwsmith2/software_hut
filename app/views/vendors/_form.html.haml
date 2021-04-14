@@ -28,5 +28,5 @@
           .input-group-prepend
             =t.label :company_number
           = t.input_field :company_number, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Company Number"}
-      = link_to "Change your password", edit_user_registration_path 
+      = link_to "Change your password", edit_user_password_path 
 

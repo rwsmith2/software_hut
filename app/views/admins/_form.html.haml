@@ -19,5 +19,5 @@
           %span#basic-addon-taskname.input-group-text 
             = icon 'fas', 'at'
         = f.input_field :email, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Email"}
-      = link_to "Change your password", edit_user_registration_path 
+      = link_to "Change your password", edit_user_password_path 
 

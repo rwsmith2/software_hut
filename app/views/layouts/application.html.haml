@@ -52,9 +52,16 @@
                     = navbar_link_to :root, title: "Go to the vender management page", identifier: :admin_venders do
                       = icon 'fas', 'user-circle'
                       Venders
-                    = navbar_link_to admin_settings_path, title: "Go to the admin settings page", identifier: :admin_settings do
+                    = navbar_link_to admin_assessments_path, title: "Go to the assessment management page", identifier: :vender_tasks do
+                      = icon 'fas', 'tasks'
+                      Assesment Page
+
+                    = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
                       Settings
+                    -# = navbar_link_to admin_settings_path, title: "Go to the admin settings page", identifier: :admin_settings do
+                    -#   = icon 'fas', 'cogs'
+                    -#   Settings
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
                       Log out
                   -# vender nav
@@ -65,9 +72,12 @@
                     = navbar_link_to assessments_index_path, title: "Go to the vender tasks page", identifier: :vender_tasks do
                       = icon 'fas', 'tasks'
                       Assesment Page
-                    = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
+                    = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
                       Settings
+                    -# = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
+                    -#   = icon 'fas', 'cogs'
+                    -#   Settings
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
                       Log out
 
