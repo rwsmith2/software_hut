@@ -27,40 +27,16 @@
               %th Priority
               %th Due Date
               %th Task Title
-          %tbody
-            %tr
-              %td Vendor8
-              %td High
-              %td 05/01/2021
-              %td Upload cv
-            %tr
-              %td Vendor5
-              %td Medium
-              %td 03/02/2021
-              %td Answer questions
-            %tr
-              %td Vendor3
-              %td Medium
-              %td 15/01/2021
-              %td Complete Survey
-            %tr
-              %td Vendor9
-              %td Low
-              %td.warning 27/01/2021
-              %td Upload cv
-            %tr
-              %td Vendor2
-              %td High
-              %td 14/12/2020
-              %td.danger Email admins
-          //This section is for the table, when the controller is functional
-          -# %tbody
-          -#   - @tasks.each do |task|
-          -#     %tr
-          -#       %td= task.vendor_name 
-          -#       %td= task.priority 
-          -#       %td= task.due_date
-          -#       %td= task.title
+
+            %tbody
+            -@vendorTask.each do |giventask|
+              %tr
+                -@task = Task.find_by(task_id: giventask.task_id)
+                -@vendor = Vendor.find_by(vendor_id: giventask.vendor_id)
+                %td= @vendor.company_name
+                %td= giventask.priority 
+                %td= giventask.due_date
+                %td= @task.task_title
 
         %ul.pagination.justify-content-center
           %li.page-item 

@@ -7,6 +7,10 @@ class AdminsController < ApplicationController
     def index
       @current_nav_identifier = :index
       @user = current_user
+
+      @vendorTask = GivenTask.all
+
+      render :index
     end
 
     def new
