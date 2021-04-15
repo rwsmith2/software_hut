@@ -1,0 +1,2 @@
+$('#modalWindow').modal('hide');
+$('#task-list-panel').html("#{escape_javascript(render partial: 'tasks_list', locals: { tasks: @tasks } )}  "); 

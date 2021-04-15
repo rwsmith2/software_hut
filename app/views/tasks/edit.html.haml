@@ -1,0 +1,55 @@
+.modal-dialog
+  .modal-content
+    = simple_form_for @task, remote: true , defaults: {input_html: {class: 'form-control'}}do |f|
+      .modal-header
+        %h4.modal-title Editing task
+        %button.close{ type: :button, data: { dismiss: :modal } }
+          %span &times;
+      .modal-body.overflow-auto
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-taskname.input-group-text 
+              = icon 'fas', 'file-alt'
+          //%input.form-control{"aria-describedby" => "basic-addon-taskname", "aria-label" => "Task name", :placeholder => "Task name", :type => "string"}/
+          = f.input_field :task_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Task name"
+          
+        .card.mb-3
+          .card-header.py-1.px-3
+            %label.form-label.my-0{:for => "descriptionTextarea"} 
+              = icon 'fas', 'align-left'
+              %span.ml-1 Description
+          .card-body.p-2
+            //%textarea#descriptionTextarea.form-control{:rows => "3"} Description placeholder text
+            = f.input_field :task_description, as: :text, input_html: {id: "descriptionTextarea"}, placeholder: "Description", rows: "3"
+
+
+        .input-group.mb-3
+          .input-group-prepend
+            %span#basic-addon-tasktype.input-group-text 
+              = icon 'fas', 'clock'
+          = f.input_field :estimation, placeholder: "Estimated time (Minutes)",  as: :integer, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task estimation"}
+        
+        = f.simple_fields_for :assessment_linker do |a_linker|
+          .input-group.mb-3
+            .input-group-prepend
+              %span#basic-addon-taskname.input-group-text{:for => "assessmentDropDown"}
+                = icon 'fas', 'list-ol'
+            - if @task.assessment_linker == nil
+              =a_linker.input_field :assessment_id, as: :select, collection: @assessments, label_method: :assessment_title, value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"},label: false, prompt: "No Assessment"
+            - else 
+              =a_linker.input_field :assessment_id, as: :select, collection: @assessments, label_method: :assessment_title, value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"}, label: false, include_blank: "No Assessment", selected: @task.assessment_linker.assessment_id
+
+            -# = a_linker.input_field :assessment_id, as: :select, collection: assessments, label_method: :assessment_title, value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"}, promt: 'Select Assessment', label: false, prompt: "No Assessment"
+        
+        -# = f.input :task_title
+        -# = f.input :task_description
+        -# = f.input :estimation
+        -# = f.simple_fields_for :assessment_linker do |a_linker|
+        -#   - if @task.assessment_linker == nil
+        -#     =a_linker.input_field :assessment_id, as: :select, collection: @assessments, label_method: :assessment_title, value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"}, promt: 'Select Assessment', label: false, prompt: "No Assessment"
+        -#   - else 
+        -#     =a_linker.input_field :assessment_id, as: :select, collection: @assessments, label_method: :assessment_title, value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"}, promt: 'Select Assessment', label: false, prompt: "No Assessment", selected: @task.assessment_linker.assessment_id
+      .modal-footer
+        .pull-left
+          = dismiss_modal_button
+        = f.button :submit, class: 'btn btn-outline-dark'

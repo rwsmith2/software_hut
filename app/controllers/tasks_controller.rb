@@ -1,5 +1,7 @@
 class TasksController < ApplicationController
     before_action :authenticate_user!
+    before_action :set_task, only: [:edit,:destroy, :update]
+
     
     authorize_resource
 
@@ -10,7 +12,9 @@ class TasksController < ApplicationController
       @assessments = Assessment.all.select("assessment_id, assessment_title")
       #User .build_attribute_name, as it is a has_one association
       @task.build_assessment_linker
-      @first_task = Task.first
+      @selected= Task.first
+
+
       render :index
     end
 
@@ -24,6 +28,11 @@ class TasksController < ApplicationController
 
     # GET /tasks/1/edit
     def edit
+      @assessments = Assessment.all.select("assessment_id, assessment_title")
+      if @task.assessment_linker == nil
+        @task.build_assessment_linker
+      end
+      render layout: false
     end
 
     def select_task
@@ -56,9 +65,32 @@ class TasksController < ApplicationController
 
 
     def update
+      if(task_params[:assessment_linker_attributes][:assessment_id]=="")
+        puts("update no assessment")
+        if @task.assessment_linker != nil
+          puts("destroying link")
+          @task.assessment_linker.destroy
+        end
+        if(@task.update_attribute(:task_title, task_params[:task_title]) || @task.update_attribute(:task_description, task_params[:task_description]) || @task.update_attribute(:estimation, task_params[:estimation]))
+          @tasks = Task.all
+          render 'update_success'
+        else
+          render 'update_failure'
+        end
+      else
+        puts("update with assessment")
+        if @task.update(task_params)
+          @tasks = Task.all
+          render 'update_success'
+        else
+          render 'update_failure'
+        end
+      end
     end
 
     def destroy
+      @task.destroy
+      redirect_to admin_tasks_path, notice: 'Task was successfully destroyed.'
     end
 
     private
@@ -69,7 +101,7 @@ class TasksController < ApplicationController
 
     #Only allow a trusted parameter "white list" through.
     def task_params
-      params.fetch(:task, {}).permit(:task_title, :task_description, :estimation, assessment_linker_attributes: [:assessment_id])
+      params.fetch(:task, {}).permit(:task_title, :task_description, :estimation, assessment_linker_attributes: [:assessment_id, :id])
     end
 
     #This is used if no assessment is needed to be linked
