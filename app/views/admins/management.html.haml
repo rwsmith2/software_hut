@@ -1,0 +1,26 @@
+%br 
+.card-header
+%h3 Vendor Management 
+%br
+.card-body
+    %table.table.table-hover
+        %thead
+            %tr
+                %th Vendor ID
+                %th Vendor Company Name
+                %th Company Number 
+                %th Initial Score
+                %th Credit Rating 
+                %th KPI 
+                %th Risk Rating
+            %tr
+            -@vendorL.each do |vendor|
+                %tr
+                    %th= vendor.vendor_id
+                    %th= vendor.company_name
+                    %th= vendor.company_number
+                    %th= vendor.initial_score
+                    %th= vendor.credit_rating
+                    %th= vendor.kpi
+                    %th= vendor.risk_rating
+                  

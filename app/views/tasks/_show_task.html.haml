@@ -1,5 +1,5 @@
 #task-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
-  .overflow-auto
+  .flex-column
     %p
       %span.font-weight-bold> Task ID:&nbsp;
       = task.task_id 
@@ -13,8 +13,10 @@
       %span.font-weight-bold> Time Estimation:&nbsp;
       = task.estimation.to_s + " minutes"
 
-  .d-flex.flex-row-reverse.mt-3
-    %button.btn.btn-danger.mx-1.w-25{:type => "button"}
-      Delete
-    %button.btn.btn-primary.mx-1.w-25{:type => "button"}
+  .d-md-inline-flex.mt-3
+    %button.btn.btn-primary.p-6.mr-2{:type => "button"}
       Assign
+    %button.btn.btn-primary.p-6.mr-2{:type => "button"}
+      Edit
+    %button.btn.btn-danger.p-6.mr-2{:type => "button"}
+      Delete

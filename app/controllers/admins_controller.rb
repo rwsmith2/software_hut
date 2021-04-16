@@ -22,6 +22,10 @@ class AdminsController < ApplicationController
       @user = current_user
     end
 
+    def management
+      @vendorL = Vendor.all
+    end
+
  
     # def update
     #   if @user.update(product_params)
