@@ -8,6 +8,14 @@
       %p 
         %span.font-weight-bold> Assessment Name:&nbsp;
         = assessment.assessment_title
-    .d-flex.flex-row-reverse.mt-3
-      = link_to 'Destroy', assessment_path(@assessment), method: :delete, data:{ confirm: 'Are you sure?'}, class: "btn btn-danger mx-1.w-25", type: "button"
-      = link_to 'Edit', edit_assessment_path(assessment), class: "btn btn-primary mx-1.w-25", type: "button"
+      - if assessment.questions != nil
+        %p
+          %span.font-weight-bold> Questions:&nbsp;
+          %br
+          %ol.list-group.list-group-flush
+          - assessment.questions.each do |question|
+            %li.list-group-item= question.question_text
+
+    .d-flex.flex-row.mt-3
+      = link_to 'Destroy', assessment, method: :delete, data:{ confirm: 'Are you sure, linked tasks will be effected?'}, class: "btn btn-danger mx-1.w-25", type: "button"
+      = link_to 'Edit', edit_assessment_path(assessment), class: "btn btn-outline-secondary mx-1.w-25", type: "button"
