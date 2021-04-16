@@ -1,0 +1,2 @@
+- assessments.each do |assessment|
+  = link_to assessment.assessment_title, fetch_assessment_path(assessment_id: assessment.assessment_id), remote: true, class: "list-group-item list-group-item-action", type: "button"
