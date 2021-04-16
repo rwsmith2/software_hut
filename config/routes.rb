@@ -52,8 +52,14 @@ Rails.application.routes.draw do
   resources :vendors
   resources :admins
   resources :users
-  resources :tasks
-  resources :assessments
+  
+  resources :tasks do
+    post :search, on: :collection
+  end
+
+  resources :assessments do
+    post :search, on: :collection
+  end
   resources :questions
 
   resources :request do

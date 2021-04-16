@@ -18,7 +18,13 @@ class TasksController < ApplicationController
     render :index
   end
 
-  def show
+  def search
+    @tasks = Task.where("task_title LIKE ?","%#{params[:search][:task_title]}%")
+    puts(@tasks.inspect)
+    render 'search_refresh'
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   # GET /tasks/new
