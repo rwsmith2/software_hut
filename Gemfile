@@ -44,8 +44,9 @@ gem 'delayed_job_active_record'
 gem 'delayed-plugins-airbrake'
 gem 'daemons', '1.1.9'
 
-#Added by Tom for nested forms
+#Added by Tom for nested forms and picking dates
 gem "cocoon"
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'rspec-rails'

@@ -7,14 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-#Admin User
-User.create(email: "adminTest1@gmail.com",password: "password" ,user_name: "admin1", is_admin: true) #user_id = 2
-User.create(email: "vendorTest1@gmail.com",password: "password" ,user_name: "vendor1", is_admin: false) #user_id = 2
+# #Admin User
+# User.create(email: "adminTest1@gmail.com",password: "password" ,user_name: "admin1", is_admin: true) #user_id = 2
+# User.create(email: "vendorTest1@gmail.com",password: "password" ,user_name: "vendor1", is_admin: false) #user_id = 2
 # Admin.create(user_id: "2")
 
 # #Vendor User
 # User.create(email: "vendorTest1@gmail.com",password: "password" ,user_name: "vendor1", is_admin: false) #user_id = 3
-# Vendor.create(user_id: "3",company_name: "company1", company_number: "012345", validated: true)
+
+Vendor.create(user_id: 1, company_name: "vendor1", company_number: 012345, validated: true)
+Vendor.create(user_id: 2, company_name: "vendor2", company_number: 0123, validated: true)
 
 # User.create(email: "vendorTest2@gmail.com",password: "password" ,user_name: "vendor2", is_admin: false) #user_id =4
 # Vendor.create(user_id: "4",company_name: "company2", company_number: "666333", validated: true)

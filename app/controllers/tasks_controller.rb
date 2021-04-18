@@ -27,6 +27,7 @@ class TasksController < ApplicationController
     # end
   end
 
+
   # GET /tasks/new
   def new 
     @task = Task.new
@@ -109,6 +110,10 @@ class TasksController < ApplicationController
   #Only allow a trusted parameter "white list" through.
   def task_params
     params.fetch(:task, {}).permit(:task_title, :task_description, :estimation, assessment_linker_attributes: [:assessment_id, :id])
+  end
+
+  def given_task_params
+    params.fetch(:given_task, {}).permit(:task_id, :due_date, :priority, assignments_attributes: [:assignment_id,:vendor_id,:_destroy ])
   end
 
   #This is used if no assessment is needed to be linked

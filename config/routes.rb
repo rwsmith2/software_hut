@@ -58,10 +58,13 @@ Rails.application.routes.draw do
   resources :vendors
   resources :admins
   resources :users
-  resources :given_tasks
+  resources :given_tasks do
+    resources :assignments 
+  end
   
   resources :tasks do
     post :search, on: :collection
+    resources :given_tasks 
   end
 
   resources :assessments do

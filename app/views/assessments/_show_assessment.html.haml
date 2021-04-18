@@ -3,7 +3,7 @@
   .overflow-auto
     .assessment_box
       %p
-        %span.font-weight-bold> Task ID:&nbsp;
+        %span.font-weight-bold> Assessment ID:&nbsp;
         = assessment.assessment_id 
       %p 
         %span.font-weight-bold> Assessment Name:&nbsp;
@@ -15,6 +15,7 @@
           %ol.list-group.list-group-flush
           - assessment.questions.each do |question|
             %li.list-group-item= question.question_text
+
 
     .d-flex.flex-row.mt-3
       = link_to 'Destroy', assessment, method: :delete, data:{ confirm: 'Are you sure, linked tasks will be effected?'}, class: "btn btn-danger mx-1.w-25", type: "button"

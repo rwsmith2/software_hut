@@ -11,3 +11,4 @@
 //= require select2_init
 //= require dynamic_list.js
 //= require cocoon
+//= require bootstrap-datepicker
