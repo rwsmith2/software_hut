@@ -23,9 +23,13 @@ class AdminsController < ApplicationController
     end
 
     def management
-      @vendorL = Vendor.all
+      @vendorL = Vendor.all.order(params[:sort])
+      
     end
 
+    def edit_vendor
+      render :admin_edit
+    end
  
     # def update
     #   if @user.update(product_params)

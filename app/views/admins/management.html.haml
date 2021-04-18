@@ -2,6 +2,15 @@
 .card-header
 %h3 Vendor Management 
 %br
+    /sort by
+    .dropdown
+        %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            Sort By
+        .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
+            %a.dropdown-item= link_to "Vendor Company Name", :sort => "company_name"
+            %a.dropdown-item= link_to "Vendor Company Number" , :sort => "company_number"
+            %a.dropdown-item= link_to "Validatded" , :sort => "validated"
+
 .card-body
     %table.table.table-hover
         %thead
@@ -9,18 +18,13 @@
                 %th Vendor ID
                 %th Vendor Company Name
                 %th Company Number 
-                %th Initial Score
-                %th Credit Rating 
-                %th KPI 
-                %th Risk Rating
+                %th Incomplete Tasks
             %tr
             -@vendorL.each do |vendor|
                 %tr
-                    %th= vendor.vendor_id
-                    %th= vendor.company_name
-                    %th= vendor.company_number
-                    %th= vendor.initial_score
-                    %th= vendor.credit_rating
-                    %th= vendor.kpi
-                    %th= vendor.risk_rating
+                    %td= vendor.vendor_id
+                    %td= vendor.company_name
+                    %td= vendor.company_number
+                    %td= GivenTask.where(vendor_id: vendor.vendor_id, complete: false).count
+                    %td= link_to 'Edit', admin_admin_edit_path(vendor), class: "ajax-modal btn btn-outline-secondary", type: "button"
                   

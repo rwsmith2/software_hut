@@ -18,20 +18,10 @@
         = task.assessment_linker.assessment.assessment_title
     
 
-<<<<<<< HEAD
-  .d-md-inline-flex.mt-3
-    %button.btn.btn-primary.p-6.mr-2{:type => "button"}
-      Assign
-    %button.btn.btn-primary.p-6.mr-2{:type => "button"}
-      Edit
-    %button.btn.btn-danger.p-6.mr-2{:type => "button"}
-      Delete
-=======
-  .d-flex.flex-row.mt-3
-    = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure, assigned tasks will be effected?' }, class: "btn btn-danger", type: "button"
-    = link_to 'Edit', edit_task_path(task), class: "ajax-modal btn btn-outline-secondary", type: "button"
-    -# %button.btn.btn-danger.mx-1.w-25{:type => "button"}
-    -#   Delete
-    %button.btn.btn-primary.mx-1.w-25{:type => "button"}
-      Assign
->>>>>>> c03215e2ff09e063b2f3ae2ca92c8903abce6020
+    .d-flex.flex-row.mt-3
+      = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure, assigned tasks will be effected?' }, class: "btn btn-danger", type: "button"
+      = link_to 'Edit', edit_task_path(task), class: "ajax-modal btn btn-outline-secondary", type: "button"
+      -# %button.btn.btn-danger.mx-1.w-25{:type => "button"}
+      -#   Delete
+      %button.btn.btn-primary.mx-1.w-75{:type => "button"}
+        Assign
