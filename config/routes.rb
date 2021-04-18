@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get "admin/settings", to: "admins#settings"
   
   get "admin/tasks", to: "tasks#index"
+  get "admin/tasks/assign", to: "tasks#assign"
+
 
   get "admin/assessments", to: "assessments#admin_index"
 
@@ -52,6 +54,7 @@ Rails.application.routes.draw do
   resources :vendors
   resources :admins
   resources :users
+  resources :given_tasks
   
   resources :tasks do
     post :search, on: :collection

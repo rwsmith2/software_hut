@@ -17,7 +17,7 @@
 #  fk_rails_...  (vendor_id => vendors.vendor_id) ON DELETE => cascade
 #
 class GivenTask < ApplicationRecord
-    has_one :task
-    has_many :vendor_answers
-    has_many :vendor_uploads
+    belongs_to :task
+    has_many :vendor_answers,  dependent: :destroy
+    has_many :vendor_uploads,  dependent: :destroy
 end
