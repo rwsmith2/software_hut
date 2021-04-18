@@ -8,7 +8,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (assessment_id => assessments.assessment_id)
+#  assessment_id  (assessment_id => assessments.assessment_id)
 #
 class Question < ApplicationRecord
   has_many :answers, dependent: :delete_all

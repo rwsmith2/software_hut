@@ -9,7 +9,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (question_id => questions.question_id) ON DELETE => cascade
+#  question_id  (question_id => questions.question_id) ON DELETE => cascade
 #
 FactoryBot.define do
   factory :answer do
