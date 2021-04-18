@@ -14,7 +14,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
+#  user_id  (user_id => users.user_id) ON DELETE => cascade
 #
 class Vendor < ApplicationRecord
     has_one :address

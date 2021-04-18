@@ -24,6 +24,11 @@ class AssessmentsController < ApplicationController
 
   end
 
+  def search
+    @assessments = Assessment.where("assessment_title LIKE ?","%#{params[:search][:assessment_title]}%")
+    render 'search_refresh'
+  end
+
   def select_assessment
     @selected = Assessment.find(params[:assessment_id])
     respond_to do |format|

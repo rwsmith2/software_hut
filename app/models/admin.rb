@@ -7,7 +7,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
+#  user_id  (user_id => users.user_id) ON DELETE => cascade
 #
 class Admin < ApplicationRecord
   belongs_to :user, optional: true

@@ -4,9 +4,12 @@
   #tasks-panel.card.m-2.w-100.h-100
     .card-header.d-flex.justify-content-between.align-items-center
       %h5.m-0 Tasks
-      %form.d-flex
-        %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
-        %button.btn.btn-outline-primary{:type => "submit"} Search
+
+      .d-flex
+        = simple_form_for :search, url: search_tasks_path, method: :post, defaults: {input_html: {class: 'form-control'}},remote: true do |f|
+          = f.input_field :task_title, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Task name"
+          = f.button :submit, 'Search', class: 'btn btn-outline-primary'
+          = link_to 'Reset', admin_tasks_path
     .card-body.p-0.d-flex
       #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
         = render partial: 'tasks_list', locals: {tasks: @tasks}

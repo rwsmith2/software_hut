@@ -5,14 +5,16 @@
     .card-header.d-flex.justify-content-between.align-items-center
       %h5.m-0 Assessments
       =link_to 'Create', admin_assessments_new_path(), class: "btn btn-primary"
-      %form.d-flex
-        %input.form-control.me-2{"aria-label" => "Search", :placeholder => "Search", :type => "search"}/
-        %button.btn.btn-outline-primary{:type => "submit"} Search
+      .d-flex
+        = simple_form_for :search, url: search_assessments_path, method: :post, defaults: {input_html: {class: 'form-control'}},remote: true do |f|
+          = f.input_field :assessment_title, as: :string, input_html: {"aria-describedby": "basic-addon-assessmentname", "aria-label": "Assessment name"}, placeholder: "Assessment name"
+          = f.button :submit, 'Search', class: 'btn btn-outline-primary'
+          = link_to 'Reset', admin_assessments_path
     .card-body.p-0.d-flex
       #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
         #assessment-list.list-group.overflow-auto.p-1
-          - @assessments.each do |assessment|
-            = link_to assessment.assessment_title, fetch_assessment_path(assessment_id: assessment.assessment_id), remote: true, class: "list-group-item list-group-item-action", type: "button"
+          = render partial: 'assessment_list', locals: {assessments: @assessments}
+          
 
         %nav.mt-2{"aria-label" => "Page navigation"}
           %ul.pagination.justify-content-center

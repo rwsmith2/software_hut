@@ -36,12 +36,11 @@
           %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
             %span{"aria-hidden" => "true"} «
         %li.page-item
-          %button.page-link 1
-        = link_to "index page", assessments_index_path
+          = link_to '1', assessments_index_path, class: "btn page-link", type: "button"
         %li.page-item.active
-          %button.page-link 2
+          = link_to '2', assessments_questions_path, class: "btn page-link", type: "button"
         %li.page-item
-          %button.page-link 3
+          = link_to '3', assessments_questions_path, class: "btn page-link", type: "button"
         %li.page-item
           %button.page-link{"aria-label" => "Next"}
             %span{"aria-hidden" => "true"} »

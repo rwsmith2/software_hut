@@ -10,7 +10,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (vendor_id => vendors.vendor_id) ON DELETE => cascade
+#  vendor_id  (vendor_id => vendors.vendor_id) ON DELETE => cascade
 #
 FactoryBot.define do
   factory :address do
