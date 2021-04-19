@@ -1,4 +1,3 @@
-
 # == Schema Information
 #
 # Table name: vendor_answers
@@ -12,9 +11,3 @@
 #  fk_rails_...  (answer_id => answers.answer_id)
 #  fk_rails_...  (assignment_id => assignments.assignment_id) ON DELETE => cascade
 #
-class VendorAnswer < ApplicationRecord
-  belongs_to :assignments,  dependent: :destroy
-  belongs_to :answers
-  has_one_attached :image
-end
-

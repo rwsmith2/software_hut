@@ -55,6 +55,11 @@ Rails.application.routes.draw do
     end
   end
 
+  
+  resources :vendor_answers
+  resources :vendor_uploads
+
+
   resources :vendors
   resources :admins
   resources :users

@@ -12,7 +12,7 @@
 #  fk_rails_...  (assignment_id => assignments.assignment_id) ON DELETE => cascade
 #  fk_rails_...  (upload_id => uploads.upload_id)
 #
-class VendorUploads < ApplicationRecord
+class VendorUpload < ApplicationRecord
   belongs_to :assignments,  dependent: :destroy
-
+  has_one_attached :image
 end

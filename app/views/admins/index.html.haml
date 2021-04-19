@@ -29,15 +29,17 @@
               %th Task Title
 
             %tbody
-            //Commented out due to error
-            -# -@vendorTask.each do |giventask|
-            -#   %tr
-            -#   -@task = Task.find_by(task_id: giventask.task_id)
-            -#   -@vendor = Vendor.find_by(vendor_id: giventask.vendor_id)
-            -#     %td= @vendor.company_name
-            -#     %td= giventask.priority 
-            -#     %td= giventask.due_date
-            -#     %td= @task.task_title
+
+            -@vendorTask.each do |giventask|
+              %tr
+                -@task = Task.find_by(task_id: giventask.task_id)
+                -@assignment = Assignment.find_by(vendor_id: giventask.given_task_id)
+                //-@vendor = Vendor.find_by(vendor_id: @assignment.vendor_id).company_name
+                //%td= @vendor.company_name
+                %td= giventask.priority 
+                %td= giventask.due_date
+                %td= @task.task_title
+
 
         %ul.pagination.justify-content-center
           %li.page-item 

@@ -6,10 +6,14 @@ class AssessmentsController < ApplicationController
 
   def index 
     @assessments = Assessment.all
+    @answers = Answer.where("question_id=2")
+    @vendor_answers = VendorAnswer.new(vendor_answers_params)
+    #@vendor_answer = Answer.all
   end
 
   def new 
     @assessment = Assessment.new
+    @vendor_answers = VendorAnswer.new
     @assessment.questions.build.answers.build
   end
 
@@ -67,6 +71,10 @@ class AssessmentsController < ApplicationController
     redirect_to admin_assessments_path, notice: 'Assessment was successfully destroyed.'
   end
 
+  def upload
+    @vendor_answers = VendorAnswer.new(vendor_answers)
+  end
+
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -87,5 +95,9 @@ class AssessmentsController < ApplicationController
   def assessment_update_params
     params.fetch(:assessment, {}).permit(:id, :assessment_title, questions_attributes: [:id, :question_text, :_destroy, answers_attributes: [:id, :answer_text, :additional_response, :_destroy]])
   end
-  
+
+  def vendor_answers_params
+    params.fetch(:vendor_answer, {}).permit(:given_task_id, :answer_id, answers_attributes: [:answer_id, :answer_text])
+  end
+
 end

@@ -5,38 +5,33 @@
   .card-header
     Assessment page - Triage
   .card-body
-    = simple_form_for :form_examples do |f|
+
+    = simple_form_for VendorAnswer.new do |f|
+      %ul.pagination.justify-content-center
+        %li
+          - if @answers != nil
+            - @answers.each do |ans|
+              = f.check_box :answer_id
+              = ans.answer_text
+              %br
+            %br
+
       %ul.pagination.justify-content-center
         %li 
-          = f.check_box :id => :checkbox 
-          = 'ISO-27001 Certified'
-          %br
-          = f.check_box :checkbox
-          = 'PCI-DSS Certified'
-          %br
-          = f.check_box :check_boxes
-          = 'Processing card transactions'
-          %br
-          = f.check_box :check_boxes
-          = 'Processing univeristy personal data'
-      %ul.pagination.justify-content-center
-        %li 
-          -# %br
-          -# = form_tag '/assessment', :multipart=>true  do
-          -#   = file_field_tag 'file', multiple: false
-          -#   = submit_tag "Import"
-          
-          -#%form{:action=>"/upload",:method=>"post",:enctype=>"multipart/form-data"}
-          -#%input{:type=>"file",:name=>"file", :multiple=>"true"} 
-          
-      %ul.pagination.justify-content-center
-        %li 
-          = f.text_field :attr, placeholder: "isocertificate.pdf"
-          %input{:type=>"submit",:value=>"Upload"}
+          -# .input-group.mb-3
+          -#   .input-group-prepend
+          -#     %span#inputGroupFileAddon01.input-group-text Upload
+          -#   .custom-file
+          -#     %input#inputGroupFile01.custom-file-input{"aria-describedby" => "inputGroupFileAddon01", type: "file"}/
+          -#     %label.custom-file-label{for: "inputGroupFile01"} isocertificate.pdf
+          = f.label "Upload your certificates: ", :style => "font-weight:bold" 
           %br
           %br
-          = f.text_field :attr, placeholder: "pcidss.pdf"
-          %input{:type=>"submit",:value=>"Upload"}
+          = f.file_field :image
+          %br
+          %br 
+          = f.file_field :image
+          /= f.input :image, label: "ss"
           %br
           %br
           %br
@@ -46,9 +41,8 @@
       %br
       #task-detail-panel.w-40.p-5.d-flex.flex-column.justify-content-between
         .d-flex.flex-row-reverse
-          /%input{:type=>"submit",:value=>"Submit"}
-          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
-          = f.button :submit, "Save", class: 'btn btn-outline-primary'
+          = f.submit  "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          = f.submit  "Save", class: 'btn btn-outline-primary', :disabled => 'disabled'
           /%input{:type=>"submit",:value=>"Save"}
       %nav.mt-2{"aria-label" => "Page navigation"}
         %ul.pagination.justify-content-center
@@ -62,5 +56,5 @@
           %li.page-item
             = link_to '3', assessments_index_path, class: "btn page-link", type: "button"
           %li.page-item
-            %button.page-link{"aria-label" => "Next"}
+            %button.page-link{"aria-label" => "Next", :disabled => 'disabled'}
               %span{"aria-hidden" => "true"} »

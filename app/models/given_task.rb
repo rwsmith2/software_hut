@@ -7,11 +7,11 @@
 #  repeatable    :integer          not null
 #  set_date      :date             not null
 #  given_task_id :integer          not null, primary key
-#  task_id       :integer
+#  task_id       :bigint
 #
-# Foreign Keys
+# Indexes
 #
-#  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
+#  index_given_tasks_on_task_id  (task_id)
 #
 class GivenTask < ApplicationRecord
     belongs_to :task
