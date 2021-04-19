@@ -10,7 +10,8 @@
           .input-group-prepend
             %span#basic-addon-taskname.input-group-text 
               = icon 'fas', 'user-clock'
-            = f.text_field :due_date, as: :string, input_html: {id: "datepicker", value: Date.today, 'data-provide': 'datepicker'}, placeholder: "Inital due date"
+            .datepicker  
+              = f.text_field :due_date, as: :text ,input_html: {class: "datepicker"}, placeholder: "Inital due date", hide_label: true
         .input-group.mb-3     
           .input-group-prepend
             %span#basic-addon-taskname.input-group-text 
@@ -36,5 +37,3 @@
           = dismiss_modal_button
         = f.button :submit,'Assign Tasks', class: 'btn btn-outline-primary'
         
-:javascript
-  $('#datepicker').datepicker({format: 'dd-mm-yyyy'});

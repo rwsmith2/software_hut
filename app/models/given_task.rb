@@ -19,4 +19,6 @@ class GivenTask < ApplicationRecord
     accepts_nested_attributes_for :assignments, allow_destroy: true
 
     validates :due_date, :repeatable, :priority, presence: true
+
+
 end

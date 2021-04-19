@@ -29,6 +29,9 @@ Rails.application.routes.draw do
   get "admin/tasks", to: "tasks#index"
   get "admin/tasks/assign", to: "tasks#assign"
 
+  get "admin/given_tasks", to: "given_tasks#index"
+
+
 
   get "admin/assessments", to: "assessments#admin_index"
 
@@ -40,7 +43,7 @@ Rails.application.routes.draw do
 
   get "fetch_assessment", to: 'assessments#select_assessment', as: 'fetch_assessment'
   get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
-
+  get "fetch_given_task", to: "given_tasks#select_given_task"
 
   get "assessments/questions", to: "assessments#questions"
 

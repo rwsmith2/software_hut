@@ -1,5 +1,5 @@
 .input-group.mb-3.nested-fields
   .input-group-prepend
-    =f.input_field :vendor_id, as: :select, collection: @vendors, label_method: :company_name, value_method: :vendor_id, input_html: {multiple: false, id: "vendorDropDown"},label: false, prompt: "Set Vendor"
+    =f.input_field :vendor_id, as: :select, collection: Vendor.all, label_method: :company_name, value_method: :vendor_id, input_html: {multiple: true, id: "vendorDropDown"},label: false, prompt: "Set Vendor"
     = link_to_remove_association "Remove", f 
     //= link_to_remove_association "Remove", f, class: 'btn btn-danger btn-xs'
