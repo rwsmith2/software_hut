@@ -25,6 +25,6 @@
                     %td= vendor.vendor_id
                     %td= vendor.company_name
                     %td= vendor.company_number
-                    %td= GivenTask.where(vendor_id: vendor.vendor_id, complete: false).count
+                    //%td= GivenTask.where(vendor_id: vendor.vendor_id, complete: false).count
                     %td= link_to 'Edit', admin_admin_edit_path(vendor), class: "ajax-modal btn btn-outline-secondary", type: "button"
                   

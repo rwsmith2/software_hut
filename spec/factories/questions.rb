@@ -8,7 +8,7 @@
 #
 # Foreign Keys
 #
-#  assessment_id  (assessment_id => assessments.assessment_id)
+#  fk_rails_...  (assessment_id => assessments.assessment_id)
 #
 FactoryBot.define do
   factory :question do

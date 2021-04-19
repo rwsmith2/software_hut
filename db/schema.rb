@@ -68,7 +68,8 @@ ActiveRecord::Schema.define(version: 2021_04_18_153059) do
     t.date "due_date", null: false
     t.integer "priority"
     t.integer "repeatable", null: false
-    t.integer "task_id"
+    t.bigint "task_id"
+    t.index ["task_id"], name: "index_given_tasks_on_task_id"
   end
 
   create_table "questions", primary_key: "question_id", id: :serial, force: :cascade do |t|
@@ -148,7 +149,6 @@ ActiveRecord::Schema.define(version: 2021_04_18_153059) do
   add_foreign_key "assessment_linkers", "tasks", primary_key: "task_id"
   add_foreign_key "assignments", "given_tasks", primary_key: "given_task_id", on_delete: :cascade
   add_foreign_key "assignments", "vendors", primary_key: "vendor_id", on_delete: :cascade
-  add_foreign_key "given_tasks", "tasks", primary_key: "task_id", on_delete: :cascade
   add_foreign_key "questions", "assessments", primary_key: "assessment_id"
   add_foreign_key "tasks", "users", primary_key: "user_id"
   add_foreign_key "uploads", "answers", primary_key: "answer_id", on_delete: :cascade
