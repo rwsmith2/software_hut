@@ -6,7 +6,10 @@ class VendorsController < ApplicationController
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)
 
-      @vendorTask = GivenTask.where(vendor_id: @vendor.vendor_id).order(params[:sort])
+      @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id)
+      
+      @tasks = @joined.where(vendor_id: @vendor.vendor_id).order(params[:sort])
+
       
 
       render :index
