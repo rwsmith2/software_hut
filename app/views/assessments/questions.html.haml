@@ -5,32 +5,62 @@
   .card-header
     Assessment page - Triage
   .card-body
-    = simple_form_for :form_examples do |f|
-      %table.table
-        %thead
-          %tr.active 
-            %th Question 1
-            %th Question 2
-        %tbody
-          %tr
-            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 1'  
-            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 2'  
-          %thead
-          %tr.active 
-            %th Question 3
-            %th Question 4
-        %tbody         
-          %tr
-            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 3'  
-            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 4'  
-          %thead
-          %tr.active 
-            %th Question 3
-            %th Question 4
-        %tbody         
-          %tr
-            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 5'  
-            %td= f.text_area :answer, :rows => 5, :cols => 60, placeholder: 'answer 6'  
+    = simple_form_for VendorAnswer.new do |f|
+      - if @questions != nil
+        %table.table
+          %tbody
+            %tr
+            - @questions.each do |que|
+              %tr
+                %th= que.question_text
+                - @answers1 = Answer.where(question_id: que.question_id)
+                - @answers1.each do |ans|
+                  %tr
+                    %td
+                      %input{ type: "radio"}
+                      = ans.answer_text
+                      
+            -# - i = 1
+            -# - @questions.each do |que|
+            -#   %th= que.question_text
+            -#   - if i != @questions.count
+            -#     - @questionId = @questions[i-1].question_id
+            -#     %th= @questions[i].question_text
+            -#     - i += 1
+            -#   - @answers1 = Answer.where(question_id: que.question_id)
+            -#   - @answers2 = Answer.where(question_id: @questionId).to_a
+            -#   - if @answers2.count > 1
+            -#     - puts "am here",  @answers2[1].answer_text
+            -#   - j = 0
+            -#   - @answers1.each do |ans|
+            -#     %tr
+            -#       %td
+            -#         %input{ type: "radio"}
+            -#         = ans.answer_text
+            -#       %td
+            -#         %input{ type: "radio"}
+            -#         = @answers2[j].answer_text
+            -#     - j += 1
+                  
+            
+              /%td{style: "display: block"}= f.text_area :answers, :rows => 5, :cols => 60
+
+          -#   %thead
+          -#   %tr.active 
+          -#     %th Question 3
+          -#     %th Question 4
+          -# %tbody         
+          -#   %tr
+          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 3'  
+          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 4'  
+          -#   %thead
+          -#   %tr.active 
+          -#     %th Question 3
+          -#     %th Question 4
+          -# %tbody         
+          -#   %tr
+          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 5'  
+          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 6'  
       %ul.pagination.justify-content-center
         %li.page-item.disabled
           %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}

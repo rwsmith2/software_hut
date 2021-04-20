@@ -11,7 +11,7 @@
         %li
           - if @answers != nil
             - @answers.each do |ans|
-              = f.check_box :answer_id
+              = f.check_box :answer_id, :checked => true
               = ans.answer_text
               %br
             %br
