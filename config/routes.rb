@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   
   get "login", to: "login#index"
   get "request", to: "request#index"
+  get "request_manage", to: "request_manage#index"
 
   get "admin/home", to: "admins#index"
 

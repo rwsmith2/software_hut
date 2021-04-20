@@ -1,0 +1,63 @@
+<div class='d-flex m-4' style='height: 80vh; overflow: visible;'>
+    <div class='card m-2 w-100 h-100' id='tasks-panel'>
+      <div class='card-header d-flex justify-content-between align-items-center'>
+        <h5 class='m-0'>Tasks</h5>
+      </div>
+      <div class='card-body p-0 d-flex'>
+        <div class='w-50 p-3 d-flex flex-column justify-content-between border-right' id='task-list-panel'>
+          <div class='list-group overflow-auto p-1'>
+            <button aria-current='true' class='list-group-item list-group-item-action active' type='button'>Email 001</button>
+            <button class='list-group-item list-group-item-action' type='button'>Email 002</button>
+            <button class='list-group-item list-group-item-action' type='button'>Email 003</button>
+            <button class='list-group-item list-group-item-action' type='button'>Email 004</button>
+            <button class='list-group-item list-group-item-action' type='button'>Email 005</button>
+          </div>
+          <nav aria-label='Page navigation' class='mt-2'>
+            <ul class='pagination justify-content-center'>
+              <li class='page-item disabled'>
+                <button aria-disabled='true' aria-label='Previous' class='page-link' tabindex='-1'>
+                  <span aria-hidden='true'>«</span>
+                </button>
+              </li>
+              <li class='page-item active'>
+                <button class='page-link'>1</button>
+              </li>
+              <li class='page-item'>
+                <button class='page-link'>2</button>
+              </li>
+              <li class='page-item'>
+                <button class='page-link'>3</button>
+              </li>
+              <li class='page-item'>
+                <button aria-label='Next' class='page-link'>
+                  <span aria-hidden='true'>»</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class='w-100 p-3 d-flex flex-column justify-content-between' id='task-detail-panel'>
+          <div class='overflow-auto'>
+            <p><span class='font-weight-bold'>Email:&nbsp;</span>example@example.com
+            </p>
+            <p><span class='font-weight-bold'>Company name:&nbsp;</span>Company X
+            </p>
+            <p><span class='font-weight-bold'>Address:&nbsp;</span>Earth
+            </p>
+            <p><span class='font-weight-bold'>City/Town:&nbsp;</span>City X
+            </p>
+            <p><span class='font-weight-bold'>Postcode:&nbsp;</span>XXX XXX
+            </p>
+            <p><span class='font-weight-bold'>Country/Region:&nbsp;</span> XXX
+            </p>
+          </div>
+          <div class='d-flex flex-row-reverse mt-3'>
+            <button class='btn btn-primary mx-1 w-25' type='button'>
+              Accept
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
