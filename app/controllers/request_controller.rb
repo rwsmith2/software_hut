@@ -19,6 +19,8 @@ class RequestController < ApplicationController
       vendor = Vendor.create(user_id: user.user_id, company_name: name, company_number: "0", validated: false)
       address = Address.create(vendor_id: vendor.vendor_id, city_town: city, country: region, house_name: address, postcode: postcode)
       
+      RequestMailer.with(email: email, name: name).welcome_email.deliver_now
+
       render :success
     end
   
