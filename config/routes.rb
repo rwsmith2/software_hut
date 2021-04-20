@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get "login", to: "login#index"
   get "request", to: "request#index"
   get "request_manage", to: "request_manage#index"
+  get "fetch_request", to: 'request_manage#select_request', as: 'fetch_request'
+  get "accept_request", to: 'request_manage#accept_request', as: 'accept_request'
+  get "reject_request", to: 'request_manage#reject_request', as: 'reject_request'
 
   get "admin/home", to: "admins#index"
 

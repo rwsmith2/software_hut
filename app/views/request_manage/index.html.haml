@@ -1,49 +1,56 @@
 .d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
-  #tasks-panel.card.m-2.w-100.h-100
+  #requests-panel.card.m-2.w-100.h-100
     .card-header.d-flex.justify-content-between.align-items-center
       %h5.m-0 Request management
     .card-body.p-0.d-flex
-      #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
+      #request-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
         .list-group.overflow-auto.p-1
-          %button.list-group-item.list-group-item-action.active{"aria-current" => "true", :type => "button"} Email 001
-          %button.list-group-item.list-group-item-action{:type => "button"} Email 002
-          %button.list-group-item.list-group-item-action{:type => "button"} Email 003
-          %button.list-group-item.list-group-item-action{:type => "button"} Email 004
-          %button.list-group-item.list-group-item-action{:type => "button"} Email 005
-        %nav.mt-2{"aria-label" => "Page navigation"}
-          %ul.pagination.justify-content-center
-            %li.page-item.disabled
-              %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
-                %span{"aria-hidden" => "true"} «
-            %li.page-item.active
-              %button.page-link 1
-            %li.page-item
-              %button.page-link 2
-            %li.page-item
-              %button.page-link 3
-            %li.page-item
-              %button.page-link{"aria-label" => "Next"}
-                %span{"aria-hidden" => "true"} »
-      #task-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
-        .overflow-auto
-          %p
-            %span.font-weight-bold> Email: 
-            example@example.com
-          %p
-            %span.font-weight-bold> Company name: 
-            Company X
-          %p
-            %span.font-weight-bold> Address: 
-            Earth
-          %p
-            %span.font-weight-bold> City/Town: 
-            City X
-          %p
-            %span.font-weight-bold> Postcode: 
-            XXX XXX
-          %p
-            %span.font-weight-bold Country/Region: 
-            XXX
-        .d-flex.flex-row-reverse.mt-3
-          %button.btn.btn-primary.mx-1.w-25{:type => "button"}
-            Accept
+          - if @pending_vendors != nil && @pending_vendors.length > 0
+            - @pending_vendors.each do |vendor|
+              = link_to vendor.company_name, fetch_request_path(vendor_id: vendor.vendor_id), remote: true, class: "list-group-item list-group-item-action", type: "button" 
+          - else
+            No pending request
+    
+          -# %button.list-group-item.list-group-item-action.active{"aria-current" => "true", :type => "button"} Email 001
+          -# %button.list-group-item.list-group-item-action{:type => "button"} Email 002
+          -# %button.list-group-item.list-group-item-action{:type => "button"} Email 003
+          -# %button.list-group-item.list-group-item-action{:type => "button"} Email 004
+          -# %button.list-group-item.list-group-item-action{:type => "button"} Email 005
+        -# %nav.mt-2{"aria-label" => "Page navigation"}
+        -#   %ul.pagination.justify-content-center
+        -#     %li.page-item.disabled
+        -#       %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+        -#         %span{"aria-hidden" => "true"} «
+        -#     %li.page-item.active
+        -#       %button.page-link 1
+        -#     %li.page-item
+        -#       %button.page-link 2
+        -#     %li.page-item
+        -#       %button.page-link 3
+        -#     %li.page-item
+        -#       %button.page-link{"aria-label" => "Next"}
+        -#         %span{"aria-hidden" => "true"} »
+      #request-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
+        Please select a request
+        -# .overflow-auto
+        -#   %p
+        -#     %span.font-weight-bold> Email: 
+        -#     example@example.com
+        -#   %p
+        -#     %span.font-weight-bold> Company name: 
+        -#     Company X
+        -#   %p
+        -#     %span.font-weight-bold> Address: 
+        -#     Earth
+        -#   %p
+        -#     %span.font-weight-bold> City/Town: 
+        -#     City X
+        -#   %p
+        -#     %span.font-weight-bold> Postcode: 
+        -#     XXX XXX
+        -#   %p
+        -#     %span.font-weight-bold Country/Region: 
+        -#     XXX
+        -# .d-flex.flex-row-reverse.mt-3
+        -#   %button.btn.btn-primary.mx-1.w-25{:type => "button"}
+        -#     Accept
