@@ -2,7 +2,7 @@
 .card-header
 %h3 Vendor Management 
 %br
-    /sort by
+    -#sort by
     .dropdown
         %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             Sort By
@@ -14,6 +14,7 @@
 .card-body
     %table.table.table-hover
         %thead
+            
             %tr
                 %th Vendor ID
                 %th Vendor Company Name
@@ -25,6 +26,6 @@
                     %td= vendor.vendor_id
                     %td= vendor.company_name
                     %td= vendor.company_number
-                    //%td= GivenTask.where(vendor_id: vendor.vendor_id, complete: false).count
-                    %td= link_to 'Edit', admin_admin_edit_path(vendor), class: "ajax-modal btn btn-outline-secondary", type: "button"
+                    %td= Assignment.where(vendor_id: vendor.vendor_id, complete: false).count
+                    %td= link_to 'Edit', admin_admin_edit_path(vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button"
                   

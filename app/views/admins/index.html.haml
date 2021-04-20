@@ -30,12 +30,11 @@
 
             %tbody
 
-            -@vendorTask.each do |giventask|
+            -@tasks.each do |giventask|
               %tr
                 -@task = Task.find_by(task_id: giventask.task_id)
-                -@assignment = Assignment.find_by(vendor_id: giventask.given_task_id)
-                //-@vendor = Vendor.find_by(vendor_id: @assignment.vendor_id).company_name
-                //%td= @vendor.company_name
+                -@vendor = Vendor.find_by(vendor_id: giventask.vendor_id)
+                %td= @vendor.company_name
                 %td= giventask.priority 
                 %td= giventask.due_date
                 %td= @task.task_title
