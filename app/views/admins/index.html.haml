@@ -11,13 +11,13 @@
             Sort By
           .card-body
             %nav.nav.flex-column.nav-fill.nav-pills
-              %a.nav-link{:href => "#"} All Tasks
-              %a.nav-link{:href => "#"} Upcoming Tasks
-              %a.nav-link.active{:href => "#"} Overdue Tasks
-              %a.nav-link{:href => "#"} Priority Descending
-              %a.nav-link{:href => "#"} Priority Ascending
-              %a.nav-link{:href => "#"} Vendor Risk Tasks Descending
-              %a.nav-link{:href => "#"} Recently Completed
+              %a.nav-link= link_to "All Tasks"
+              %a.nav-link= link_to "Upcoming Tasks" , :sort => "due_date"
+              %a.nav-link= link_to "Overdue Tasks" , :sort => "due_date"
+              %a.nav-link= link_to "Priority Descending" , :sort => "priotity"
+              %a.nav-link= link_to "Priority Ascending" , :sort => "priotity"
+              %a.nav-link= link_to "Vendor Risk Tasks Descending", :sort => "priotity"
+              %a.nav-link= link_to "Recently Completed" , :sort => "priotity"
       //Second Column, containing the task dashboard table  
       .col-8
         %table.table.table-striped.table-bordered.table-hover
