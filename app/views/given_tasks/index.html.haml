@@ -1,0 +1,33 @@
+- content_for :title, 'Given Tasks'
+
+.d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
+  #tasks-panel.card.m-2.w-100.h-100
+    .card-header.d-flex.justify-content-between.align-items-center
+      %h5.m-0 Given Tasks
+      -# .d-flex
+      -#   = simple_form_for :search, url: search_assessments_path, method: :post, defaults: {input_html: {class: 'form-control'}},remote: true do |f|
+      -#     = f.input_field :assessment_title, as: :string, input_html: {"aria-describedby": "basic-addon-assessmentname", "aria-label": "Assessment name"}, placeholder: "Assessment name"
+      -#     = f.button :submit, 'Search', class: 'btn btn-outline-primary'
+      -#     = link_to 'Reset', admin_assessments_path
+    .card-body.p-0.d-flex
+      #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
+        #given_tasks-list.list-group.overflow-auto.p-1
+          = render partial: 'given_task_list', locals: {given_tasks: @given_tasks}
+          
+
+        %nav.mt-2{"aria-label" => "Page navigation"}
+          %ul.pagination.justify-content-center
+            %li.page-item.disabled
+              %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+                %span{"aria-hidden" => "true"} «
+            %li.page-item.active
+              %button.page-link 1
+            %li.page-item
+              %button.page-link 2
+            %li.page-item
+              %button.page-link 3
+            %li.page-item
+              %button.page-link{"aria-label" => "Next"}
+                %span{"aria-hidden" => "true"} »
+      #given_task_index
+        = render partial: "show_given_task", locals: {given_task: @selected}

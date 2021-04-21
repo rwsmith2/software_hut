@@ -29,7 +29,8 @@
               %th Task Title
 
             %tbody
-            -@vendorTask.each do |giventask|
+
+            -@tasks.each do |giventask|
               %tr
                 -@task = Task.find_by(task_id: giventask.task_id)
                 -@vendor = Vendor.find_by(vendor_id: giventask.vendor_id)
@@ -37,6 +38,7 @@
                 %td= giventask.priority 
                 %td= giventask.due_date
                 %td= @task.task_title
+
 
         %ul.pagination.justify-content-center
           %li.page-item 

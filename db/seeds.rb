@@ -25,6 +25,8 @@ Vendor.create(user_id: 2, company_name: "vendor2", company_number: 0123, validat
 # #Tasks 
 # Task.create(task_title: "Example Task 1", task_description: "A nice Task", upload_type: "1", estimation: "1", admin_id: "2")
 
-#GivenTask.create(set_date: "2021-01-15", due_date: "2021-02-01", repeatable: false, complete: false, task_id: "1", vendor_id: "1")
-#GivenTask.create(set_date: "2021-01-20", due_date: "2021-02-20", repeatable: false, complete: false, task_id: "2", vendor_id: "1")
-#GivenTask.create(set_date: "2021-01-17", due_date: "2021-02-05", repeatable: false, complete: false, task_id: "3", vendor_id: "1")
+#GivenTask.create(set_date: "2021-01-15", due_date: "2021-02-01",priority: "2",repeatable: "7", task_id: "1")
+#GivenTask.create(set_date: "2021-01-20", due_date: "2021-02-20",priority: "1", repeatable: "5", task_id: "2")
+#GivenTask.create(set_date: "2021-01-17", due_date: "2021-02-05",priority: "3", repeatable: "12", task_id: "3")
+
+#Assignment.create(complete: false,vendor_id: "1",given_task_id: "1")

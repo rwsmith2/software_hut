@@ -7,8 +7,10 @@ class AdminsController < ApplicationController
     def index
       @current_nav_identifier = :index
       @user = current_user
-
-      @vendorTask = GivenTask.all
+      
+      @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
+      
+      @tasks = @joined.order(params[:sort])
 
       render :index
     end
@@ -28,6 +30,8 @@ class AdminsController < ApplicationController
     end
 
     def edit_vendor
+      @vendor = Vendor.find_by(params[:vendor_id])
+      @user = User.find_by(user_id: @vendor.user_id)
       render :admin_edit
     end
  

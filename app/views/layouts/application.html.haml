@@ -55,6 +55,9 @@
                     = navbar_link_to admin_assessments_path, title: "Go to the assessment management page", identifier: :vender_tasks do
                       = icon 'fas', 'tasks'
                       Assesment Page
+                    = navbar_link_to given_tasks_path, title: "Go to the given task management page" do
+                      = icon 'fas', 'calendar-alt'
+                      Given Tasks Page
 
                     = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'

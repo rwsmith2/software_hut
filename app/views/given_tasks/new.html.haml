@@ -1,5 +1,10 @@
+//$('#datepicker').datepicker({format: 'dd-mm-yyyy'});
+
 - content_for :title, 'Assign Tasks'
 
 = render 'form', locals: {given_task: @given_task}
     
-          
+:javascript
+  $(document).ready(function(){
+    $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+  });
