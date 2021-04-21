@@ -30,19 +30,12 @@ class AdminsController < ApplicationController
     end
 
     def edit_vendor
-      @vendor = Vendor.find_by(params[:vendor_id])
-      @user = User.find_by(user_id: @vendor.user_id)
+      @vendorSelected = Vendor.find(params[:vendor_id])
+
+      @user = User.find_by(user_id: @vendorSelected.user_id)
       render :admin_edit
     end
  
-    # def update
-    #   if @user.update(product_params)
-    #     redirect_to edit_admins_path, notice: 'Settings were successfully updated.'
-    #   else
-    #     render :edit
-    #   end
-    # end
-
     def create
       @task = Task.new(admin_id: current_user)
   
@@ -84,5 +77,6 @@ class AdminsController < ApplicationController
     def admin_params
       params.require(:user).permit(:user_name, :email)
     end
+    
   end
   

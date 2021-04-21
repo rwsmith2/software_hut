@@ -40,6 +40,7 @@ class VendorsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def vendor_params
       params.require(:user).permit(:user_name, :email, :user_id)
+      #params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating)
       #Registration doesn't add stuff to vendor table yet, need to add this still
       #params.require(:vendor).permit(:company_name, :company_number,:vendor_id, user_attributes: [:user_name, :email, :user_id])
     end

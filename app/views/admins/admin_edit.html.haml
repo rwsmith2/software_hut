@@ -1,5 +1,5 @@
 #new-task-panel.card.m-2.w-100.h-100
-    = simple_form_for @vendor do |f|
+    = simple_form_for @vendorSelected do |f|
 
         = f.error_notification
         = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
@@ -17,25 +17,31 @@
             .row.mb-3
                 %label.col-sm-2.col-form-label{:for => "companyName"} Company Name
                 .col-sm-4
-                    %input#companyName.form-control{:placeholder => @vendor.company_name}/
+                    -#%input#companyName.form-control{:placeholder => @vendorSelected.company_name}/
+                    = f.input_field :company_name, as: :text, input_html: {id: "companyNameTxt"}, placeholder: "Company Name"
                 %label.col-sm-2.col-form-label{:for => "companyNum"} Company Number
                 .col-sm-4
-                    %input#companyNum.form-control{:placeholder => @vendor.company_number}/    
+                    -#%input#companyNum.form-control{:placeholder => @vendorSelected.company_number}/    
+                    = f.input_field :company_number, as: :integer, input_html: {id: "companyNumberTxt"}, placeholder: "Company Number"
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "initialScore"} Initial Score
                 .col-sm-3
-                    %input#initialScore.form-control{:placeholder => @vendor.initial_score}/  
+                    -#%input#initialScore.form-control{:placeholder => @vendorSelected.initial_score}/ 
+                    = f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, placeholder: "Initial Score" 
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "creditRating"} Credit Rating
                 .col-sm-3
-                    %input#creditRating.form-control{:placeholder => @vendor.credit_rating}/ 
+                    -#%input#creditRating.form-control{:placeholder => @vendorSelected.credit_rating}/
+                    = f.input_field :credit_rating, as: :integer, input_html: {id: "creditRatingTxt"}, placeholder: "Credit Rating" 
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "kpi"} KPI
                 .col-sm-3
-                    %input#kpi.form-control{:placeholder => @vendor.kpi}/ 
+                    = f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, placeholder: "KPI"  
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "riskRating"} Risk Rating
                 .col-sm-3
-                    %input#riskRating.form-control{:placeholder => @vendor.risk_rating}/ 
-        
+                    = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, placeholder: "Risk Rating"  
+            .row.mb-2
+                .col-sm-3
+                    = f.submit "Update"
 
