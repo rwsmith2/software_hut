@@ -17,7 +17,7 @@
 #  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
 #
 class Vendor < ApplicationRecord
-    has_one :address,dependent: :destroy
+    has_one :address, dependent: :destroy
     has_many :assignments,  dependent: :destroy
-    has_one :user, dependent: :destroy
+    has_one :user, foreign_key: :user_id, dependent: :destroy
 end

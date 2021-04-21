@@ -10,5 +10,5 @@
 #  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
 #
 class Admin < ApplicationRecord
-  has_one :user, dependent: :destroy
+  has_one :user, foreign_key: :user_id, dependent: :destroy
 end

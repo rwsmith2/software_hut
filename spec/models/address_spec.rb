@@ -6,7 +6,7 @@
 #  country    :string           not null
 #  house_name :string           not null
 #  postcode   :string           not null
-#  vendor_id  :integer
+#  vendor_id  :integer          not null, primary key
 #
 # Foreign Keys
 #
