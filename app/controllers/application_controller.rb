@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
 
   # Ensure that CanCanCan is correctly configured
   # and authorising actions on each controller

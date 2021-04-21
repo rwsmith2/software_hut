@@ -1,2 +1,2 @@
 - given_tasks.each do |given_task|
-  = link_to given_task.given_task_id, fetch_given_task_path(given_task_id: given_task.given_task_id), remote: true, class: "list-group-item list-group-item-action", type: "button"
+  = link_to (given_task.given_task_id.to_s + " - " + given_task.task_title), fetch_given_task_path(given_task_id: given_task.given_task_id), remote: true, class: "list-group-item list-group-item-action", type: "button"

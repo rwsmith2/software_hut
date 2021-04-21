@@ -7,7 +7,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @pagy, @tasks = pagy(Task.all, items: 10)
     @task = Task.new
     @assessments = Assessment.all.select("assessment_id, assessment_title")
     #User .build_attribute_name, as it is a has_one association
@@ -19,7 +19,7 @@ class TasksController < ApplicationController
   end
 
   def search
-    @tasks = Task.where("task_title LIKE ?","%#{params[:search][:task_title]}%")
+    @pagy, @tasks = pagy(Task.where("task_title LIKE ?","%#{params[:search][:task_title]}%"), items: 10)
     puts(@tasks.inspect)
     render 'search_refresh'
     # respond_to do |format|
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
         @task.assessment_linker.destroy
       end
       if(@task.update_attribute(:task_title, task_params[:task_title]) || @task.update_attribute(:task_description, task_params[:task_description]) || @task.update_attribute(:estimation, task_params[:estimation]))
-        @tasks = Task.all
+        @pagy, @tasks = pagy(Task.all, items: 10)
         render 'update_success'
       else
         render 'update_failure'
@@ -87,7 +87,7 @@ class TasksController < ApplicationController
     else
       puts("update with assessment")
       if @task.update(task_params)
-        @tasks = Task.all
+        @pagy, @tasks = pagy(Task.all, items: 10)
         render 'update_success'
       else
         render 'update_failure'

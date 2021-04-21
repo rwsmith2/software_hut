@@ -11,23 +11,26 @@
           = f.button :submit, 'Search', class: 'btn btn-outline-primary'
           = link_to 'Reset', admin_tasks_path
     .card-body.p-0.d-flex
-      #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
-        = render partial: 'tasks_list', locals: {tasks: @tasks}
-          
-        %nav.mt-2{"aria-label" => "Page navigation"}
-          %ul.pagination.justify-content-center
-            %li.page-item.disabled
-              %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
-                %span{"aria-hidden" => "true"} «
-            %li.page-item.active
-              %button.page-link 1
-            %li.page-item
-              %button.page-link 2
-            %li.page-item
-              %button.page-link 3
-            %li.page-item
-              %button.page-link{"aria-label" => "Next"}
-                %span{"aria-hidden" => "true"} »
+      .w-50.p-3.d-flex.flex-column.justify-content-between.border-right
+        #task-list-panel
+          = render partial: 'tasks_list', locals: {tasks: @tasks}
+
+        .justify-content-center
+          = pagy_bootstrap_nav(@pagy).html_safe
+        -# %nav.mt-2{"aria-label" => "Page navigation"}
+        -#   %ul.pagination.justify-content-center
+        -#     %li.page-item.disabled
+        -#       %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+        -#         %span{"aria-hidden" => "true"} «
+        -#     %li.page-item.active
+        -#       %button.page-link 1
+        -#     %li.page-item
+        -#       %button.page-link 2
+        -#     %li.page-item
+        -#       %button.page-link 3
+        -#     %li.page-item
+        -#       %button.page-link{"aria-label" => "Next"}
+        -#         %span{"aria-hidden" => "true"} »
       #task_index
         = render partial: "show_task", locals: {task: @selected}
   #new-task-panel.card.m-2.w-50.h-100

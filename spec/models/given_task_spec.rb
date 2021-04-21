@@ -7,11 +7,12 @@
 #  repeatable    :integer          not null
 #  set_date      :date             not null
 #  given_task_id :integer          not null, primary key
-#  task_id       :bigint
+#  task_id       :integer
 #
-# Indexes
+# Foreign Keys
 #
-#  index_given_tasks_on_task_id  (task_id)
+#  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
+#  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
 #
 require 'rails_helper'
 

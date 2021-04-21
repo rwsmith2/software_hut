@@ -15,20 +15,21 @@
         #assessment-list.list-group.overflow-auto.p-1
           = render partial: 'assessment_list', locals: {assessments: @assessments}
           
-
-        %nav.mt-2{"aria-label" => "Page navigation"}
-          %ul.pagination.justify-content-center
-            %li.page-item.disabled
-              %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
-                %span{"aria-hidden" => "true"} «
-            %li.page-item.active
-              %button.page-link 1
-            %li.page-item
-              %button.page-link 2
-            %li.page-item
-              %button.page-link 3
-            %li.page-item
-              %button.page-link{"aria-label" => "Next"}
-                %span{"aria-hidden" => "true"} »
+        .justify-content-center
+          = pagy_bootstrap_nav(@pagy).html_safe
+        -# %nav.mt-2{"aria-label" => "Page navigation"}
+        -#   %ul.pagination.justify-content-center
+        -#     %li.page-item.disabled
+        -#       %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
+        -#         %span{"aria-hidden" => "true"} «
+        -#     %li.page-item.active
+        -#       %button.page-link 1
+        -#     %li.page-item
+        -#       %button.page-link 2
+        -#     %li.page-item
+        -#       %button.page-link 3
+        -#     %li.page-item
+        -#       %button.page-link{"aria-label" => "Next"}
+        -#         %span{"aria-hidden" => "true"} »
       #admin_index
         = render partial: "show_assessment", locals: {assessment: @selected}

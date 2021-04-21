@@ -36,7 +36,7 @@ class Ability
     if user.is_admin?
       can [:read, :update, :create, :destroy, :edit, :select_assessment, :search], Assessment
       can [:read, :update, :create, :destroy, :edit ,:select_task, :search], Task
-      can [:read, :new, :create, :select_given_task, :destroy], GivenTask
+      can [:read, :new, :create, :select_given_task, :destroy, :edit, :update, :search], GivenTask
       can [:read, :new, :create, :update, :edit, :show], Vendor
     else
       can [:read, :select_task], Task

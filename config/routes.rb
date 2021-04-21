@@ -82,6 +82,10 @@ Rails.application.routes.draw do
   resources :assessments do
     post :search, on: :collection
   end
+
+  resources :given_tasks do
+    post :search, on: :collection
+  end
   resources :questions
 
   resources :request do

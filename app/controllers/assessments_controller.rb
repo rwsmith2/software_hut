@@ -5,7 +5,7 @@ class AssessmentsController < ApplicationController
   before_action :set_assessment_destroy_edit, only: [:destroy, :edit ,:update]
 
   def index 
-    @assessments = Assessment.all
+    @pagy, @assessments = pagy(Assessment.all, items: 10)
     @answers = Answer.where("question_id=2")
     #@vendor_answers = VendorAnswer.new(vendor_answers_params)
     #@vendor_answer = Answer.all
@@ -24,7 +24,7 @@ class AssessmentsController < ApplicationController
   end
 
   def admin_index
-    @assessments = Assessment.all
+    @pagy, @assessments = pagy(Assessment.all, items: 10)
     @assessment = Assessment.first
     @selected= Assessment.first
   end
@@ -35,7 +35,7 @@ class AssessmentsController < ApplicationController
   end
 
   def search
-    @assessments = Assessment.where("assessment_title LIKE ?","%#{params[:search][:assessment_title]}%")
+    @pagy, @assessments = pagy(Assessment.where("assessment_title LIKE ?","%#{params[:search][:assessment_title]}%"), items:10)
     render 'search_refresh'
   end
 

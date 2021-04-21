@@ -12,20 +12,21 @@
         = given_task.set_date
       %p 
         %span.font-weight-bold> Priority:&nbsp;
-        = given_task.priority
+        = GivenTask.priorityIntToString(given_task.priority)
       - if given_task.repeatable != 0
         %p 
-          %span.font-weight-bold> Repeat every:&nbsp;
-          = given_task.repeatable
+          %span.font-weight-bold> Repeat:&nbsp;
+          = ("Repeats every " + given_task.repeatable.to_s + " days")
       - if given_task.assignments != nil
         %p
           %span.font-weight-bold> Assignments:&nbsp;
-          %br
-          %ol.list-group.list-group-flush
-          - given_task.assignments.each do |assignment|
-            %li.list-group-item= assignment.vendor_id
+          = (given_task.assignments.count.to_s + " vendors assigned")
+          -# %br
+          -# %ol.list-group.list-group-flush
+          -# - given_task.assignments.each do |assignment|
+          -#   %li.list-group-item= assignment.vendor_id
 
 
-    -# .d-flex.flex-row.mt-3
-    -#   = link_to 'Destroy', given_task, method: :delete, data:{ confirm: 'Are you sure, assignments will be effected?'}, class: "btn btn-danger mx-1.w-25", type: "button"
-    -#   = link_to 'Edit', edit_given_task_path(given_task), class: "btn btn-outline-secondary mx-1.w-25", type: "button"
+    .d-flex.flex-row.mt-3
+      = link_to 'Destroy', given_task, method: :delete, data:{ confirm: 'Are you sure, assignments will be effected?'}, class: "btn btn-danger mx-1.w-25", type: "button"
+      = link_to 'Edit', edit_given_task_path(given_task), class: "btn btn-outline-secondary mx-1.w-25 ajax-modal", type: "button"

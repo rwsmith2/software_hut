@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def nav_link_to(current_identifier, *args, &block)
     arg_id = block_given? ? 1 : 2
     identifier = args[arg_id].delete(:identifier)
