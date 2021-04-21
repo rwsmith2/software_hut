@@ -1,12 +1,13 @@
 #new-task-panel.card.m-2.w-100.h-100
-    = simple_form_for @vendorSelected do |f|
+    = simple_form_for @vendorSelected, url: admin_path(@vendorSelected) do |f|
 
         = f.error_notification
         = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
         
         .card-header.d-flex.justify-content-between.align-items-center.form-inputs
-        %h5.m-0 Vendor Settings 
+
+        %h5.m-2 Vendor Settings 
 
         .card-body
 
@@ -37,11 +38,12 @@
                 %label.col-sm-2.col-form-label{:for => "kpi"} KPI
                 .col-sm-3
                     = f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, placeholder: "KPI"  
-            .row.mb-2
+            .row.mb-5
                 %label.col-sm-2.col-form-label{:for => "riskRating"} Risk Rating
                 .col-sm-3
                     = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, placeholder: "Risk Rating"  
-            .row.mb-2
-                .col-sm-3
-                    = f.submit "Update"
+            .flex-row
+                = f.submit "Update" , class: "btn btn-primary"
+                = link_to 'Back ', :back, class: "btn btn-primary"
+                = link_to "Delete", @vendorSelected , class: "btn btn-danger", :confirm => "Are you sure you want to delete this vendor?" , type: "button" , :method => :delete
 

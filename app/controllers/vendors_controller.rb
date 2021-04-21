@@ -17,7 +17,13 @@ class VendorsController < ApplicationController
     end
 
     def edit
+    end
 
+    def destroy
+      @vendor = Vendor.find(v_params[:vendor_id])
+      puts "vendor" + @vendor.company_name
+      @vendor.destroy
+      flash.alert = 'Post was successfully destroyed.'
     end
 
     def update
@@ -40,8 +46,11 @@ class VendorsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def vendor_params
       params.require(:user).permit(:user_name, :email, :user_id)
-      #params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating)
       #Registration doesn't add stuff to vendor table yet, need to add this still
       #params.require(:vendor).permit(:company_name, :company_number,:vendor_id, user_attributes: [:user_name, :email, :user_id])
+    end
+
+    def v_params
+      params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating, user_attributes: [:user_name, :email, :user_id])
     end
 end

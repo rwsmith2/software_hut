@@ -47,10 +47,11 @@ class AdminsController < ApplicationController
     end
 
     def update
-      if @user.update(admin_params)
-        redirect_to edit_admin_path, notice: 'Admin settings where successfully updated.'
+      @vendorSelected = Vendor.find(params[:id])
+      if @vendorSelected.update_attributes(admin_params)
+        redirect_to admin_management_path, notice: 'Admin settings where successfully updated.'
       else
-        render :edit
+        render :admin_admin_edit_path
       end
     end
   
@@ -75,7 +76,7 @@ class AdminsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def admin_params
-      params.require(:user).permit(:user_name, :email)
+      params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating)
     end
     
   end
