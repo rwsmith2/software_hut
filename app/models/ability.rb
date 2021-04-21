@@ -37,6 +37,7 @@ class Ability
       can [:read, :update, :create, :destroy, :edit, :select_assessment, :search], Assessment
       can [:read, :update, :create, :destroy, :edit ,:select_task, :search], Task
       can [:read, :new, :create, :select_given_task, :destroy], GivenTask
+      can [:read, :new, :create, :update, :edit, :show], Vendor
     else
       can [:read, :select_task], Task
       can [:read, :select_assessment], Assessment

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Xuan525 2104201
+
+# This is a hack of Email Preview for WSL2
+# Please make a copy of this file as "launch_browser_wsl"
+# run command "chmod +x launch_browser_wsl" to give this file execute permission
+# Uncomment the corresponding line in config/boot.rb
+# Change the following as required
+browser_path='/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'
+wsl2_ver='Ubuntu-18.04'
+
+
+
+url=$1
+echo $url
+new_url='file:////wsl%24/'$wsl2_ver'/'${url: 9}
+echo $new_url
+
+"$browser_path" $new_url

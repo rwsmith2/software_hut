@@ -32,11 +32,7 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
     
-  has_one :address, dependent: :destroy
   belongs_to :admin, optional: true
   belongs_to :vendor, optional: true
   accepts_nested_attributes_for :vendor, allow_destroy: true
-
-
-  
 end

@@ -7,13 +7,19 @@ class AssessmentsController < ApplicationController
   def index 
     @assessments = Assessment.all
     @answers = Answer.where("question_id=2")
-    @vendor_answers = VendorAnswer.new(vendor_answers_params)
+    #@vendor_answers = VendorAnswer.new(vendor_answers_params)
     #@vendor_answer = Answer.all
   end
+
+  def questions
+    @questions = Question.all
+  end
+  
 
   def new 
     @assessment = Assessment.new
     @vendor_answers = VendorAnswer.new
+    @question = Question.new
     @assessment.questions.build.answers.build
   end
 
@@ -98,6 +104,10 @@ class AssessmentsController < ApplicationController
 
   def vendor_answers_params
     params.fetch(:vendor_answer, {}).permit(:given_task_id, :answer_id, answers_attributes: [:answer_id, :answer_text])
+  end
+
+  def questions_params
+    params.fetch(:question, {}).permit(:question_id, :question_text, :assessment_id)
   end
 
 end

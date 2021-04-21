@@ -7,7 +7,10 @@ class AdminsController < ApplicationController
     def index
       @current_nav_identifier = :index
       @user = current_user
-      @vendorTask = GivenTask.all
+      
+      @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
+      
+      @tasks = @joined.order(params[:sort])
 
       render :index
     end
@@ -27,17 +30,12 @@ class AdminsController < ApplicationController
     end
 
     def edit_vendor
+      @vendorSelected = Vendor.find(params[:vendor_id])
+
+      @user = User.find_by(user_id: @vendorSelected.user_id)
       render :admin_edit
     end
  
-    # def update
-    #   if @user.update(product_params)
-    #     redirect_to edit_admins_path, notice: 'Settings were successfully updated.'
-    #   else
-    #     render :edit
-    #   end
-    # end
-
     def create
       @task = Task.new(admin_id: current_user)
   
@@ -49,10 +47,11 @@ class AdminsController < ApplicationController
     end
 
     def update
-      if @user.update(admin_params)
-        redirect_to edit_admin_path, notice: 'Admin settings where successfully updated.'
+      @vendorSelected = Vendor.find(params[:id])
+      if @vendorSelected.update_attributes(admin_params)
+        redirect_to admin_management_path, notice: 'Admin settings where successfully updated.'
       else
-        render :edit
+        render :admin_admin_edit_path
       end
     end
   
@@ -77,7 +76,8 @@ class AdminsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def admin_params
-      params.require(:user).permit(:user_name, :email)
+      params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating)
     end
+    
   end
   

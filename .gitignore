@@ -47,3 +47,6 @@ vendor/webdrivers
 # Don't version node/npm modules
 node_modules/
 package-lock.json
+
+# Email preview hack for wsl2
+launch_browser_wsl

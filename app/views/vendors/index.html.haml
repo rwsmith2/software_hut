@@ -27,13 +27,14 @@
                 %th Due Date
                 %th Link
                 
-            /-@vendorTask.each do |vtask|
-            /%tr
-            /-@task = Task.find_by(task_id: vtask.task_id)
-            /%td= @task.task_title
-            /%td= @task.task_description
-            /%td= vtask.set_date
-            /%td= vtask.due_date
+            -@tasks.each do |givenTask|
+                %tr
+                    -@task = Task.find_by(task_id: givenTask.task_id)
+                    %td= @task.task_title
+                    %td= @task.task_description
+                    %td= givenTask.set_date
+                    %td= givenTask.due_date
+                    
 
             
 
