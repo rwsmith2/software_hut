@@ -1,0 +1,50 @@
+.overflow-auto
+  %p
+    %span.font-weight-bold> Email: 
+    = user_patch.email
+  %p
+    %span.font-weight-bold> Company name: 
+    = vendor.company_name
+  %p
+    %span.font-weight-bold> Address: 
+    = vendor.address.house_name
+  %p
+    %span.font-weight-bold> City/Town: 
+    = vendor.address.city_town
+  %p
+    %span.font-weight-bold> Postcode: 
+    = vendor.address.postcode
+  %p
+    %span.font-weight-bold Country/Region: 
+    = vendor.address.country
+.d-flex.flex-row-reverse.mt-3
+  = link_to 'Accept', accept_request_path(vendor: vendor), class: "btn btn-primary mx-1 w-25", type: "button"
+  = link_to 'Reject', reject_request_path(vendor: vendor), class: "btn btn-danger mx-1 w-25", type: "button"
+  -# %button.btn.btn-primary.mx-1.w-25{:type => "button"}
+  -#   Accept
+
+
+-# .overflow-auto
+  
+-#   %p
+-#     %span.font-weight-bold> Task ID:&nbsp;
+-#     = task.task_id 
+-#   %p
+-#     %span.font-weight-bold> Name:&nbsp;
+-#     = task.task_title
+-#   %p
+-#     %span.font-weight-bold> Task Description:&nbsp;
+-#     = task.task_description
+-#   %p
+-#     %span.font-weight-bold> Time Estimation:&nbsp;
+-#     = task.estimation.to_s + " minutes"
+-#   - if task.assessment_linker != nil
+-#     %p
+-#       %span.font-weight-bold> Assessment:&nbsp;
+-#       = task.assessment_linker.assessment.assessment_title
+  
+
+-# .d-flex.flex-row.mt-3
+-#   = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure, assigned tasks will be effected?' }, class: "btn btn-danger", type: "button"
+-#   = link_to 'Edit', edit_task_path(task), class: "ajax-modal btn btn-outline-secondary", type: "button"
+-#   = link_to 'Assign', new_task_given_task_path(task), class: "ajax-modal btn btn-outline-primary", type: "button"
