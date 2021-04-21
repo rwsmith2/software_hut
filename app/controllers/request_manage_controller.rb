@@ -14,9 +14,6 @@ class RequestManageController < ApplicationController
     def select_request
       @vendor = Vendor.find(params[:vendor_id])
 
-      # TODO: Quick patch of ApplicationRecord relation error
-      @user_patch = User.find(@vendor.user_id)
-
       respond_to do |format|
         format.js
       end
@@ -25,15 +22,14 @@ class RequestManageController < ApplicationController
     def accept_request
       @vendor = Vendor.find(params[:vendor])
       @vendor.validated = true
-      @user = User.find(@vendor.user_id)
 
       name = @vendor.company_name
-      email = @user.email
+      email = @vendor.user.email
 
       password = SecureRandom.hex(8)
-      @user.password = password
+      @vendor.user.password = password
       
-      if @vendor.save && @user.save
+      if @vendor.save && @vendor.user.save
         RequestMailer.with(email: email, name: name, password: password).accepted_email.deliver_now
 
         redirect_to '/request_manage', notice: 'Request was successfully accepted'
@@ -44,14 +40,11 @@ class RequestManageController < ApplicationController
 
     def reject_request
       @vendor = Vendor.find(params[:vendor])
-      @user = User.find(@vendor.user_id)
       
       name = @vendor.company_name
-      email = @user.email
+      email = @vendor.user.email
 
-      # TODO: ERROR: column addresses.user_id does not exist
-
-      if @user.destroy
+      if @vendor.destroy
         RequestMailer.with(email: email, name: name).rejected_email.deliver_now
 
         redirect_to '/request_manage', notice: 'Request was successfully rejected'
