@@ -5,7 +5,7 @@
   .card-header
     Assessment page - Triage
   .card-body
-
+    -# display the very first checkboxes
     = simple_form_for VendorAnswer.new do |f|
       %ul.pagination.justify-content-center
         %li
@@ -15,15 +15,9 @@
               = ans.answer_text
               %br
             %br
-
+      -# uploading files
       %ul.pagination.justify-content-center
         %li 
-          -# .input-group.mb-3
-          -#   .input-group-prepend
-          -#     %span#inputGroupFileAddon01.input-group-text Upload
-          -#   .custom-file
-          -#     %input#inputGroupFile01.custom-file-input{"aria-describedby" => "inputGroupFileAddon01", type: "file"}/
-          -#     %label.custom-file-label{for: "inputGroupFile01"} isocertificate.pdf
           = f.label "Upload your certificates: ", :style => "font-weight:bold" 
           %br
           %br
@@ -31,7 +25,6 @@
           %br
           %br 
           = f.file_field :image
-          /= f.input :image, label: "ss"
           %br
           %br
           %br
@@ -43,18 +36,5 @@
         .d-flex.flex-row-reverse
           = f.submit  "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
           = f.submit  "Save", class: 'btn btn-outline-primary', :disabled => 'disabled'
-          /%input{:type=>"submit",:value=>"Save"}
       %nav.mt-2{"aria-label" => "Page navigation"}
-        %ul.pagination.justify-content-center
-          %li.page-item.disabled
-            %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
-              %span{"aria-hidden" => "true"} «
-          %li.page-item.active
-            = link_to '1', assessments_index_path, class: "btn page-link", type: "button"
-          %li.page-item
-            = link_to '2', assessments_questions_path, class: "btn page-link", type: "button"
-          %li.page-item
-            = link_to '3', assessments_index_path, class: "btn page-link", type: "button"
-          %li.page-item
-            %button.page-link{"aria-label" => "Next", :disabled => 'disabled'}
-              %span{"aria-hidden" => "true"} »
+        = link_to 'Go to the questions page', assessments_questions_path, class: "btn page-link", type: "button"

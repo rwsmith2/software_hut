@@ -1,8 +1,10 @@
 class AssessmentsController < ApplicationController
+  include Pagy::Backend
   before_action :authenticate_user!
   
   before_action :set_assessment, only: [:_edit_question, :select_assessment]
   before_action :set_assessment_destroy_edit, only: [:destroy, :edit ,:update]
+
 
   def index 
     @pagy, @assessments = pagy(Assessment.all, items: 10)
@@ -12,7 +14,7 @@ class AssessmentsController < ApplicationController
   end
 
   def questions
-    @questions = Question.all
+    @page, @questions = pagy(Question.all, items: 5)
   end
   
 

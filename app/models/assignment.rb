@@ -9,8 +9,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (given_task_id => given_tasks.given_task_id) ON DELETE => cascade
-#  fk_rails_...  (vendor_id => vendors.vendor_id) ON DELETE => cascade
+#  given_task_id  (given_task_id => given_tasks.given_task_id) ON DELETE => cascade
+#  vendor_id      (vendor_id => vendors.vendor_id) ON DELETE => cascade
 #
 class Assignment < ApplicationRecord
   has_many :vendor_answers,  dependent: :destroy

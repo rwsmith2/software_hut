@@ -11,8 +11,8 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
-#  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
+#  task_id  (task_id => tasks.task_id) ON DELETE => cascade
+#  task_id  (task_id => tasks.task_id) ON DELETE => cascade
 #
 require 'rails_helper'
 

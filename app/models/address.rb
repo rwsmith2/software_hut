@@ -6,11 +6,11 @@
 #  country    :string           not null
 #  house_name :string           not null
 #  postcode   :string           not null
-#  vendor_id  :integer          not null, primary key
+#  vendor_id  :integer
 #
 # Foreign Keys
 #
-#  fk_rails_...  (vendor_id => vendors.vendor_id) ON DELETE => cascade
+#  vendor_id  (vendor_id => vendors.vendor_id) ON DELETE => cascade
 #
 class Address < ApplicationRecord
 end

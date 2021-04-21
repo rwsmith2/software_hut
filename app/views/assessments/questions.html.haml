@@ -5,6 +5,7 @@
   .card-header
     Assessment page - Triage
   .card-body
+    -# this form is to display the assessment questions and answers
     = simple_form_for VendorAnswer.new do |f|
       - if @questions != nil
         %table.table
@@ -19,64 +20,15 @@
                     %td
                       %input{ type: "radio"}
                       = ans.answer_text
-                      
-            -# - i = 1
-            -# - @questions.each do |que|
-            -#   %th= que.question_text
-            -#   - if i != @questions.count
-            -#     - @questionId = @questions[i-1].question_id
-            -#     %th= @questions[i].question_text
-            -#     - i += 1
-            -#   - @answers1 = Answer.where(question_id: que.question_id)
-            -#   - @answers2 = Answer.where(question_id: @questionId).to_a
-            -#   - if @answers2.count > 1
-            -#     - puts "am here",  @answers2[1].answer_text
-            -#   - j = 0
-            -#   - @answers1.each do |ans|
-            -#     %tr
-            -#       %td
-            -#         %input{ type: "radio"}
-            -#         = ans.answer_text
-            -#       %td
-            -#         %input{ type: "radio"}
-            -#         = @answers2[j].answer_text
-            -#     - j += 1
-                  
-            
-              /%td{style: "display: block"}= f.text_area :answers, :rows => 5, :cols => 60
 
-          -#   %thead
-          -#   %tr.active 
-          -#     %th Question 3
-          -#     %th Question 4
-          -# %tbody         
-          -#   %tr
-          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 3'  
-          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 4'  
-          -#   %thead
-          -#   %tr.active 
-          -#     %th Question 3
-          -#     %th Question 4
-          -# %tbody         
-          -#   %tr
-          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 5'  
-          -#     %td= f.text_area :answers, :rows => 5, :cols => 60, placeholder: 'answer 6'  
       %ul.pagination.justify-content-center
-        %li.page-item.disabled
-          %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
-            %span{"aria-hidden" => "true"} «
-        %li.page-item
-          = link_to '1', assessments_index_path, class: "btn page-link", type: "button"
-        %li.page-item.active
-          = link_to '2', assessments_questions_path, class: "btn page-link", type: "button"
-        %li.page-item
-          = link_to '3', assessments_questions_path, class: "btn page-link", type: "button"
-        %li.page-item
-          %button.page-link{"aria-label" => "Next"}
-            %span{"aria-hidden" => "true"} »
-        %br
+        = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
         %li 
-          = f.button :submit, "Save", class: 'btn btn-outline-primary'
-          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
+          = f.button :submit, "Save", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          
+      %nav.mt-2{"aria-label" => "Page navigation"}
+        = link_to 'Back to main assessment page', assessments_index_path, class: "btn page-link", type: "button"
+
           

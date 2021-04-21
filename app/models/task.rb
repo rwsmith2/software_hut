@@ -10,7 +10,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.user_id)
+#  user_id  (user_id => users.user_id)
 #
 class Task < ApplicationRecord
     has_one :assessment_linker,  dependent: :destroy
