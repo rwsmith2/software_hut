@@ -12,6 +12,8 @@ $(document).ready(function() {
   });
 });
 
+
+
 // $(document).ready(function() {
 //   $("#show_assessment").html("<%= escape_javascript(= render partial: 'show_assessment', locals: { assessment: @selected } ) %>"); 
 // });

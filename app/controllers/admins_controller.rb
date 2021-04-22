@@ -9,8 +9,7 @@ class AdminsController < ApplicationController
       @user = current_user
       
       @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
-      
-      @tasks = @joined.order(params[:sort])
+      @pagy, @tasks = pagy(@joined.order(params[:sort]), items: 10)
 
       render :index
     end

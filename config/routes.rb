@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
   get "fetch_given_task", to: "given_tasks#select_given_task"
 
+  get "sort_tasks", to: 'tasks#order_tasks'
+
   get "assessments/questions", to: "assessments#questions"
 
   get "assessments/index", to: "assessments#index"

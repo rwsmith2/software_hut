@@ -4,7 +4,6 @@ class GivenTasksController < ApplicationController
 
   def index
     @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.select("given_task_id, task_title"), items: 10)
-    puts(@given_tasks.inspect)
     #@given_tasks = GivenTask.all.select("given_task_id, task_title")
     @selected = GivenTask.first
   end
@@ -27,10 +26,13 @@ class GivenTasksController < ApplicationController
     if @given_task.update(given_task_params)
       @given_task.update(priority: GivenTask.priorityStringToInt(given_task_params[:priority]))
       @given_task = GivenTask.joins(:task).all.select("given_task_id, task_title")
-      redirect_to admin_assessments_path, notice: 'Assessment was successfully updated.'
+      @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.select("given_task_id, task_title"), items: 10)
+      render 'given_task_success_update'
+      #redirect_to admin_assessments_path, notice: 'Assessment was successfully updated.'
     else
       puts(@given_task.errors.full_messages)
-      render :edit
+      render 'given_task_failure'
+      #render :edit
     end
   end
 
@@ -71,9 +73,10 @@ class GivenTasksController < ApplicationController
     @given_task.repeatable = GivenTask.ifEmptyRepeatableSetTo0(given_task_params[:repeatable].to_i)
     puts(@given_task.repeatable)
     if @given_task.save
-      redirect_to admin_assessments_path, notice: 'Task was successfully assigned'
+      render 'given_task_success_create'
+      #redirect_to admin_assessments_path, notice: 'Task was successfully assigned'
     else
-      render :new
+      render 'given_task_failure'
     end
   end
 

@@ -10,7 +10,7 @@
     = favicon_link_tag '/favicon.ico'
     = csrf_meta_tags
 
-  %body{ class: environment_notice_body_class }
+  %body{ class: environment_notice_body_class, style: "overflow-y: hidden;" }
     = render 'layouts/environment_notice'
     .flash-messages
       - flash.each do |name, msg|
@@ -25,15 +25,16 @@
             %a{ href: '#', title: 'Hide this message', data: { dismiss: :alert } } Dismiss
 
     #wrap
-      %header
+      %header{style: "position: fixed, left: 0, right: 0, top: 0;"}
         %nav#main-nav.navbar.navbar-dark.bg-dark.navbar-expand-lg.fixed-top
           .navbar-header
             = link_to :root, class: 'navbar-brand hidden-sm d-flex' do
-              %img{:src => "https://www.sheffield.ac.uk/themes/custom/uos/images/uos-crest.svg", :height => '60em'}
-              .ml-2.align-self-center
-                Vendor Management
-                %br
-                Self-Service Platform
+              %img{:src => "https://www.nicepng.com/png/full/141-1415001_university-of-sheffield-university-of-sheffield-logo-white.png", :height => '60em'}
+              //%img{:src => "https://www.sheffield.ac.uk/themes/custom/uos/images/uos-crest.svg", :height => '60em'}
+              -# .ml-2.align-self-center
+              -#   Vendor Management
+              -#   %br
+              -#   Self-Service Platform
 
           - if @current_nav_identifier != :login
             .container.mx-2
@@ -102,7 +103,7 @@
               -#         = link_to destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system" do
               -#           = icon 'fas', 'sign-out-alt', 'Log out'
 
-      %main
+      %main{style: "padding-top: 20px;"}
         #main-container.container
           = yield
 

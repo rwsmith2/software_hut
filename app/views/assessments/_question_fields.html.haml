@@ -1,31 +1,15 @@
--# %fieldset.nested-fields
--#   %li.list-group-item.create_answers
--#     = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Question"
--#     .row 
--#       #add_new_answer= link_to_add_association "Add Answer", f, :answers, class: 'btn btn-primary add_answer_button', data: {association_insertion_node: '.create_answers', association_insertion_method: :append }
-
--#     //= render "edit_question", f: f
--#     .row
--#       .input-group.mb-3.input_fields_wrap.add_answer_form
--#         = f.simple_fields_for :answers do |answer|
--#           =render "answer_fields", f: answer
--#       //= link_to 'Edit Question',admin_assessments_edit_question_path(@assessment), class: 'ajax-modal'
-
-    
--#   %div
--#   = link_to_remove_association "Remove Question", f, class: 'btn btn-danger btn-xs'
-
 .nested-fields
   %li.list-group-item
-    = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Question"
-
-  = link_to_remove_association "remove question", f, class: 'btn btn-danger btn-xs'
-
-  .row
-    .col-lg-12
-      .add_answer= link_to_add_association 'Add Answer', f, :answers, class: 'btn btn-primary add_answer_button'
-  .row.input-group.mb-3
-    .col-lg-12
-      .answer_form
-        = f.simple_fields_for :answers do |answer_form|
-          = render 'answer_fields', f: answer_form
+    .container
+      .row.mb-1.d-flex.justify-content-between.align-items-center
+        .col-xl
+          = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Question"
+        .col-sm
+          = link_to_remove_association "Remove Question", f, class: 'btn btn-outline-danger btn-xs'
+      .row.input-group.mb-3
+        .col.col-lg-12
+          .add_answer.answer_form
+            = f.simple_fields_for :answers do |answer_form|
+              = render 'answer_fields', f: answer_form
+      .row
+        = link_to_add_association 'Add Answer', f, :answers, class: 'btn btn-outline-secondary add_answer_button '

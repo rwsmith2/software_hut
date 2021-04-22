@@ -1,5 +1,5 @@
 - content_for :title, "Admin Home"
-.card
+.card{style: "padding-top: 10px;"}
   .card-header
     %h3.panel-title Admin Dashboard
   .card-body
@@ -18,6 +18,13 @@
               %a.nav-link= link_to "Priority Ascending" , :sort => "priotity"
               %a.nav-link= link_to "Vendor Risk Tasks Descending", :sort => "priotity"
               %a.nav-link= link_to "Recently Completed" , :sort => "priotity"
+              -# %a.nav-link= link_to "All Tasks"
+              -# %a.nav-link= link_to "Upcoming Tasks" , :sort => "due_date"
+              -# %a.nav-link= link_to "Overdue Tasks" , :sort => "due_date"
+              -# %a.nav-link= link_to "Priority Descending" , :sort => "priotity"
+              -# %a.nav-link= link_to "Priority Ascending" , :sort => "priotity"
+              -# %a.nav-link= link_to "Vendor Risk Tasks Descending", :sort => "priotity"
+              -# %a.nav-link= link_to "Recently Completed" , :sort => "priotity"
       //Second Column, containing the task dashboard table  
       .col-8
         %table.table.table-striped.table-bordered.table-hover
@@ -35,23 +42,24 @@
                 -@task = Task.find_by(task_id: giventask.task_id)
                 -@vendor = Vendor.find_by(vendor_id: giventask.vendor_id)
                 %td= @vendor.company_name
-                %td= giventask.priority 
+                %td= GivenTask.priorityIntToString(giventask.priority)
                 %td= giventask.due_date
                 %td= @task.task_title
 
-
-        %ul.pagination.justify-content-center
-          %li.page-item 
-            %a.page-link{:href => "#"} Prev
-          %li.page-item 
-            %a.page-link{:href => "#"} 1
-          %li.page-item  
-            %a.page-link{:href => "#"} 2
-          %li.page-item  
-            %a.page-link{:href => "#"} 3
-          %li.page-item  
-            %a.page-link{:href => "#"} 4
-          %li.page-item  
-            %a.page-link{:href => "#"} 5
-          %li.page-item  
-            %a.page-link{:href => "#"} Next
+        .justify-content-center
+          = pagy_bootstrap_nav(@pagy).html_safe
+        -# %ul.pagination.justify-content-center
+        -#   %li.page-item 
+        -#     %a.page-link{:href => "#"} Prev
+        -#   %li.page-item 
+        -#     %a.page-link{:href => "#"} 1
+        -#   %li.page-item  
+        -#     %a.page-link{:href => "#"} 2
+        -#   %li.page-item  
+        -#     %a.page-link{:href => "#"} 3
+        -#   %li.page-item  
+        -#     %a.page-link{:href => "#"} 4
+        -#   %li.page-item  
+        -#     %a.page-link{:href => "#"} 5
+        -#   %li.page-item  
+        -#     %a.page-link{:href => "#"} Next
