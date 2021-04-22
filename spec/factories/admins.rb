@@ -7,7 +7,7 @@
 #
 # Foreign Keys
 #
-#  user_id  (user_id => users.user_id) ON DELETE => cascade
+#  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
 #
 FactoryBot.define do
   factory :admin do

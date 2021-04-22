@@ -7,7 +7,7 @@
 #
 # Foreign Keys
 #
-#  user_id  (user_id => users.user_id) ON DELETE => cascade
+#  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
 #
 class Admin < ApplicationRecord
   has_one :user, foreign_key: :user_id, dependent: :destroy

@@ -11,13 +11,11 @@
             Sort By
           .card-body
             %nav.nav.flex-column.nav-fill.nav-pills
-              %a.nav-link= link_to "All Tasks"
-              %a.nav-link= link_to "Upcoming Tasks" , :sort => "due_date"
-              %a.nav-link= link_to "Overdue Tasks" , :sort => "due_date"
-              %a.nav-link= link_to "Priority Descending" , :sort => "priotity"
-              %a.nav-link= link_to "Priority Ascending" , :sort => "priotity"
-              %a.nav-link= link_to "Vendor Risk Tasks Descending", :sort => "priotity"
-              %a.nav-link= link_to "Recently Completed" , :sort => "priotity"
+              = link_to "All Tasks" 
+              = link_to "Due Date Ascending" , :sort => "due_date ASC"
+              = link_to "Due Date Descending" , :sort => "due_date DESC"
+              = link_to "Priority Ascending" , :sort => "priority ASC"
+              = link_to "Priority Descending" , :sort => "priority DESC"
       //Second Column, containing the task dashboard table  
       .col-8
         %table.table.table-striped.table-bordered.table-hover
@@ -30,13 +28,13 @@
 
             %tbody
 
-            -@tasks.each do |giventask|
+            -@tasks.each do |assignment|
               %tr
-                -@task = Task.find_by(task_id: giventask.task_id)
-                -@vendor = Vendor.find_by(vendor_id: giventask.vendor_id)
+                -@task = Task.find_by(task_id: assignment.task_id)
+                -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
                 %td= @vendor.company_name
-                %td= giventask.priority 
-                %td= giventask.due_date
+                %td= assignment.priority 
+                %td= assignment.due_date
                 %td= @task.task_title
 
 
