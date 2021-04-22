@@ -11,11 +11,11 @@
             Sort By
           .card-body
             %nav.nav.flex-column.nav-fill.nav-pills
-              = link_to "All Tasks" 
-              = link_to "Due Date Ascending" , :sort => "due_date ASC"
-              = link_to "Due Date Descending" , :sort => "due_date DESC"
-              = link_to "Priority Ascending" , :sort => "priority ASC"
-              = link_to "Priority Descending" , :sort => "priority DESC"
+              %a.nav-link= link_to "All Tasks" 
+              %a.nav-link= link_to "Due Date Ascending" , :sort => "due_date ASC"
+              %a.nav-link= link_to "Due Date Descending" , :sort => "due_date DESC"
+              %a.nav-link= link_to "Priority Ascending" , :sort => "priority ASC"
+              %a.nav-link= link_to "Priority Descending" , :sort => "priority DESC"
       //Second Column, containing the task dashboard table  
       .col-8
         %table.table.table-striped.table-bordered.table-hover
@@ -34,7 +34,7 @@
                 -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
                 %td= @vendor.company_name
 
-                %td= GivenTask.priorityIntToString(giventask.priority)
+                %td= GivenTask.priorityIntToString(assignment.priority)
                 %td= assignment.due_date
 
                 %td= @task.task_title
