@@ -9,7 +9,7 @@
 #
 # Foreign Keys
 #
-#  question_id  (question_id => questions.question_id) ON DELETE => cascade
+#  fk_rails_...  (question_id => questions.question_id) ON DELETE => cascade
 #
 require 'rails_helper'
 

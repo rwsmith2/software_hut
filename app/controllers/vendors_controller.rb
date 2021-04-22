@@ -10,7 +10,7 @@ class VendorsController < ApplicationController
       
       @tasks = @joined.where(vendor_id: @vendor.vendor_id).order(params[:sort])
 
-      
+      @assignmentsLeft = Assignment.where(vendor_id: @vendor.vendor_id, complete: false).count 
 
       render :index
 

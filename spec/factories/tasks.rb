@@ -10,7 +10,7 @@
 #
 # Foreign Keys
 #
-#  user_id  (user_id => users.user_id)
+#  fk_rails_...  (user_id => users.user_id)
 #
 FactoryBot.define do
   factory :task do

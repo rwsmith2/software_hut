@@ -10,7 +10,7 @@
 #
 # Foreign Keys
 #
-#  vendor_id  (vendor_id => vendors.vendor_id) ON DELETE => cascade
+#  fk_rails_...  (vendor_id => vendors.vendor_id) ON DELETE => cascade
 #
 class Address < ApplicationRecord
 end

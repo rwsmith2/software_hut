@@ -4,13 +4,13 @@
 #
 #  accepted               :boolean          default(FALSE)
 #  current_sign_in_at     :datetime
-#  current_sign_in_ip     :string
+#  current_sign_in_ip     :inet
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0), not null
 #  is_admin               :boolean
 #  last_sign_in_at        :datetime
-#  last_sign_in_ip        :string
+#  last_sign_in_ip        :inet
 #  locked_at              :datetime
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
