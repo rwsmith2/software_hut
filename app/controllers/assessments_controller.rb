@@ -9,13 +9,13 @@ class AssessmentsController < ApplicationController
   def index 
     @pagy, @assessments = pagy(Assessment.all, items: 10)
     @answers = Answer.where("question_id=2")
-    #@vendor_answers = VendorAnswer.new(vendor_answers_params)
-    #@vendor_answer = Answer.all
   end
 
   def questions
     # 4 is triage assessment
     @page, @questions = pagy(Question.where("assessment_id=4"), items: 3)
+    @question = Question.all
+    @questionsCoun = @question.count/3
   end
   
 
