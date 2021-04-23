@@ -50,7 +50,7 @@
                     = navbar_link_to admin_tasks_path, title: "Go to the task management page", identifier: :admin_tasks do
                       = icon 'fas', 'tasks'
                       Tasks
-                    = navbar_link_to admin_management_path, title: "Go to the vender management page", identifier: :admin_venders do
+                    = navbar_link_to admin_management_path, title: "Go to the vendor management page", identifier: :admin_venders do
                       = icon 'fas', 'user-circle'
                       Vendors
                     = navbar_link_to admin_assessments_path, title: "Go to the assessment management page", identifier: :vender_tasks do
@@ -59,7 +59,7 @@
                     = navbar_link_to given_tasks_path, title: "Go to the given task management page" do
                       = icon 'fas', 'calendar-alt'
                       Given Tasks Page
-
+                  
                     = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
                       Settings
@@ -67,6 +67,7 @@
                     -#   = icon 'fas', 'cogs'
                     -#   Settings
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
+                      = icon 'fas', 'user'
                       Log out
                   -# vender nav
                   - if user_signed_in? && !current_user.is_admin?
@@ -76,13 +77,18 @@
                     = navbar_link_to assessments_index_path, title: "Go to the vender tasks page", identifier: :vender_tasks do
                       = icon 'fas', 'tasks'
                       Assesment Page
+                    = navbar_link_to completedtasks_index_path, title: "Go to completed tasks page", identifier: :completed_tasks do
+                      = icon 'fas', 'tasks'
+                      Completed Tasks
                     = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
                       Settings
+                    
                     -# = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
                     -#   = icon 'fas', 'cogs'
                     -#   Settings
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
+                      = icon 'fas', 'user'
                       Log out
 
           -# login nav button
