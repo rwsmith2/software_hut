@@ -9,13 +9,34 @@
     = simple_form_for VendorAnswer.new do |f|
       %ul.pagination.justify-content-center
         %li
+          - key = 1;
           - if @answers != nil
             - @answers.each do |ans|
-              = f.check_box :answer_id, :checked => true
+              = f.check_box :answer_id, :checked => false, :id => "check #{key}"
+              - key += 1
               = ans.answer_text
               %br
             %br
       -# uploading files
+      /%button#btn Submit
+      -# %nav.mt-2{"aria-label" => "Page navigation"}
+      -#   = link_to 'checkbox', assessments_questions_path, class: "btn page-link", type: "button", :onclick => 
+      -#   :javascript
+      -#     document.getElementById('btn').onclick = function() {
+      -#       var markedCheckbox = document.getElementsByName('check1');
+      -#       for (var checkbox of markedCheckbox) {
+      -#         if (checkbox.checked)
+      -#           - puts checkbox.value
+      -#           console.log(checkbox.value + ' ');
+      -#           %nav.mt-2{"aria-label" => "Page navigation"}
+      -#             = link_to 'Go to the questions page', assessments_questions_path, class: "btn page-link", type: "button"
+      -#           if ($('checkbox.check1').is(':checked')) {
+      -#             console.log(checkbox.value)
+      -#             %nav.mt-2{"aria-label" => "Page navigation"}
+      -#               = link_to 'Go to the questions page', assessments_questions_path, class: "btn page-link", type: "button"
+      -#           }
+      -#       }
+        }
       %ul.pagination.justify-content-center
         %li 
           = f.label "Upload your certificates: ", :style => "font-weight:bold" 

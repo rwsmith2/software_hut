@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
   get "admin/given_tasks", to: "given_tasks#index"
 
+  get "vendor_answers", to: "assessments#index"
 
 
   get "admin/assessments", to: "assessments#admin_index"

@@ -14,7 +14,8 @@ class AssessmentsController < ApplicationController
   end
 
   def questions
-    @page, @questions = pagy(Question.all, items: 5)
+    # 4 is triage assessment
+    @page, @questions = pagy(Question.where("assessment_id=4"), items: 3)
   end
   
 
