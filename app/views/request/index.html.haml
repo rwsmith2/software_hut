@@ -6,23 +6,28 @@
 -#       $.flashAlert('Hello world!', 'alert-success')
 
 
-%div.d-flex.justify-content-center.align-items-center{:style => "height:80vh"}
+%div.d-flex.flex-column.justify-content-center.align-items-center{:style => "height:80vh"}
   .card.text-center{:style => "width:30em"}
     .card-header
       Request for a new account
 
     .card-bodys.m-4
-      = simple_form_for :create, url: request_path, method: :post do |f|
-        = f.input :email, label: 'Email', as: :email 
-        = f.input :name, label: 'Company name', as: :string 
-        = f.input :address, label: 'Address', as: :string 
+      - if @error_obj
+        - if @error_obj.errors.any?
+          - @error_obj.errors.full_messages.each do |message|
+            .alert.alert-danger{:role => "alert"}
+              = message
+      = simple_form_for :create, url: request_path, method: :post, html: { novalidate: false } do |f|
+        = f.input :email, label: 'Email', as: :email, input_html: { value: @email }
+        = f.input :name, label: 'Company name', as: :string, input_html: { value: @name }
+        = f.input :address, label: 'Address', as: :string, input_html: { value: @address }
         .form-row
           .col-md-6
-            = f.input :city, label: 'City/Town', as: :string 
+            = f.input :city, label: 'City/Town', as: :string, input_html: { value: @city }
           .col-md-6
-            = f.input :postcode, label: 'Postcode', as: :string 
-        = f.input :region, label: 'Country/Region', as: :string 
-        = f.input :terms, label: 'Agree to terms and conditions', as: :boolean 
+            = f.input :postcode, label: 'Postcode', as: :string, input_html: { value: @postcode }
+        = f.input :region, label: 'Country/Region', as: :string, input_html: { value: @region }
+        -# = f.input :terms, label: 'Agree to terms and conditions', as: :boolean 
         = f.submit 'Request', class: "btn btn-success w-100 mt-3"
     
       -# .btn-group.btn-group-toggle.mb-3.w-50{"data-toggle" => "buttons"}
