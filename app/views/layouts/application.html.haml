@@ -59,7 +59,10 @@
                     = navbar_link_to given_tasks_path, title: "Go to the given task management page" do
                       = icon 'fas', 'calendar-alt'
                       Given Tasks Page
-                  
+                    = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :admin_requests do
+                      = icon 'fas', 'file-invoice'
+                      Account Requests
+
                     = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
                       Settings

@@ -17,6 +17,7 @@ All available symbols are as follows
 | :admin_assessment  | Admin assessment page (create/upload)  |
 | :admin_venders     | Admin vender accounts management page  |
 | :admin_settings    | Admin settings page (change password)  |
+| :admin_requests    | Admin account requests manage page     |
 | :vender_home       | Vender home page                       |
 | :vender_tasks      | Vender complete task page              |
 | :vender_assessment | Vender assessment page (fill out)      |
