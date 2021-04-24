@@ -1,12 +1,10 @@
 class RequestManageController < ApplicationController
-    # TODO: Uncomment authenticate check
-    # before_action :authenticate_user!
-    # before_action :set_admin
+    before_action :authenticate_user!
 
     skip_authorization_check
   
     def index
-      @current_nav_identifier = :request_manage
+      @current_nav_identifier = :admin_requests
 
       @pending_vendors = Vendor.where(validated: false)
     end
