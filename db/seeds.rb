@@ -7,20 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# #Admin User
-User.create(email: "adminTest1@gmail.com",password: "password" ,user_name: "admin1", is_admin: true) #user_id = 2
-User.create(email: "vendorTest1@gmail.com",password: "password" ,user_name: "vendor1", is_admin: false) #user_id = 2
-Admin.create(user_id: "2")
+# Admin User
+user = User.create(email: "adminTest1@gmail.com",password: "password" ,user_name: "adminTest1@gmail.com", is_admin: true) #user_id = 2
+Admin.create(user_id: user.user_id)
 
-# #Vendor User
-# User.create(email: "vendorTest1@gmail.com",password: "password" ,user_name: "vendor1", is_admin: false) #user_id = 3
+# Vendor User
+user = User.create(email: "vendorTest1@gmail.com", password: "password", user_name: "vendorTest1@gmail.com", is_admin: false)
+vendor = Vendor.create(user_id: user.user_id, company_name: "Test Company 1", company_number: "001", validated: true)
+address = Address.create(vendor_id: vendor.vendor_id, city_town: "Test City 1", country: "Test Country/Region 1", house_name: "Test Address 1", postcode: "Test Postcode 1")
 
-Vendor.create(user_id: 1, company_name: "vendor1", company_number: 012345, validated: true)
-Vendor.create(user_id: 2, company_name: "vendor2", company_number: 0123, validated: true)
-
-# User.create(email: "vendorTest2@gmail.com",password: "password" ,user_name: "vendor2", is_admin: false) #user_id =4
-# Vendor.create(user_id: "4",company_name: "company2", company_number: "666333", validated: true)
-
+user = User.create(email: "vendorTest2@gmail.com", password: "password", user_name: "vendorTest2@gmail.com", is_admin: false)
+vendor = Vendor.create(user_id: user.user_id, company_name: "Test Company 2", company_number: "002", validated: true)
+address = Address.create(vendor_id: vendor.vendor_id, city_town: "Test City 2", country: "Test Country/Region 2", house_name: "Test Address 2", postcode: "Test Postcode 2")
 
 # #Tasks 
 Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: "2")
