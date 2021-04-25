@@ -12,7 +12,7 @@ class AssessmentsController < ApplicationController
   end
 
   def questions
-    # 4 is triage assessment
+    # 1 is triage assessment
     @page, @questions = pagy(Question.where("assessment_id=1"), items: 3)
     @question = Question.all
     @questionsCoun = @question.count/3
