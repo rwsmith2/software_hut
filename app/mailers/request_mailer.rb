@@ -1,5 +1,5 @@
 class RequestMailer < ApplicationMailer
-  default from: 'no-reply@example.com'
+  default from: 'demo.team09@epi-stu-hut-demo2.shef.ac.uk'
 
   def welcome_email
     @email = params[:email]

@@ -1,5 +1,5 @@
 class TaskMailer < ApplicationMailer
-    default from: 'no-reply@example.com'
+    default from: 'demo.team09@epi-stu-hut-demo2.shef.ac.uk'
 
     def task_assigned_email
         @email = params[:email]
