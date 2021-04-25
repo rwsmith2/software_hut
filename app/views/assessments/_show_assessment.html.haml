@@ -13,8 +13,10 @@
           %span.font-weight-bold> Questions:&nbsp;
           %br
           %ol.list-group.list-group-flush
-          - assessment.questions.each do |question|
-            %li.list-group-item= question.question_text
+          %ul
+            .scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 45vh"}
+              - assessment.questions.each do |question|
+                %li.list-group-item= question.question_text
 
 
     .d-flex.flex-row.mt-3
