@@ -31,7 +31,9 @@ class User < ApplicationRecord
   # :registerable
   devise :database_authenticatable,
          :recoverable, :rememberable, :validatable
-    
+  
+  validates :email, presence: true, uniqueness: true
+
   belongs_to :admin, optional: true
   belongs_to :vendor, optional: true
   accepts_nested_attributes_for :vendor, allow_destroy: true

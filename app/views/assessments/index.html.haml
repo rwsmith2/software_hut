@@ -1,3 +1,5 @@
+
+
 - content_for :title, ''
 
 .card.mb-3
@@ -9,32 +11,55 @@
     = simple_form_for VendorAnswer.new do |f|
       %ul.pagination.justify-content-center
         %li
-          - if @answers != nil
-            - @answers.each do |ans|
-              = f.check_box :answer_id, :checked => true
-              = ans.answer_text
-              %br
-            %br
+          -# - key = 1;
+          -# - if @answers != nil
+          -#   - @answers.each do |ans|
+          -#     = f.check_box :answer_id, :checked => false, :id => "check #{key}"
+          -#     - key += 1
+          -#     = ans.answer_text
+          -#     %br
+          -#   %br
+          = f.check_box :checkbox1, :checked => false, onclick: "ShowCertificate1()", :class=> "checkbox1", :id => "checkbox1"
+          = 'ISO-27001 Certified'
+          %br
+          = f.check_box :checkbox2, :checked => false
+          = 'PCI-DSS Certified'
+          %br
+          = f.check_box :checkbox3, :checked => false
+          = 'Processing card transactions'
+          %br
+          = f.check_box :checkbox4, :checked => false
+          = 'Processing univeristy personal data'
+      %br
+      -# %button.btn1{onclick: "ShowCertificate1()"} certificate 1
+      -# :javascript
+      -#   function ShowCertificate1() {
+      -#     if ($('#checkbox1').is(':checked')) {
+      -#       $('#certificate1').attr('style', 'display: block');
+      -#     }
+      -#   }          
+        
       -# uploading files
       %ul.pagination.justify-content-center
         %li 
+          -#%div#certificate1{:style => "display:none"}
           = f.label "Upload your certificates: ", :style => "font-weight:bold" 
           %br
           %br
           = f.file_field :image
           %br
-          %br 
+          %br
+          -#%div#certificate2{:style => "display:none"}
           = f.file_field :image
           %br
           %br
           %br
-          %p Asessment progress
-          .progress-bar{"aria-valuemax" => "200", "aria-valuemin" => "0", 
-            "aria-valuenow" => "40", :role => "progressbar", :style => "width: 70%;"} 40%
-      %br
-      #task-detail-panel.w-40.p-5.d-flex.flex-column.justify-content-between
-        .d-flex.flex-row-reverse
-          = f.submit  "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
-          = f.submit  "Save", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          %br
+          %br
+          %br
+      
+      
       %nav.mt-2{"aria-label" => "Page navigation"}
         = link_to 'Go to the questions page', assessments_questions_path, class: "btn page-link", type: "button"
+    
+

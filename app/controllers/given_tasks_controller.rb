@@ -65,6 +65,7 @@ class GivenTasksController < ApplicationController
 
   # POST /tasks
   def create
+    puts params[:given_task][:assignments_attributes]
     @given_task = GivenTask.new(given_task_params)
     @given_task.task_id = session[:task_id]
     @given_task.priority = GivenTask.priorityStringToInt(given_task_params[:priority])
@@ -73,6 +74,14 @@ class GivenTasksController < ApplicationController
     @given_task.repeatable = GivenTask.ifEmptyRepeatableSetTo0(given_task_params[:repeatable].to_i)
     puts(@given_task.repeatable)
     if @given_task.save
+      params[:given_task][:assignments_attributes].each_value do |value|
+        vendor = Vendor.find(value[:vendor_id])
+        user = vendor.user
+        @email = user.email
+        @name = vendor.company_name
+        TaskMailer.with(email: @email, name: @name).task_assigned_email.deliver_now
+      end
+
       render 'given_task_success_create'
       #redirect_to admin_assessments_path, notice: 'Task was successfully assigned'
     else
@@ -82,20 +91,8 @@ class GivenTasksController < ApplicationController
 
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  # def set_task
-  #   @task = Task.find(params[:id])
-  # end
-
   def given_task_params
     params.fetch(:given_task, {}).permit(:due_date, :priority, :repeatable, :task_id, assignments_attributes: [:assignment_id,:vendor_id ,:_destroy, :id])
   end
 
-
-
-  #This is used if no assessment is needed to be linked
-  # def task_params_no_assessment
-  #   params.fetch(:task, {}).permit(:task_title, :task_description, :estimation)
-  # end
-  
 end

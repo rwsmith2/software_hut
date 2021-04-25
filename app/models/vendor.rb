@@ -19,7 +19,9 @@
 class Vendor < ApplicationRecord
     has_one :address, dependent: :destroy
     has_many :assignments,  dependent: :destroy
-    has_one :user, foreign_key: :user_id, dependent: :destroy
+    belongs_to :user, foreign_key: :user_id, dependent: :destroy
 
+    validates :company_name, presence: true
+    validates :company_number, presence: true
 
 end
