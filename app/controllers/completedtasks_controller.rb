@@ -8,7 +8,7 @@ class CompletedtasksController < ApplicationController
     #User .build_attribute_name, as it is a has_one association
     @task.build_assessment_linker
     @selected= Task.first  
-    @joined= GivenTask.joins(:task).select(:task_title, :due_date, :set_date)
+    @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:task_title, :due_date, :set_date, :complete).where("complete=true")
     @tasks = @joined.order(params[:sort])
     render :index
 
