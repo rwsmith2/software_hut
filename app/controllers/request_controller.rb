@@ -22,14 +22,12 @@ class RequestController < ApplicationController
       address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
 
       if user.valid?
+        user.save
+        vendor.user_id = user.user_id
         if vendor.valid?
+          vendor.save
+          address.vendor_id = vendor.vendor_id
           if address.valid?
-            user.save
-
-            vendor.user_id = user.user_id
-            vendor.save
-            
-            address.vendor_id = vendor.vendor_id
             address.save
 
             RequestMailer.with(email: @email, name: @name).welcome_email.deliver_now
@@ -37,9 +35,12 @@ class RequestController < ApplicationController
             render :success
             return
           else
+            user.destroy
+            vendor.destroy
             @error_obj = address
           end
         else
+          user.destroy
           @error_obj = vendor
         end
       else
