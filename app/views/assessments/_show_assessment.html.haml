@@ -2,6 +2,7 @@
 #assessment-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
   .overflow-auto
     .assessment_box
+    -if !assessment.nil?
       %p
         %span.font-weight-bold> Assessment ID:&nbsp;
         = assessment.assessment_id 
@@ -18,5 +19,6 @@
 
 
     .d-flex.flex-row.mt-3
+    -if !assessment.nil?
       = link_to 'Destroy', assessment, method: :delete, data:{ confirm: 'Are you sure, linked tasks will be effected?'}, class: "btn btn-outline-danger mx-1", type: "button"
       = link_to 'Edit', edit_assessment_path(assessment), class: "btn btn-outline-secondary mx-1", type: "button"

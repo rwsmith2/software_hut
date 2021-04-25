@@ -1,6 +1,7 @@
 #assessment-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
   .overflow-auto
     .assessment_box
+    -if !given_task.nil?
       %p
         %span.font-weight-bold> Given task ID:&nbsp;
         = given_task.given_task_id 
@@ -28,5 +29,6 @@
 
 
     .d-flex.flex-row.mt-3
+    -if !given_task.nil?
       = link_to 'Destroy', given_task, method: :delete, data:{ confirm: 'Are you sure, assignments will be effected?'}, class: "btn btn-outline-danger mx-1", type: "button"
       = link_to 'Edit', edit_given_task_path(given_task), class: "btn btn-outline-secondary mx-1  ajax-modal", type: "button"
