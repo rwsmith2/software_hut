@@ -4,6 +4,7 @@
 #
 #  additional_response :string
 #  answer_text         :string           not null
+#  upload_needed       :boolean          default(FALSE)
 #  answer_id           :integer          not null, primary key
 #  question_id         :integer
 #
@@ -13,5 +14,6 @@
 #
 class Answer < ApplicationRecord
     belongs_to :question, optional: true
+    #has_one :upload,  dependent: :destroy
     has_many :vendor_answers
 end

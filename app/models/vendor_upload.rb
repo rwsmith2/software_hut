@@ -13,6 +13,7 @@
 #  fk_rails_...  (upload_id => uploads.upload_id)
 #
 class VendorUpload < ApplicationRecord
-  belongs_to :assignments,  dependent: :destroy
+  belongs_to :assignments
+  belongs_to :uploads
   has_one_attached :image
 end

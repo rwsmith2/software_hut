@@ -98,11 +98,11 @@ class AssessmentsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def assessment_params
-    params.fetch(:assessment, {}).permit(:assessment_title, questions_attributes: [:question_id, :question_text, :_destroy, answers_attributes: [:answer_id, :answer_text, :additional_response, :_destroy]])
+    params.fetch(:assessment, {}).permit(:assessment_title, questions_attributes: [:question_id, :question_text, :_destroy, answers_attributes: [:answer_id, :answer_text, :additional_response, :upload_needed, :_destroy]])
   end
 
   def assessment_update_params
-    params.fetch(:assessment, {}).permit(:id, :assessment_title, questions_attributes: [:id, :question_text, :_destroy, answers_attributes: [:id, :answer_text, :additional_response, :_destroy]])
+    params.fetch(:assessment, {}).permit(:id, :assessment_title, questions_attributes: [:id, :question_text, :_destroy, answers_attributes: [:id, :answer_text, :additional_response, :upload_needed ,:_destroy]])
   end
 
   def vendor_answers_params

@@ -4,6 +4,7 @@
 #
 #  additional_response :string
 #  answer_text         :string           not null
+#  upload_needed       :boolean          default(FALSE)
 #  answer_id           :integer          not null, primary key
 #  question_id         :integer
 #
