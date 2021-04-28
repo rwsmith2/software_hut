@@ -17,11 +17,11 @@
 #  fk_rails_...  (user_id => users.user_id) ON DELETE => cascade
 #
 class Vendor < ApplicationRecord
-    has_one :address, dependent: :destroy
-    has_many :assignments,  dependent: :destroy
-    belongs_to :user, foreign_key: :user_id, dependent: :destroy
+  has_one :address, dependent: :destroy
+  has_many :assignments,  dependent: :destroy
+  belongs_to :user, foreign_key: :user_id, dependent: :destroy
 
-    validates :company_name, presence: true
-    validates :company_number, presence: true
+  validates :company_name, presence: true
+  validates :company_number, presence: true
 
 end

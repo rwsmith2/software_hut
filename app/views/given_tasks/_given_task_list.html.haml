@@ -1,8 +1,13 @@
 -# 
   Partial used to list all given task assignments in the index
-- given_tasks.each do |given_task|
-  //Each given task is a link which runs the fetch_given_task_path, passing the given_task_id to the controller
-  //Displays the given task id and task title on the button
-  = link_to (given_task.given_task_id.to_s + " - " + given_task.task_title),
-    fetch_given_task_path(given_task_id: given_task.given_task_id), remote: true,
-    class: "list-group-item list-group-item-action", type: "button"
+
+- if given_tasks != nil   
+  - given_tasks.each do |given_task|
+    //Each given task is a link which runs the fetch_given_task_path, passing the given_task_id to the controller
+    //Displays the given task id and task title on the button
+    = link_to (given_task.given_task_id.to_s + " - " + given_task.task_title),
+      fetch_given_task_path(given_task_id: given_task.given_task_id), remote: true,
+      class: "list-group-item list-group-item-action", type: "button"
+      
+- else
+  No tasks match this search

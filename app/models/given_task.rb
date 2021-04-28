@@ -18,42 +18,43 @@
 #  fk_rails_...  (task_id => tasks.task_id) ON DELETE => cascade
 #
 class GivenTask < ApplicationRecord
-    belongs_to :task
-    has_many :assignments,  dependent: :destroy
-    accepts_nested_attributes_for :assignments, allow_destroy: true
+  belongs_to :task
+  has_many :assignments,  dependent: :destroy
+  accepts_nested_attributes_for :assignments, allow_destroy: true
 
-    validates :due_date, :repeatable, :priority, presence: true
-    #validates :priority, allow_blank: false
+  validates :due_date, :repeatable, :priority, presence: true
 
-    def self.priorityIntToString(integer_input)
-      case integer_input
-      when 0
-        return "Low"
-      when 2
-        return "High"
-      else
-        return "Medium"
-      end
+  #Takes int input and returns the string version(because its stored as int in the db)
+  def self.priorityIntToString(integer_input)
+    case integer_input
+    when 0
+      return "Low"
+    when 2
+      return "High"
+    else
+      return "Medium"
     end
+  end
 
-
-    def self.priorityStringToInt(string_input)
-      case string_input
-      when "Low"
-        return 0
-      when "High"
-        return 2
-      else 
-        return 1
-      end
+  #Takes string input and returns the int version(because its stored as int in the db)
+  def self.priorityStringToInt(string_input)
+    case string_input
+    when "Low"
+      return 0
+    when "High"
+      return 2
+    else 
+      return 1
     end
+  end
 
-    def self.ifEmptyRepeatableSetTo0(repeatable_input)
-      if(repeatable_input=="")
-        return 0
-      end
-      return repeatable_input
+  #Takes the repeatable input from form and checks if its empty
+  def self.ifEmptyRepeatableSetTo0(repeatable_input)
+    if(repeatable_input=="")
+      return 0
     end
+    return repeatable_input
+  end
 
 
 end

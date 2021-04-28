@@ -1,30 +1,33 @@
+# Controller used to handle Tasks 
 class TasksController < ApplicationController
+  
+  #Before actions
   before_action :authenticate_user!
   before_action :set_task, only: [:edit,:destroy, :update]
 
-  
   authorize_resource
 
-  # GET /tasks
+  # GET /admin/tasks
   def index
+    #Get a list of all tasks and set the selected to the first task
     @pagy, @tasks = pagy(Task.all, items: 10)
-    @task = Task.new
-    @assessments = Assessment.all.select("assessment_id, assessment_title")
-    #User .build_attribute_name, as it is a has_one association
-    @task.build_assessment_linker
     @selected= Task.first
 
+    #Initialize new Task and build assessment_linker
+    @task = Task.new
+    @task.build_assessment_linker
+
+    #List of assessments, so dropdown can populate with the values 
+    @assessments = Assessment.all.select("assessment_id, assessment_title")
 
     render :index
   end
 
+  #GET /tasks/search
   def search
+    #Create a list of tasks matching the search query
     @pagy, @tasks = pagy(Task.where("task_title LIKE ?","%#{params[:search][:task_title]}%"), items: 10)
-    puts(@tasks.inspect)
     render 'search_refresh'
-    # respond_to do |format|
-    #   format.js
-    # end
   end
 
 
@@ -36,13 +39,17 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @assessments = Assessment.all.select("assessment_id, assessment_title")
+    #If the task doesn't have an assessment attached, build the assessment_linker
     if @task.assessment_linker == nil
       @task.build_assessment_linker
     end
+    #Don't render layout, as its a modal
     render layout: false
   end
 
+  #GET /fetch_task
   def select_task
+    #Fetch the selected task, and format the javascript
     @selected = Task.find(params[:task_id])
     respond_to do |format|
       format.js
@@ -53,7 +60,7 @@ class TasksController < ApplicationController
   # POST /tasks
   def create
     if(task_params[:assessment_linker_attributes][:assessment_id]=="")
-      #No assessment attached
+      #No assessment attached, manually add task_params
       @task = Task.new()
       @task.task_title = task_params[:task_title]
       @task.task_description = task_params[:task_description]
@@ -62,7 +69,6 @@ class TasksController < ApplicationController
       #Assessment attached
       @task = Task.new(task_params)
     end
-
     if @task.save
       redirect_to admin_tasks_path, notice: 'Task was successfully created'
     else
@@ -70,22 +76,24 @@ class TasksController < ApplicationController
     end
   end
 
-
+  # PATCH /tasks/:id
   def update
+    #If no assessment attached to params
     if(task_params[:assessment_linker_attributes][:assessment_id]=="")
-      puts("update no assessment")
+      #If there is an assessment attached, destroy it
       if @task.assessment_linker != nil
-        puts("destroying link")
         @task.assessment_linker.destroy
       end
-      if(@task.update_attribute(:task_title, task_params[:task_title]) || @task.update_attribute(:task_description, task_params[:task_description]) || @task.update_attribute(:estimation, task_params[:estimation]))
-        @pagy, @tasks = pagy(Task.all, items: 10)
+      if(@task.update_attribute(:task_title, task_params[:task_title]) || 
+          @task.update_attribute(:task_description, task_params[:task_description]) || 
+          @task.update_attribute(:estimation, task_params[:estimation]))
+          @pagy, @tasks = pagy(Task.all, items: 10)
         render 'update_success'
       else
         render 'update_failure'
       end
     else
-      puts("update with assessment")
+      #If assessment is attached
       if @task.update(task_params)
         @pagy, @tasks = pagy(Task.all, items: 10)
         render 'update_success'
@@ -95,30 +103,25 @@ class TasksController < ApplicationController
     end
   end
 
+  #DELETE /tasks/:id
   def destroy
+    #Fetch the selected task and destroy it
     @task_destroy = Task.find(params[:id])
     @task_destroy.destroy
     redirect_to admin_tasks_path, notice: 'Task was successfully destroyed.'
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+  # Set the task method
   def set_task
     @task = Task.find(params[:id])
   end
 
   #Only allow a trusted parameter "white list" through.
   def task_params
-    params.fetch(:task, {}).permit(:task_title, :task_description, :estimation, assessment_linker_attributes: [:assessment_id, :id])
+    #Fetch task attributes, along with nested assessment_linker attributes
+    params.fetch(:task, {}).permit(:task_title, :task_description, :estimation, 
+      assessment_linker_attributes: [:assessment_id, :id])
   end
 
-  def given_task_params
-    params.fetch(:given_task, {}).permit(:task_id, :due_date, :priority, assignments_attributes: [:assignment_id,:vendor_id,:_destroy ])
-  end
-
-  #This is used if no assessment is needed to be linked
-  # def task_params_no_assessment
-  #   params.fetch(:task, {}).permit(:task_title, :task_description, :estimation)
-  # end
-  
 end

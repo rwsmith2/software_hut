@@ -13,7 +13,6 @@
 #  fk_rails_...  (question_id => questions.question_id) ON DELETE => cascade
 #
 class Answer < ApplicationRecord
-    belongs_to :question, optional: true
-    #has_one :upload,  dependent: :destroy
-    has_many :vendor_answers
+  belongs_to :question, optional: true
+  has_many :vendor_answers
 end

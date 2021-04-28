@@ -27,6 +27,7 @@
       - if given_task.assignments != nil
         %p
           %span.font-weight-bold> Assignments:&nbsp;
+          //Displays the count of assignments
           = (given_task.assignments.count.to_s + " vendors assigned")
     
     //Links to destroy and edit the selected given task

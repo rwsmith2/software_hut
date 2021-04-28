@@ -1,7 +1,11 @@
 -# 
   Partial used to list all assessments in the admin_index
 
-- assessments.each do |assessment|
-  //Each assessment is a link which runs the fetch_assessment_path, passing the assessment id to the controller
-  = link_to assessment.assessment_title, fetch_assessment_path(assessment_id: assessment.assessment_id), remote: true,
-    class: "list-group-item list-group-item-action", type: "button"
+- if assessments != nil 
+  - assessments.each do |assessment|
+    //Each assessment is a link which runs the fetch_assessment_path, passing the assessment id to the controller
+    = link_to assessment.assessment_title, fetch_assessment_path(assessment_id: assessment.assessment_id), remote: true,
+      class: "list-group-item list-group-item-action", type: "button"
+
+- else
+  No assessments available

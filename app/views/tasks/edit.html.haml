@@ -44,8 +44,8 @@
             - if @task.assessment_linker == nil
               = a_linker.input_field :assessment_id, as: :select, collection: @assessments, label_method: :assessment_title,
                 value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"},label: false, prompt: "No Assessment"
-             //If the selected task does have an assessment linker attatched, display the drop down without the assessment selected
             - else 
+              //If the selected task does have an assessment linker attatched, display the drop down without the assessment selected
               = a_linker.input_field :assessment_id, as: :select, collection: @assessments, label_method: :assessment_title, 
                 value_method: :assessment_id, input_html: {multiple: false, id: "assessmentDropDown"}, label: false, include_blank: "No Assessment", 
                 selected: @task.assessment_linker.assessment_id

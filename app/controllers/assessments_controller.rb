@@ -1,14 +1,17 @@
+# Controller used to handle Assessments 
 class AssessmentsController < ApplicationController
-  include Pagy::Backend
+
+  #Before actions
   before_action :authenticate_user!
-  
   before_action :set_assessment, only: [:_edit_question, :select_assessment]
   before_action :set_assessment_destroy_edit, only: [:destroy, :edit ,:update]
 
+  authorize_resource
 
+  #GET /admin/home
   def index 
+    #Gets the list of all assessments, and also creates a pagy object
     @pagy, @assessments = pagy(Assessment.all, items: 10)
-    @answers = Answer.where("question_id=2")
   end
 
   def questions
@@ -18,43 +21,46 @@ class AssessmentsController < ApplicationController
     @questionsCoun = @question.count/3
   end
   
-
+  #GET /admin/assessments/new
   def new 
+    #Initialize a new assessment object and build the questions and answers
     @assessment = Assessment.new
-    @vendor_answers = VendorAnswer.new
-    @question = Question.new
     @assessment.questions.build.answers.build
   end
-
+  
+  #GET /admin/assessments
   def admin_index
+    #Gets the list of all assessments, with pagy. Also selects the first assessment
     @pagy, @assessments = pagy(Assessment.all, items: 10)
-    @assessment = Assessment.first
     @selected= Assessment.first
   end
 
+  #GET /assessments/:id/edit
   def edit
+    #Find the selected assessment
     @assessment = Assessment.find(params[:id])
-
   end
 
+  #POST /assessments/search
   def search
+    #Create a list of assessments matching the search query
     @pagy, @assessments = pagy(Assessment.where("assessment_title LIKE ?","%#{params[:search][:assessment_title]}%"), items:10)
     render 'search_refresh'
   end
 
+  #GET /fetch_assessment
   def select_assessment
+    #Get the selected assessment and format the javascript
     @selected = Assessment.find(params[:assessment_id])
     respond_to do |format|
       format.js
     end
   end
 
+  #POST /assessments
   def create
+    #Create an assessment object with the assessment_params
     @assessment = Assessment.new(assessment_params)
-    # @assessment.assessment_title = task_params[:assessment_title]
-    # @assessment.task_description = task_params[:task_description]
-    # @assessment.estimation = task_params[:estimation]
-
     if @assessment.save
       redirect_to admin_assessments_path, notice: 'Assessment was successfully created'
     else
@@ -62,19 +68,20 @@ class AssessmentsController < ApplicationController
     end
   end
 
-
+  #PATCH /assessments/:id
   def update
+    #Find the selected assessment object and update it through the assessment_update_params
     @assessment = Assessment.find(params[:id])
     if @assessment.update(assessment_update_params)
-      @assessment = Assessment.all
       redirect_to admin_assessments_path, notice: 'Assessment was successfully updated.'
     else
-      puts(@assessment.errors.full_messages)
       render :edit
     end
   end
 
+  #DELETE /assessments/:id
   def destroy
+    #Find the assessment you want to delete and destroy it
     @assessment_destroy_edit = Assessment.find(params[:id])
     @assessment_destroy_edit.destroy
     redirect_to admin_assessments_path, notice: 'Assessment was successfully destroyed.'
@@ -86,23 +93,28 @@ class AssessmentsController < ApplicationController
 
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+  #Setter methods to set the assessment object
   def set_assessment
     @assessment = Assessment.find(params[:assessment_id])
   end
 
   def set_assessment_destroy_edit
-    puts("test")
     @assessment_destroy_edit = Assessment.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
   def assessment_params
-    params.fetch(:assessment, {}).permit(:assessment_title, questions_attributes: [:question_id, :question_text, :_destroy, answers_attributes: [:answer_id, :answer_text, :additional_response, :upload_needed, :_destroy]])
+    #Fetch params for assessment, including nested attributes for questions and answers
+    params.fetch(:assessment, {}).permit(:assessment_title,
+     questions_attributes: [:question_id, :question_text, :_destroy,
+      answers_attributes: [:answer_id, :answer_text, :additional_response, :upload_needed, :_destroy]])
   end
 
   def assessment_update_params
-    params.fetch(:assessment, {}).permit(:id, :assessment_title, questions_attributes: [:id, :question_text, :_destroy, answers_attributes: [:id, :answer_text, :additional_response, :upload_needed ,:_destroy]])
+    #Fetch params for assessment, including nested attributes for questions and answers
+    params.fetch(:assessment, {}).permit(:id, :assessment_title,
+     questions_attributes: [:id, :question_text, :_destroy,
+      answers_attributes: [:id, :answer_text, :additional_response, :upload_needed ,:_destroy]])
   end
 
   def vendor_answers_params
