@@ -1,38 +1,43 @@
+-#
+    Form that allows the admin to edit vendor settings 
+    Includes the KPI, Risk Rating and Inital Credit Score
+    Can also delte the vendor 
+
 #new-task-panel.card.m-2.w-100.h-100
     = simple_form_for @vendorSelected, url: admin_path(@vendorSelected) do |f|
 
         = f.error_notification
         = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-        
+        -#header 
         .card-header.d-flex.justify-content-between.align-items-center.form-inputs
+            %h5.m-2 Vendor Settings 
 
-        %h5.m-2 Vendor Settings 
-
+        -#body with vendor information
         .card-body
-
+            -#email
             .row.mb-3
                 %label.col-sm-2.col-form-label{:for => "inputEmail3"} Vendor Email
                 .col-sm-10
                     %input#inputEmail3.form-control{:type => "email", :placeholder => @user.email}/
+
+            -# company name and number
             .row.mb-3
                 %label.col-sm-2.col-form-label{:for => "companyName"} Company Name
                 .col-sm-4
-                    -#%input#companyName.form-control{:placeholder => @vendorSelected.company_name}/
                     = f.input_field :company_name, as: :text, input_html: {id: "companyNameTxt"}, placeholder: "Company Name"
                 %label.col-sm-2.col-form-label{:for => "companyNum"} Company Number
-                .col-sm-4
-                    -#%input#companyNum.form-control{:placeholder => @vendorSelected.company_number}/    
+                .col-sm-4 
                     = f.input_field :company_number, as: :integer, input_html: {id: "companyNumberTxt"}, placeholder: "Company Number"
+
+            -#Below are all the Scores/Ratings for the vendor
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "initialScore"} Initial Score
                 .col-sm-3
-                    -#%input#initialScore.form-control{:placeholder => @vendorSelected.initial_score}/ 
                     = f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, placeholder: "Initial Score" 
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "creditRating"} Credit Rating
                 .col-sm-3
-                    -#%input#creditRating.form-control{:placeholder => @vendorSelected.credit_rating}/
                     = f.input_field :credit_rating, as: :integer, input_html: {id: "creditRatingTxt"}, placeholder: "Credit Rating" 
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "kpi"} KPI
@@ -42,6 +47,8 @@
                 %label.col-sm-2.col-form-label{:for => "riskRating"} Risk Rating
                 .col-sm-3
                     = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, placeholder: "Risk Rating"  
+            
+            -# button group
             .flex-row
                 = f.submit "Update" , class: "btn btn-primary"
                 = link_to 'Back ', :back, class: "btn btn-primary"
