@@ -1,2 +1,5 @@
+-# 
+  Javascript file used to hide the modal after successfully updating the task
+  Also re-renders the tasks_list to show the updated items
 $('#modalWindow').modal('hide');
 $('#task-list-panel').html("#{escape_javascript(render partial: 'tasks_list', locals: { tasks: @tasks } )}  "); 

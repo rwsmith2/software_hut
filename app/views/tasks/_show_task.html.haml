@@ -1,5 +1,7 @@
-
+-# 
+  Partial to show selected task details
 #task-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
+  //Task fields
   .overflow-auto
     %p
       %span.font-weight-bold> Task ID:&nbsp;
@@ -13,12 +15,13 @@
     %p
       %span.font-weight-bold> Time Estimation:&nbsp;
       = task.estimation.to_s + " minutes"
+    //Checks to see if an assessment is linked to the task
     - if task.assessment_linker != nil
       %p
         %span.font-weight-bold> Assessment:&nbsp;
         = task.assessment_linker.assessment.assessment_title
     
-
+  //Links containing destroy, edit and assign task buttons
   .d-flex.flex-row.mt-3
     = link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure, assigned tasks will be effected?' }, class: "btn btn-outline-danger mx-1", type: "button"
     = link_to 'Edit', edit_task_path(task), class: "ajax-modal btn btn-outline-secondary mx-1", type: "button"

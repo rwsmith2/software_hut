@@ -1,2 +1,4 @@
+-# 
+  Javascript file used to replace the show_task partial with the newly selected task
 :plain
   $('#task_index').html("#{escape_javascript(render partial: 'show_task', locals: { task: @selected } )}  "); 
