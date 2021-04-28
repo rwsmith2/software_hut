@@ -1,10 +1,16 @@
+-# 
+    Vendor Home page that displays vendor tasks needing to be complete
+    Includes: table of tasks, sorting option and progress bar
 
-%br 
+%br
+-# header of page with progress bar and sort options
 .card-header
     %h3 Vendor Home Page
     %br 
-    %h4= "Tasks To Do: " + @assignmentsLeft.to_s 
+
+    -#progress bar section
     - @asLeft = @assignmentsLeft
+    %h4= "Tasks To Do: " + @asLeft.to_s 
     - if @asLeft == 0 
         - @asLeft=100
     .progress
@@ -12,14 +18,17 @@
 
     %br
     
+    -#sorting drop down
     .dropdown
-        %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", |
+        "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             Sort By
         .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
             %a.dropdown-item= link_to "Date Due", :sort => "due_date"
             %a.dropdown-item= link_to "Date Set" , :sort => "set_date"
             %a.dropdown-item= link_to "Defualt"
 
+-#main content of page
 .card-body
     %table.table.table-hover
         %thead
@@ -29,7 +38,7 @@
                 %th Set Date
                 %th Due Date
                 %th Link
-                
+            -# Listing all set tasks for the vendor    
             -@tasks.each do |givenTask|
                 %tr
                     -@task = Task.find_by(task_id: givenTask.task_id)
