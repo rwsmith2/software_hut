@@ -1,17 +1,21 @@
+-# 
+  Partial used for the assessment form
+  Used for each answer 
 %fieldset.nested-fields
   %div
+    //Answer input fields
     .row.justify-content-md-center
       .col-md-5
-        = f.input_field :answer_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Answer"
+        = f.input_field :answer_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"},
+         placeholder: "Insert Answer"
       .col-md-5
-        = f.input_field :additional_response, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Response"
+        = f.input_field :additional_response, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"},
+         placeholder: "Insert Response"
       .col
         = f.input_field :upload_needed, as: :boolean
-        //= f.check_box :upload_needed, {}, 'True', 'False'
-
-    //= f.input :upload_needed, as: :boolean, checked_value: true, unchecked_value: false
 
   %div
+    //Button to remove the answer from the question
     = link_to_remove_association "Remove Answer", f
-  //btn-primary btn-xs
+
       

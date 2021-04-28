@@ -1,22 +1,34 @@
+-# 
+  Partial form for assessment
+
 = simple_form_for @assessment, defaults: {input_html: {class: 'form-control'}} do |f|
+  //Show error notifications at the top of the page
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  //Header including the back and save button
   .card-header.d-flex.justify-content-between.align-items-center
     =link_to 'Back', admin_assessments_path(), class: "btn btn-danger"
     = f.button :submit, 'Save!', class: 'btn btn-primary d-flex'
+  //Card body containing most most form details
   .card-body
     .input-group.mb-3
       .input-group-prepend
         %span#basic-addon-taskname.input-group-text 
           = icon 'fas', 'file-alt'
-        = f.input_field :assessment_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Assessment Name"}, placeholder: "Assessment Name"
+        = f.input_field :assessment_title, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname",
+          "aria-label": "Assessment Name"}, placeholder: "Assessment Name"
+    //A new card to contain the questions
     .card
+      //Header containing add question button
       .card-header.d-flex.justify-content-between.align-items-center
         %h3 Questions
-        = link_to_add_association "Add Question", f, :questions, class: 'btn btn-outline-primary', data: {association_insertion_node: '.questions', association_insertion_method: :append}
+        = link_to_add_association "Add Question", f, :questions, class: 'btn btn-outline-primary', 
+          data: {association_insertion_node: '.questions', association_insertion_method: :append}
+      //Scrollable card body contianing all question field partials
       .scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 55vh"}
         #questions.card  
           %ul.questions.list-group.list-group-flush.border
+            //Simple fields for each question object, rendering the questions fields partial and passing the question object though
             = f.simple_fields_for :questions do |question|
               = render 'question_fields', f: question
 

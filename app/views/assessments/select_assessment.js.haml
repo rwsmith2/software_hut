@@ -1,2 +1,4 @@
+-# 
+  Javascript file used to render the show_assessment with the newly selected assessment
 :plain
   $('#admin_index').html("#{escape_javascript(render partial: 'show_assessment', locals: { assessment: @selected } )}  "); 

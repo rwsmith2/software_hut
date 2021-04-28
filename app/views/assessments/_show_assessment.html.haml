@@ -1,6 +1,8 @@
+-# 
+  Partial used to show selected assessments details 
 #assessment-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
   .overflow-auto
-    .assessment_box
+    //Checks if the assessment is nil
     -if !assessment.nil?
       %p
         %span.font-weight-bold> Assessment ID:&nbsp;
@@ -8,6 +10,7 @@
       %p 
         %span.font-weight-bold> Assessment Name:&nbsp;
         = assessment.assessment_title
+      //Checks to see if the selected assessment has any questions linked
       - if assessment.questions != nil
         %p
           %span.font-weight-bold> Questions:&nbsp;
@@ -15,11 +18,13 @@
           %ol.list-group.list-group-flush
           %ul
             .scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 45vh"}
+              //Loop through the questions, displaying them 
               - assessment.questions.each do |question|
                 %li.list-group-item= question.question_text
 
 
     .d-flex.flex-row.mt-3
+    //Links to destroy and edit the selected assessment
     -if !assessment.nil?
       = link_to 'Destroy', assessment, method: :delete, data:{ confirm: 'Are you sure, linked tasks will be effected?'}, class: "btn btn-outline-danger mx-1", type: "button"
       = link_to 'Edit', edit_assessment_path(assessment), class: "btn btn-outline-secondary mx-1", type: "button"

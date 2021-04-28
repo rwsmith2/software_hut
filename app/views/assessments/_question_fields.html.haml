@@ -1,15 +1,22 @@
+-# 
+  Partial used for the assessment form
+  Used for each question 
 .nested-fields
   %li.list-group-item
     .container
       .row.mb-1.d-flex.justify-content-between.align-items-center
         .col-xl
-          = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"}, placeholder: "Insert Question"
+          = f.input_field :question_text, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Task name"},
+           placeholder: "Insert Question"
         .col-sm
+          //Button to dynamically remove the question from the assessment form
           = link_to_remove_association "Remove Question", f, class: 'btn btn-outline-danger btn-xs'
       .row.input-group.mb-3
         .col.col-lg-12
           .add_answer.answer_form
+            //Simple fields for answers, each rendering an answer fields partial
             = f.simple_fields_for :answers do |answer_form|
               = render 'answer_fields', f: answer_form
       .row
+        //Button to add a new answer to the question
         = link_to_add_association 'Add Answer', f, :answers, class: 'btn btn-outline-secondary add_answer_button '

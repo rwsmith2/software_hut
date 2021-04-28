@@ -1,8 +1,11 @@
-- content_for :title, 'Edit Assessment'
+-# 
+  Code renders partial form for editing assessment
 
+- content_for :title, 'Edit Assessment'
 
 .d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
   #new-task-panel.card.m-2.w-100.h-100
+    //Render the form partial, passing the assessment you want to edit through
     = render 'form', locals: {assessment: @assessment_destroy_edit}
 
     

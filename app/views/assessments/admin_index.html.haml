@@ -1,35 +1,29 @@
+-# 
+  View for the admin index(the assessment page in admin section)
 - content_for :title, 'Assessments'
 
 .d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
   #tasks-panel.card.m-2.w-100.h-100
+    //Header including title, link to create a new assessment, and the search section
     .card-header.d-flex.justify-content-between.align-items-center
       %h5.m-0 Assessments
       =link_to 'Create', admin_assessments_new_path(), class: "btn btn-primary"
       .d-flex
+        //Simple form to search assessments, including a reset button. Searches with the search_assessments_path
         = simple_form_for :search, url: search_assessments_path, method: :post, defaults: {input_html: {class: 'form-control'}},remote: true do |f|
-          = f.input_field :assessment_title, as: :string, input_html: {"aria-describedby": "basic-addon-assessmentname", "aria-label": "Assessment name"}, placeholder: "Assessment name"
+          = f.input_field :assessment_title, as: :string, input_html: {"aria-describedby": "basic-addon-assessmentname", "aria-label": "Assessment name"},
+            placeholder: "Assessment name"
           = f.button :submit, 'Search', class: 'btn btn-outline-primary'
           = link_to 'Reset', admin_assessments_path
+    //Admin index body      
     .card-body.p-0.d-flex
       #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
+        //Displays the assessment list partial with pagination at the bottom
         #assessment-list.list-group.overflow-auto.p-1
           = render partial: 'assessment_list', locals: {assessments: @assessments}
           
         .justify-content-center
           = pagy_bootstrap_nav(@pagy).html_safe
-        -# %nav.mt-2{"aria-label" => "Page navigation"}
-        -#   %ul.pagination.justify-content-center
-        -#     %li.page-item.disabled
-        -#       %button.page-link{"aria-disabled" => "true", "aria-label" => "Previous", :tabindex => "-1"}
-        -#         %span{"aria-hidden" => "true"} «
-        -#     %li.page-item.active
-        -#       %button.page-link 1
-        -#     %li.page-item
-        -#       %button.page-link 2
-        -#     %li.page-item
-        -#       %button.page-link 3
-        -#     %li.page-item
-        -#       %button.page-link{"aria-label" => "Next"}
-        -#         %span{"aria-hidden" => "true"} »
+      //Displays the selected assessment, using the show_assessment partial
       #admin_index
         = render partial: "show_assessment", locals: {assessment: @selected}
