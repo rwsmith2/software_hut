@@ -1,15 +1,21 @@
+-# 
+  View for the given task index
 - content_for :title, 'Given Tasks'
 
 .d-flex.m-4{:style => "height: 80vh; overflow: visible;"}
   #tasks-panel.card.m-2.w-100.h-100
+    //Header which includes page title and search section
     .card-header.d-flex.justify-content-between.align-items-center
       %h5.m-0 Given Tasks
       .d-flex
+        //Form to search through the given_task list, also includes a reset button
         = simple_form_for :search, url: search_given_tasks_path, method: :post, defaults: {input_html: {class: 'form-control'}},remote: true do |f|
-          = f.input_field :assessment_title, as: :string, input_html: {"aria-describedby": "basic-addon-assessmentname", "aria-label": "Assessment name"}, placeholder: "Assessment name"
+          = f.input_field :assessment_title, as: :string, input_html: {"aria-describedby": "basic-addon-assessmentname", "aria-label": "Assessment name"},
+            placeholder: "Assessment name"
           = f.button :submit, 'Search', class: 'btn btn-outline-primary'
           = link_to 'Reset', given_tasks_path
     .card-body.p-0.d-flex
+      //Left side of the view, which displays the given_task list, with pagination at the bottom
       #task-list-panel.w-50.p-3.d-flex.flex-column.justify-content-between.border-right
         #given_tasks_list.list-group.overflow-auto.p-1
           = render partial: 'given_task_list', locals: {given_tasks: @given_tasks}
@@ -17,5 +23,6 @@
         .justify-content-center
           = pagy_bootstrap_nav(@pagy).html_safe      
 
+      //Renders the selected given task, using show_given_task
       #given_task_index
         = render partial: "show_given_task", locals: {given_task: @selected}

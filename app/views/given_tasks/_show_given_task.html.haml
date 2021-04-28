@@ -1,6 +1,9 @@
+-# 
+  Partial used to show given task details
 #assessment-detail-panel.w-100.p-3.d-flex.flex-column.justify-content-between
   .overflow-auto
     .assessment_box
+    //Checks to see if a given task is selected
     -if !given_task.nil?
       %p
         %span.font-weight-bold> Given task ID:&nbsp;
@@ -13,19 +16,22 @@
         = given_task.set_date
       %p 
         %span.font-weight-bold> Priority:&nbsp;
+        //Converts the given_task priority from an int to the string value
         = GivenTask.priorityIntToString(given_task.priority)
+      //If the task is repeatable
       - if given_task.repeatable != 0
         %p 
           %span.font-weight-bold> Repeat:&nbsp;
           = ("Repeats every " + given_task.repeatable.to_s + " days")
+      //If the given task has any assignments attatched to it
       - if given_task.assignments != nil
         %p
           %span.font-weight-bold> Assignments:&nbsp;
           = (given_task.assignments.count.to_s + " vendors assigned")
-
-
-
+    
+    //Links to destroy and edit the selected given task
     .d-flex.flex-row.mt-3
     -if !given_task.nil?
-      = link_to 'Destroy', given_task, method: :delete, data:{ confirm: 'Are you sure, assignments will be effected?'}, class: "btn btn-outline-danger mx-1", type: "button"
+      = link_to 'Destroy', given_task, method: :delete, data:{ confirm: 'Are you sure, assignments will be effected?'},
+        class: "btn btn-outline-danger mx-1", type: "button"
       = link_to 'Edit', edit_given_task_path(given_task), class: "btn btn-outline-secondary mx-1  ajax-modal", type: "button"

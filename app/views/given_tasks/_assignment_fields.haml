@@ -1,5 +1,10 @@
+-# 
+  Partial used for the given_task form
+  Used for each assignment
 .input-group.mb-3.nested-fields
   .input-group-prepend
-    =f.input_field :vendor_id, as: :select, collection: Vendor.all, label_method: :company_name, value_method: :vendor_id, input_html: {multiple: true, id: "vendorDropDown"},label: false, prompt: "Set Vendor"
+    //Dropdown select field, using the list of all vendors as the collection
+    = f.input_field :vendor_id, as: :select, collection: Vendor.all, label_method: :company_name,
+      value_method: :vendor_id, input_html: {multiple: true, id: "vendorDropDown"},label: false, prompt: "Set Vendor"
+    //Button to remove an association
     = link_to_remove_association "Remove", f 
-    //= link_to_remove_association "Remove", f, class: 'btn btn-danger btn-xs'

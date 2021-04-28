@@ -1,10 +1,16 @@
+-# 
+  Partial form for assigning tasks to vendors
+//Modal pop up box
 .modal-dialog
   .modal-content
+    //Form for @given_task object
     = simple_form_for @given_task, remote: true , defaults: {input_html: {class: 'form-control'}}do |f|
+      //Header including title and close modal button
       .modal-header
         %h4.modal-title Assigning task
         %button.close{ type: :button, data: { dismiss: :modal } }
           %span &times;
+      //Form body
       .modal-body.overflow-auto     
         .input-group.mb-3     
           .input-group-prepend
@@ -18,20 +24,26 @@
               = icon 'fas', 'redo-alt'
             = f.input_field :repeatable, placeholder: "Repeat (0 if non repeatable)", as: :integer
         .input-group.mb-3
+          //Dropdown input field, allowing user to select priority
           .input-group-prepend
             %span#basic-addon-taskname.input-group-text{:for => "priorityDropDown"}
               = icon 'fas', 'exclamation'
-            =f.input_field :priority, as: :select, collection: ["Low", "Medium", "High"], input_html: {multiple: false, id: "priorityDropDown"},label: false, prompt: "Set importance level"
+            = f.input_field :priority, as: :select, collection: ["Low", "Medium", "High"], input_html: {multiple: false, id: "priorityDropDown"},
+              label: false, prompt: "Set importance level"
+        //Card to contain vendors which will be assigned the task
         #vendors.card
           .card-header 
             Assigned Vendors
+          //Max height at 250px, so it doesn't overflow
           .card-body.overflow-auto{style: "max-height: 250px;"}
             %ul.input-group.mb-3.input_fields_wrap.questions.list-group.list-group-flush
+              //Simple fields for each assignment object, rendering the assignemnt fields partial and passing the assignment form object through
               = f.simple_fields_for :assignments do |assignment|
                 = render 'assignment_fields', f: assignment
             .links 
+              //Link to add a vendor to the assignments list
               = link_to_add_association "Add Vendor", f, :assignments, class: 'btn btn-dark'
-
+      //Footer including a dismiss modal button and assign task button
       .modal-footer
         .pull-left
           = dismiss_modal_button

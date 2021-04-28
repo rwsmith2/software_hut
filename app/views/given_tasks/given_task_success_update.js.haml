@@ -1,2 +1,5 @@
+-# 
+  Javascript file used to hide the modal window if update is successful 
+  Also re-renders the given_task_list partial with an updated list of given_tasks
 $('#modalWindow').modal('hide');
 $('#given_tasks_list').html("#{escape_javascript(render partial: 'given_task_list', locals: { given_tasks: @given_tasks } )}  "); 

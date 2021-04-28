@@ -28,7 +28,7 @@
       .scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 55vh"}
         #questions.card  
           %ul.questions.list-group.list-group-flush.border
-            //Simple fields for each question object, rendering the questions fields partial and passing the question object though
+            //Simple fields for each question object, rendering the questions fields partial and passing the question form object through
             = f.simple_fields_for :questions do |question|
               = render 'question_fields', f: question
 
