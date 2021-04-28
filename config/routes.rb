@@ -57,6 +57,9 @@ Rails.application.routes.draw do
   get "assessments/index", to: "assessments#index"
   get 'completedtasks/index', to: "completedtasks#index"
 
+  get 'change_password', to: "change_password#index"
+  match 'change_password/update', to: 'change_password#update', via: [:post]
+
   root to: "pages#home"
 
   resources :assessments do

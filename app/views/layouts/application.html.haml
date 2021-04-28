@@ -62,10 +62,11 @@
                     = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :admin_requests do
                       = icon 'fas', 'file-invoice'
                       Account Requests
-
-                    = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
+                    
+                    = navbar_link_to change_password_path, title: "Go to the change password page" do
                       = icon 'fas', 'cogs'
-                      Settings
+                      Change password
+                      
                     -# = navbar_link_to admin_settings_path, title: "Go to the admin settings page", identifier: :admin_settings do
                     -#   = icon 'fas', 'cogs'
                     -#   Settings
@@ -85,8 +86,12 @@
                       Completed Tasks
                     = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
-                      Settings
+                      Profile
                     
+                    = navbar_link_to change_password_path, title: "Go to the change password page" do
+                      = icon 'fas', 'cogs'
+                      Change password
+
                     -# = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
                     -#   = icon 'fas', 'cogs'
                     -#   Settings
