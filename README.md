@@ -41,6 +41,20 @@ users have access to what actions.
 
 The gemfile is located inside the initial folder, where you can find all the gems installed for the project.
 
+The routes file is located at (config\routes.rb).
+
+The tests are held in the 'spec' folder. 
+The unit tests are located at (spec\models) and you can find the tests for the specific model by looking at the name. 
+The end-to-end tests are located at (spec\features) and you can find the tests for the specific model by looking at the name.
+
+### How to run tests
+You can run all of the unit tests with the command:
+  'bundle exec rspec spec/models/"test file name".rb'
+
+You can run all of the end-to-end tests with the command:
+  'bundle exec rspec spec/features/"test file name".rb'
+### Currently our system doesn't make use of many functions in the models, so we only have unit tests for the given_task model ###
+
 ### Help Contacts
 Ryan Smith <RWSmith2@sheffield.ac.uk>
 Thomas Damri <TDamri1@sheffield.ac.uk>

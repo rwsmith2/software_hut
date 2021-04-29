@@ -34,7 +34,7 @@
                 -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
                 %td= @vendor.company_name
 
-                %td= GivenTask.priorityIntToString(assignment.priority)
+                %td= GivenTask.priority_int_to_string(assignment.priority)
                 %td= assignment.due_date
 
                 %td= @task.task_title

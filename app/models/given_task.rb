@@ -25,7 +25,7 @@ class GivenTask < ApplicationRecord
   validates :due_date, :repeatable, :priority, presence: true
 
   #Takes int input and returns the string version(because its stored as int in the db)
-  def self.priorityIntToString(integer_input)
+  def self.priority_int_to_string(integer_input)
     case integer_input
     when 0
       return "Low"
@@ -37,7 +37,7 @@ class GivenTask < ApplicationRecord
   end
 
   #Takes string input and returns the int version(because its stored as int in the db)
-  def self.priorityStringToInt(string_input)
+  def self.priority_string_to_int(string_input)
     case string_input
     when "Low"
       return 0
@@ -49,7 +49,7 @@ class GivenTask < ApplicationRecord
   end
 
   #Takes the repeatable input from form and checks if its empty
-  def self.ifEmptyRepeatableSetTo0(repeatable_input)
+  def self.if_empty_repeatable_set_to_0(repeatable_input)
     if(repeatable_input=="")
       return 0
     end

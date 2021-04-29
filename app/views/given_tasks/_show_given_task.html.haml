@@ -17,7 +17,7 @@
       %p 
         %span.font-weight-bold> Priority:&nbsp;
         //Converts the given_task priority from an int to the string value
-        = GivenTask.priorityIntToString(given_task.priority)
+        = GivenTask.priority_int_to_string(given_task.priority)
       //If the task is repeatable
       - if given_task.repeatable != 0
         %p 

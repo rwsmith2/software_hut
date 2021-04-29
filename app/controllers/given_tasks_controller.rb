@@ -31,7 +31,7 @@ class GivenTasksController < ApplicationController
     @given_task = GivenTask.find(params[:id])
     if @given_task.update(given_task_params)
       #Update the priority attribute, after converting form string to int
-      @given_task.update(priority: GivenTask.priorityStringToInt(given_task_params[:priority]))
+      @given_task.update(priority: GivenTask.priority_string_to_int(given_task_params[:priority]))
       @given_task = GivenTask.joins(:task).all.select("given_task_id, task_title")
       @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.select("given_task_id, task_title"), items: 10)
       render 'given_task_success_update'
@@ -76,12 +76,12 @@ class GivenTasksController < ApplicationController
     @given_task = GivenTask.new(given_task_params)
     @given_task.task_id = session[:task_id]
     #Convert priority from string value to int value
-    @given_task.priority = GivenTask.priorityStringToInt(given_task_params[:priority])
+    @given_task.priority = GivenTask.priority_string_to_int(given_task_params[:priority])
     @given_task.set_date = Date.today
     #Convert string to date
     @given_task.due_date  = Date.strptime(given_task_params[:due_date],  "%d-%m-%Y")
     #Validate to check if repeatable is empty
-    @given_task.repeatable = GivenTask.ifEmptyRepeatableSetTo0(given_task_params[:repeatable].to_i)
+    @given_task.repeatable = GivenTask.if_empty_repeatable_set_to_0(given_task_params[:repeatable].to_i)
     if @given_task.save
       params[:given_task][:assignments_attributes].each_value do |value|
         vendor = Vendor.find(value[:vendor_id])
