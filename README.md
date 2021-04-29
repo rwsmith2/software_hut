@@ -53,7 +53,6 @@ You can run all of the unit tests with the command:
 
 You can run all of the end-to-end tests with the command:
   'bundle exec rspec spec/features/"test file name".rb'
-### Currently our system doesn't make use of many functions in the models, so we only have unit tests for the given_task model ###
 
 ### Help Contacts
 Ryan Smith <RWSmith2@sheffield.ac.uk>
