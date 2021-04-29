@@ -1,5 +1,10 @@
+-#
+  This is the application file that displays across all pages
+  This involves the headers for respective accounts
+
 !!!
 %html
+  -#banner for overall website
   %head
     %title Vendor Management Self-Service Platform - #{content_for(:title)}
     %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
@@ -10,6 +15,7 @@
     = favicon_link_tag '/favicon.ico'
     = csrf_meta_tags
 
+  -#standard look of the body of the pages
   %body{ class: environment_notice_body_class, style: "overflow-y: hidden;" }
     = render 'layouts/environment_notice'
     .flash-messages
@@ -36,6 +42,7 @@
               -#   %br
               -#   Self-Service Platform
 
+          -#navigation bar
           - if @current_nav_identifier != :login
             .container.mx-2
               %button.navbar-toggler{ aria: { controls: "navbar-content", expanded: false, label: "Toggle navigation" }, data: { target: "#navbar-content", toggle: "collapse" }, type: "button" }
@@ -47,28 +54,31 @@
                     = navbar_link_to admin_home_path, title: "Go to the admin home page", identifier: :admin_home do
                       = icon 'fas', 'home'
                       Home
+
                     = navbar_link_to admin_tasks_path, title: "Go to the task management page", identifier: :admin_tasks do
                       = icon 'fas', 'tasks'
                       Tasks
+
                     = navbar_link_to admin_management_path, title: "Go to the vendor management page", identifier: :admin_venders do
                       = icon 'fas', 'user-circle'
                       Vendors
+
                     = navbar_link_to admin_assessments_path, title: "Go to the assessment management page", identifier: :vender_tasks do
                       = icon 'fas', 'tasks'
                       Assesment Page
+
                     = navbar_link_to given_tasks_path, title: "Go to the given task management page" do
                       = icon 'fas', 'calendar-alt'
                       Given Tasks Page
+
                     = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :admin_requests do
                       = icon 'fas', 'file-invoice'
                       Account Requests
-
-                    = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
+                    
+                    = navbar_link_to change_password_path, title: "Go to the change password page" do
                       = icon 'fas', 'cogs'
-                      Settings
-                    -# = navbar_link_to admin_settings_path, title: "Go to the admin settings page", identifier: :admin_settings do
-                    -#   = icon 'fas', 'cogs'
-                    -#   Settings
+                      Change password
+                      
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
                       = icon 'fas', 'user'
                       Log out
@@ -77,19 +87,23 @@
                     = navbar_link_to vendor_home_path, title: "Go to the vender home page", identifier: :vender_home do
                       = icon 'fas', 'home'
                       Home
+
                     = navbar_link_to assessments_index_path, title: "Go to the vender tasks page", identifier: :vender_tasks do
                       = icon 'fas', 'tasks'
                       Assesment Page
+
                     = navbar_link_to completedtasks_index_path, title: "Go to completed tasks page", identifier: :completed_tasks do
                       = icon 'fas', 'tasks'
                       Completed Tasks
+
                     = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
-                      Settings
+                      Profile
                     
-                    -# = navbar_link_to :root, title: "Go to the vender settings page", identifier: :vender_settings do
-                    -#   = icon 'fas', 'cogs'
-                    -#   Settings
+                    = navbar_link_to change_password_path, title: "Go to the change password page" do
+                      = icon 'fas', 'cogs'
+                      Change password
+
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
                       = icon 'fas', 'user'
                       Log out

@@ -1,3 +1,7 @@
+-#
+  Form for the admin settings page
+  Admin can change details such as email and name
+
 #new-task-panel.card.m-2.w-100.h-100
   = simple_form_for @user, url: admin_path(@user),remote: true ,defaults: {input_html: {class: 'form-control'}} do |f|
 
@@ -8,16 +12,19 @@
     .card-header.d-flex.justify-content-between.align-items-center.form-inputs
       %h5.m-0 Admin Settings
       = f.button :submit, 'Update', class: 'btn btn-outline-primary'
+    
+    -# main body where details of current admin are displayed
     .card-body.overflow-auto
       .input-group.mb-3
         .input-group-prepend
           %span#basic-addon-taskname.input-group-text 
             = icon 'fas', 'user'
         = f.input_field :user_name, required: true, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Username"}
+
       .input-group.mb-3
         .input-group-prepend
           %span#basic-addon-taskname.input-group-text 
             = icon 'fas', 'at'
         = f.input_field :email, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Email"}
+        
       = link_to "Change your password", edit_user_password_path 
-
