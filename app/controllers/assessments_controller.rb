@@ -117,12 +117,6 @@ class AssessmentsController < ApplicationController
       answers_attributes: [:id, :answer_text, :additional_response, :upload_needed ,:_destroy]])
   end
 
-  def vendor_answers_params
-    params.fetch(:vendor_answer, {}).permit(:given_task_id, :answer_id, answers_attributes: [:answer_id, :answer_text])
-  end
-
-  def questions_params
-    params.fetch(:question, {}).permit(:question_id, :question_text, :assessment_id)
-  end
+  
 
 end

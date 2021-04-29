@@ -7,6 +7,7 @@ class CompletedtasksController < ApplicationController
     @assessments = Assessment.all.select("assessment_id, assessment_title")
     #User .build_attribute_name, as it is a has_one association
     @task.build_assessment_linker
+    # fetch the completed tasks that are specifically assigned to the logged in vendor
     @selected= Task.first  
     @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:task_title, :due_date, :set_date, :complete).where("complete=true")
     @tasks = @joined.order(params[:sort])
