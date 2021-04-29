@@ -50,11 +50,9 @@ Rails.application.routes.draw do
   get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
   get "fetch_given_task", to: "given_tasks#select_given_task"
   get "sort_tasks", to: 'tasks#order_tasks'
-  
+
   get 'change_password', to: "change_password#index"
   match 'change_password/update', to: 'change_password#update', via: [:post]
-
-  root to: "pages#home"
 
   #resources
   resources :assessments do
