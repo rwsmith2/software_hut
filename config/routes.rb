@@ -13,9 +13,10 @@ Rails.application.routes.draw do
   get :ie_warning, to: 'errors#ie_warning'
   get :javascript_warning, to: 'errors#javascript_warning'
 
-  get "vendor/home" => "vendors#index"
+  #root
+  root to: "pages#home"
 
-  
+  #login/registration routes
   get "login", to: "login#index"
   get "request", to: "request#index"
   get "request_manage", to: "request_manage#index"
@@ -23,56 +24,46 @@ Rails.application.routes.draw do
   get "accept_request", to: 'request_manage#accept_request', as: 'accept_request'
   get "reject_request", to: 'request_manage#reject_request', as: 'reject_request'
 
-  get "admin/home", to: "admins#index"
-
-  get "admin/management" => "admins#management"
-  get "admin/admin_edit" => "admins#edit_vendor"
-
-  get "admin/settings", to: "admins#settings"
-  
-  get "admin/tasks", to: "tasks#index"
-  get "admin/tasks/assign", to: "tasks#assign"
-
-  get "admin/given_tasks", to: "given_tasks#index"
-
+  #vendor routes
+  get "vendor/home" => "vendors#index"
   get "vendor_answers", to: "assessments#index"
 
-
+  #admin routes
+  get "admin/home", to: "admins#index"
+  get "admin/management" => "admins#management"
+  get "admin/admin_edit" => "admins#edit_vendor"
+  get "admin/settings", to: "admins#settings"
+  get "admin/tasks", to: "tasks#index"
+  get "admin/tasks/assign", to: "tasks#assign"
+  get "admin/given_tasks", to: "given_tasks#index"
   get "admin/assessments", to: "assessments#admin_index"
-
-  #delete 'admin/assessments/:id', to: "assessments#destroy"
-
   get "admin/assessments/new", to: "assessments#new"
   get "admin/assessments/edit_question", to: "assessments#_edit_question"
 
-
+  #assessment routes
   get "fetch_assessment", to: 'assessments#select_assessment', as: 'fetch_assessment'
-  get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
-  get "fetch_given_task", to: "given_tasks#select_given_task"
-
-  get "sort_tasks", to: 'tasks#order_tasks'
-
   get "assessments/questions", to: "assessments#questions"
-
   get "assessments/index", to: "assessments#index"
   get 'completedtasks/index', to: "completedtasks#index"
 
-  root to: "pages#home"
+  #task routes
+  get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
+  get "fetch_given_task", to: "given_tasks#select_given_task"
+  get "sort_tasks", to: 'tasks#order_tasks'
 
+  #resources
   resources :assessments do
     resources :questions do
       resources :answers 
     end
   end
 
-  
   resources :vendor_answers
   resources :vendor_uploads
-
-
   resources :vendors
   resources :admins
   resources :users
+  
   resources :given_tasks do
     resources :assignments 
   end
