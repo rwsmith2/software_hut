@@ -18,6 +18,7 @@ The system has the following:
 * Task Assignment
 * Document Uploads
 * Task Scheduling
+* Email Notifying
 
 ### Deployment
 To deploy the system, you must install the gems using 'bundle install' in console.
