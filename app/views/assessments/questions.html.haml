@@ -3,12 +3,6 @@
   .card-header
     Assessment page - Triage
   .card-body
-    -# %h3#progressbars Progress bars
-    -# .row
-    -#   .col-md-4
-    -#     .progress
-    -#       .progress-bar(style="width: 60%;")
-    -#   %br
     -# this form is to display the assessment questions and answers
     = simple_form_for VendorAnswer.new do |f|
       - if @questions != nil
@@ -25,12 +19,13 @@
                       %input{ type: "radio"}
                       = ans.answer_text
       -# displaying the progress bar and 
-      -# increment it based on qestion tab number
+      -# increment it based on question tab number
       %ul.pagination.justify-content-center
         .col-md-4
           .progress
             .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
       %ul.pagination.justify-content-center
+      -# pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
         %li 
