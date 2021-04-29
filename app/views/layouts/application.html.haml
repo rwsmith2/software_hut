@@ -74,11 +74,11 @@
                     = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :admin_requests do
                       = icon 'fas', 'file-invoice'
                       Account Requests
-
-                    = navbar_link_to edit_admin_path(current_user.user_id), title: "Go to the admin settings page" do
+                    
+                    = navbar_link_to change_password_path, title: "Go to the change password page" do
                       = icon 'fas', 'cogs'
-                      Settings
-
+                      Change password
+                      
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
                       = icon 'fas', 'user'
                       Log out
@@ -98,7 +98,11 @@
 
                     = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page" do
                       = icon 'fas', 'cogs'
-                      Settings
+                      Profile
+                    
+                    = navbar_link_to change_password_path, title: "Go to the change password page" do
+                      = icon 'fas', 'cogs'
+                      Change password
 
                     = navbar_link_to destroy_user_session_path, method: :delete, title: "Log out of the system", liclass: 'user-link' do
                       = icon 'fas', 'user'
