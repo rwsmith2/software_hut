@@ -21,11 +21,11 @@ The system has the following:
 * Email Notifying
 
 ### Deployment
-To deploy the system, you must install the gems using 'bundle install' in console.
-Then you must reset and start the database, using 'bundle exec rake db:drop db:create db:migrate' in console.
+To deploy the system, you must install the gems using `bundle install` in console.
+Then you must reset and start the database, using `bundle exec rake db:drop db:create db:migrate` in console.
 Doing this will create a new database using the necessary schema.
-To start a rails server to run the application, type 'bundle exec rails s' in console. 
-Once the server is started, open a web browser and navigate to 'http://localhost:3000/'
+To start a rails server to run the application, type `bundle exec rails s` in console. 
+Once the server is started, open a web browser and navigate to `http://localhost:3000/`
 
 Instructions may differ if you are running off a different type of server.
 
@@ -49,10 +49,10 @@ The end-to-end tests are located at (spec\features) and you can find the tests f
 
 ### How to run tests
 You can run all of the unit tests with the command:
-  'bundle exec rspec spec/models/"test file name".rb'
+  `bundle exec rspec spec/models/"test file name".rb`
 
 You can run all of the end-to-end tests with the command:
-  'bundle exec rspec spec/features/"test file name".rb'
+  `bundle exec rspec spec/features/"test file name".rb`
 
 ### Help Contacts
 Ryan Smith <RWSmith2@sheffield.ac.uk>
