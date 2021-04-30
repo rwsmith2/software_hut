@@ -17,6 +17,7 @@ class RequestManageController < ApplicationController
       end
     end
 
+    #method to accept vendor requests 
     def accept_request
       @vendor = Vendor.find(params[:vendor])
       @vendor.validated = true
@@ -27,6 +28,7 @@ class RequestManageController < ApplicationController
       password = SecureRandom.hex(8)
       @vendor.user.password = password
       
+      #check if vendor is saved to system
       if @vendor.save && @vendor.user.save
         RequestMailer.with(email: email, name: name, password: password).accepted_email.deliver_now
 
@@ -36,12 +38,14 @@ class RequestManageController < ApplicationController
       end
     end
 
+    #reject vendor request
     def reject_request
       @vendor = Vendor.find(params[:vendor])
       
       name = @vendor.company_name
       email = @vendor.user.email
 
+      #destroy vendor after
       if @vendor.destroy
         RequestMailer.with(email: email, name: name).rejected_email.deliver_now
 
