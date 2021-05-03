@@ -31,6 +31,9 @@
 -#main content of page
 .card-body
     %table.table.table-hover
+
+                
+        -#non overdue table
         %thead
             %tr
                 %th Task
@@ -41,11 +44,19 @@
             -# Listing all set tasks for the vendor    
             -@tasks.each do |givenTask|
                 %tr
+                - if givenTask.due_date < DateTime.now 
+                    -@task = Task.find_by(task_id: givenTask.task_id)
+                    %td= @task.task_title 
+                    %td= @task.task_description
+                    %td= givenTask.set_date
+                    %td{:style => "font-weight:bold; color:red"}= givenTask.due_date
+                - else
                     -@task = Task.find_by(task_id: givenTask.task_id)
                     %td= @task.task_title
                     %td= @task.task_description
                     %td= givenTask.set_date
                     %td= givenTask.due_date
+                
                     
 
             
