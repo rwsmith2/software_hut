@@ -34,4 +34,5 @@
                     %td= vendor.company_number
                     %td= Assignment.where(vendor_id: vendor.vendor_id, complete: false).count
                     %td= link_to 'Edit', admin_admin_edit_path(:vendor_id => vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button"
-                  
+    %nav.mt-2{"aria-label" => "Page navigation"}
+        = link_to 'Create vendor', admin_create_vendor_path, class: "ajax-modal btn btn-outline-secondary", type: "button"

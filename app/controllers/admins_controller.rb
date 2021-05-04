@@ -35,6 +35,45 @@ class AdminsController < ApplicationController
       @user = User.find_by(user_id: @vendorSelected.user_id)
       render :admin_edit
     end
+
+    def create_vendor
+      params_v = params.permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
+
+      @email = params_v[:email]
+      @name = params_v[:name]
+      @address = params_v[:address]
+      @city = params_v[:city]
+      @postcode = params_v[:postcode]
+      @region = params_v[:region]
+
+      user = User.new(email: @email, password: SecureRandom.hex(8), user_name: @email, is_admin: false)
+      vendor = Vendor.new(company_name: @name, company_number: "0", validated: false)
+      address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
+
+      if user.valid?
+        user.save
+        vendor.user_id = user.user_id
+        if vendor.valid?
+          vendor.save
+          address.vendor_id = vendor.vendor_id
+          if address.valid?
+            address.save
+            render :management
+            return
+          else
+            user.destroy
+            vendor.destroy
+            @error_obj = address
+          end
+        else
+          user.destroy
+          @error_obj = vendor
+        end
+      else
+        @error_obj = user
+      end
+
+    end
  
     def create
       @task = Task.new(admin_id: current_user)
