@@ -25,7 +25,8 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.find(params[:assessment_id])
     @page, @questions = pagy(Question.where("assessment_id=?", @assessment.assessment_id), items: 3)
     @question = Question.where("assessment_id=?", @assessment.assessment_id).count
-    @questionsCoun = @question/3
+    @questionsCoun = @question/3.0
+    puts @questionsCoun
   end
   
   #GET /admin/assessments/new
