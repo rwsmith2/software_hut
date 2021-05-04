@@ -15,7 +15,7 @@ class AssessmentsController < ApplicationController
     #fetch the assessment for a specific vendor
     @user = current_user
     @vendor = Vendor.find_by(user_id: @user.user_id)
-    @joined = Assignment.joins(:given_task).select(:task_id)
+    @joined = Assignment.joins(:given_task).select(:task_id).where("complete=false")
     @tasks = @joined.where(vendor_id: @vendor.vendor_id)
   end
 
