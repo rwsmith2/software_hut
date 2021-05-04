@@ -1,7 +1,7 @@
 - content_for :title, ''
 .card
   .card-header
-    Assessment page - Triage
+    Assessment page
   .card-body
     -# this form is to display the assessment questions and answers
     = simple_form_for VendorAnswer.new do |f|
@@ -25,7 +25,7 @@
           .progress
             .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
       %ul.pagination.justify-content-center
-      -# pagination for numbering multiple pages (tabs)
+        -#pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
         %li 

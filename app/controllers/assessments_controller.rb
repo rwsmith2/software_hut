@@ -1,5 +1,6 @@
 # Controller used to handle Assessments 
 class AssessmentsController < ApplicationController
+  include Pagy::Backend
 
   #Before actions
   before_action :authenticate_user!
@@ -21,9 +22,10 @@ class AssessmentsController < ApplicationController
 
   def questions
     # 1 is triage assessment
-    @page, @questions = pagy(Question.where("assessment_id=1"), items: 3)
-    @question = Question.all
-    @questionsCoun = @question.count/3
+    @assessment = Assessment.find(params[:assessment_id])
+    @page, @questions = pagy(Question.where("assessment_id=?", @assessment.assessment_id), items: 3)
+    @question = Question.where("assessment_id=?", @assessment.assessment_id).count
+    @questionsCoun = @question/3
   end
   
   #GET /admin/assessments/new
@@ -44,6 +46,11 @@ class AssessmentsController < ApplicationController
   def edit
     #Find the selected assessment
     @assessment = Assessment.find(params[:id])
+  end
+
+  def answer_questions
+    @assessment = Assessment.find(params[:assessment_id])
+    @questions = Questions.find(params[:assessment_id])
   end
 
   #POST /assessments/search
