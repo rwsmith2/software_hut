@@ -20,6 +20,7 @@
               %a.nav-link= link_to "Due Date Descending" , :sort => "due_date DESC"
               %a.nav-link= link_to "Priority Ascending" , :sort => "priority ASC"
               %a.nav-link= link_to "Priority Descending" , :sort => "priority DESC"
+              
       //Second Column, containing the task dashboard table  
       .col-8
         %table.table.table-striped.table-bordered.table-hover
@@ -31,17 +32,9 @@
               %th Task Title
 
             %tbody
-
-            -@tasks.each do |assignment|
-              %tr
-                -@task = Task.find_by(task_id: assignment.task_id)
-                -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
-                %td= @vendor.company_name
-
-                %td= GivenTask.priority_int_to_string(assignment.priority)
-                %td= assignment.due_date
-
-                %td= @task.task_title
+            
+            -#partial that displays all the tasks currently assigned 
+            = render partial: 'display_vendors_tasks', locals: {tasks: @tasks}
 
         .justify-content-center
           = pagy_bootstrap_nav(@pagy).html_safe

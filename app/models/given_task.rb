@@ -27,9 +27,9 @@ class GivenTask < ApplicationRecord
   #Takes int input and returns the string version(because its stored as int in the db)
   def self.priority_int_to_string(integer_input)
     case integer_input
-    when 0
+    when 1
       return "Low"
-    when 2
+    when 3
       return "High"
     else
       return "Medium"
@@ -40,11 +40,11 @@ class GivenTask < ApplicationRecord
   def self.priority_string_to_int(string_input)
     case string_input
     when "Low"
-      return 0
-    when "High"
-      return 2
-    else 
       return 1
+    when "High"
+      return 3
+    else 
+      return 2
     end
   end
 

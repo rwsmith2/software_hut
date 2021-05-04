@@ -1,0 +1,17 @@
+-#partial for displaying all the vendor tasks to the admin
+
+-@tasks.each do |assignment|
+    -@task = Task.find_by(task_id: assignment.task_id)
+    -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
+    - if assignment.due_date < DateTime.now 
+        %tr
+            %td{:style => "font-weight:bold; color:crimson"}= @vendor.company_name
+            %td{:style => "font-weight:bold; color:crimson"}= GivenTask.priority_int_to_string(assignment.priority)
+            %td{:style => "font-weight:bold; color:crimson"}= assignment.due_date
+            %td{:style => "font-weight:bold; color:crimson"}= @task.task_title
+    - else 
+        %tr
+            %td= @vendor.company_name
+            %td= GivenTask.priority_int_to_string(assignment.priority)
+            %td= assignment.due_date
+            %td= @task.task_title
