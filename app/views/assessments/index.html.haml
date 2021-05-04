@@ -3,45 +3,13 @@
 .card.mb-3
   %br
   .card-header
-    Assessment page - Triage
+    Assessment page 
   .card-body
-    -# display the very first 4 checkboxes
-    = simple_form_for VendorAnswer.new do |f|
-      %ul.pagination.justify-content-center
-        %li
-          = f.check_box :checkbox1, :checked => false, onclick: "ShowCertificate1()", :class=> "checkbox1", :id => "checkbox1"
-          = 'ISO-27001 Certified'
-          %br
-          = f.check_box :checkbox2, :checked => false
-          = 'PCI-DSS Certified'
-          %br
-          = f.check_box :checkbox3, :checked => false
-          = 'Processing card transactions'
-          %br
-          = f.check_box :checkbox4, :checked => false
-          = 'Processing univeristy personal data'
-      %br         
-
-      -# buttons for uploading files
-      %ul.pagination.justify-content-center
-        %li 
-          = f.label "Upload your certificates: ", :style => "font-weight:bold" 
-          %br
-          %br
-          = f.file_field :image
-          %br
-          %br
-          = f.file_field :image
-          -# spaces between objects
-          %br
-          %br
-          %br
-          %br
-          %br
-          %br
-      
-      
-      %nav.mt-2{"aria-label" => "Page navigation"}
-        = link_to 'Go to the questions page', assessments_questions_path, class: "btn page-link", type: "button"
-    
+    %ul.pagination.justify-content-center
+      %li 
+        Click on the desired assessment: 
+    %ul.pagination.justify-content-center
+      %li 
+        #tasks-list.list-group.overflow-auto.p-1
+          = render partial: 'tasks_list', locals: {tasks: @tasks}
 

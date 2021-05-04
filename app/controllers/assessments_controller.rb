@@ -6,12 +6,17 @@ class AssessmentsController < ApplicationController
   before_action :set_assessment, only: [:_edit_question, :select_assessment]
   before_action :set_assessment_destroy_edit, only: [:destroy, :edit ,:update]
 
-  authorize_resource
+  #authorize_resource
 
   #GET /admin/home
   def index 
     #Gets the list of all assessments, and also creates a pagy object
     @pagy, @assessments = pagy(Assessment.all, items: 10)
+    #fetch the assessment for a specific vendor
+    @user = current_user
+    @vendor = Vendor.find_by(user_id: @user.user_id)
+    @joined = Assignment.joins(:given_task).select(:task_id)
+    @tasks = @joined.where(vendor_id: @vendor.vendor_id)
   end
 
   def questions
