@@ -29,6 +29,7 @@ class AdminsController < ApplicationController
       
     end
 
+
     def edit_vendor
       @vendorSelected = Vendor.find(params[:vendor_id])
 

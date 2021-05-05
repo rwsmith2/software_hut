@@ -8,8 +8,8 @@ class VendorsController < ApplicationController
 
       #query to get all tasks and assignments for the given vendor
       @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id)
-      @tasks = @joined.where(vendor_id: @vendor.vendor_id).order(params[:sort])
-      @assignmentsLeft = Assignment.where(vendor_id: @vendor.vendor_id, complete: false).count 
+      @tasks = @joined.where(vendor_id: @vendor.vendor_id, complete: false).order(params[:sort])
+      @tasksCount = Assignment.where(vendor_id: @vendor.vendor_id, complete: false).count 
 
       puts ("date: " + DateTime.now.to_s )
       @overdueTask = @tasks.where('due_date >= ?' , DateTime.now)
@@ -22,11 +22,21 @@ class VendorsController < ApplicationController
     def edit
     end
 
+    #/vendor/search
+    def search
+      puts "searching for vendor" 
+      #Create a list of tasks matching the search query
+      @vendorL = Vendor.find_by("company_name LIKE ?","%#{params[:search][:company_name]}%")
+      puts @vendorL.company_name
+      #render a view in the admin view folder
+      render 'admin/vendor_search_refresh'
+    end
+
     def destroy
       @vendor = Vendor.find(v_params[:vendor_id])
       puts "vendor" + @vendor.company_name
       @vendor.destroy
-      flash.alert = 'Post was successfully destroyed.'
+      flash.alert = 'Post was successfully destroyed.js.haml'
     end
 
     def update

@@ -4,8 +4,14 @@
 
 %br 
 .card-header
-%h3 Vendor Management 
+%h3 Vendor Management
 %br
+    //Search form, allowing user to query tasks. Also includes a reset button
+    = simple_form_for :search, url: search_vendors_path, method: :post, defaults: {input_html: {class: 'form-control'}},remote: true do |f|
+        = f.input_field :company_name, as: :string, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Company name"}, 
+        placeholder: "Vendor Company Name"
+        = f.button :submit, 'Search', class: 'btn btn-outline-primary'
+        = link_to 'Reset', admin_management_path
     -#sort by
     .dropdown
         %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
@@ -26,13 +32,8 @@
                 %th Company Number 
                 %th Incomplete Tasks
 
-            %tr
-            -@vendorL.each do |vendor|
-                %tr
-                    %td= vendor.vendor_id
-                    %td= vendor.company_name
-                    %td= vendor.company_number
-                    %td= Assignment.where(vendor_id: vendor.vendor_id, complete: false).count
-                    %td= link_to 'Edit', admin_admin_edit_path(:vendor_id => vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button"
+                -#partial that displays all the tasks currently assigned 
+                = render partial: 'display_vendor', locals: {vendors: @vendorL}
+            
     %nav.mt-2{"aria-label" => "Page navigation"}
         = link_to 'Create vendor', admin_create_vendor_path, class: "ajax-modal btn btn-outline-secondary", type: "button"

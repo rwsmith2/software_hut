@@ -9,7 +9,7 @@
     %br 
 
     -#progress bar section
-    - @asLeft = @assignmentsLeft
+    - @asLeft = @tasksCount
     %h4= "Tasks To Do: " + @asLeft.to_s 
     - if @asLeft == 0 
         - @asLeft=100

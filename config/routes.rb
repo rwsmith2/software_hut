@@ -63,7 +63,9 @@ Rails.application.routes.draw do
 
   resources :vendor_answers
   resources :vendor_uploads
-  resources :vendors
+  resources :vendors do
+    post :search, on: :collection
+  end
   resources :admins do
     post :create_vendor, on: :collection
   end
