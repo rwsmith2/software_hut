@@ -37,7 +37,7 @@ class AdminsController < ApplicationController
     end
 
     def create_vendor
-      params_v = params.permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
+      params_v = params.require(:create_vendor).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
 
       @email = params_v[:email]
       @name = params_v[:name]
