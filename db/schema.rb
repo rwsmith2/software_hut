@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_27_171437) do
+ActiveRecord::Schema.define(version: 2021_05_05_160251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_171437) do
     t.boolean "complete", default: false
     t.integer "vendor_id", null: false
     t.integer "given_task_id", null: false
+    t.date "complete_by"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|

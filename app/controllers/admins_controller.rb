@@ -4,11 +4,58 @@ class AdminsController < ApplicationController
     
     skip_authorization_check
   
+    # def repeat_tasks
+    #   today_date = Date.today
+    #   @need_repeat_tasks = GivenTask.all
+    #   @need_repeat_tasks.each do |given_task|
+    #     if given_task.repeatable > 0 && today_date >= (given_task.set_date + given_task.repeatable)
+    #       old_due_date = given_task.due_date
+    #       task_time_length = (given_task.due_date - given_task.set_date).to_i
+    #       given_task.set_date = today_date
+    #       given_task.due_date = today_date + task_time_length
+    #       given_task.save
+    #       vendors_assigned = Assignment.where(given_task_id: given_task.given_task_id, complete_by: old_due_date).select(:vendor_id).distinct
+    #       vendors_assigned.each do |new_assign|
+    #         assignment = Assignment.new
+    #         assignment.vendor_id = new_assign
+    #         assignment.complete_by = given_task.due_date
+    #         assignment.given_task_id = given_task.given_task_id
+    #         assignment.save
+    #       end
+    #     end
+    #   end
+    # end
+
     def index
+      puts("Repeating tasks")
+      today_date = Date.today
+      @need_repeat_tasks = GivenTask.all
+      @need_repeat_tasks.each do |given_task|
+        puts(today_date, " ",(given_task.set_date + given_task.repeatable))
+        puts(given_task.repeatable > 0 && today_date >= (given_task.set_date + given_task.repeatable))
+        if given_task.repeatable > 0 && today_date >= (given_task.set_date + given_task.repeatable)
+          puts(given_task.given_task_id, "is getting repeated")
+          old_due_date = given_task.due_date
+          task_time_length = (given_task.due_date - given_task.set_date).to_i
+          given_task.set_date = today_date
+          given_task.due_date = today_date + task_time_length
+          given_task.save
+          vendors_assigned = Assignment.where(given_task_id: given_task.given_task_id, complete_by: old_due_date).select(:vendor_id).distinct
+          vendors_assigned.each do |new_assign|
+            assignment = Assignment.new
+            assignment.vendor_id = new_assign.vendor_id
+            assignment.complete_by = given_task.due_date
+            assignment.given_task_id = given_task.given_task_id
+            assignment.save
+            puts(assignment.vendor_id, "is getting assigned to repeated task")
+          end
+        end
+      end
+
       @current_nav_identifier = :index
       @user = current_user
       
-      @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
+      @joined = Assignment.joins(:given_task).select(:assignment_id,:complete_by,:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
 
       @pagy, @tasks = pagy(@joined.order(params[:sort]), items: 10)
 

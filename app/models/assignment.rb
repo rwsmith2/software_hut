@@ -3,6 +3,7 @@
 # Table name: assignments
 #
 #  complete      :boolean          default(FALSE)
+#  complete_by   :date
 #  assignment_id :integer          not null, primary key
 #  given_task_id :integer          not null
 #  vendor_id     :integer          not null
