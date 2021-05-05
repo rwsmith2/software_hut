@@ -36,8 +36,14 @@ class AdminsController < ApplicationController
       render :admin_edit
     end
 
+    def new_vendor
+      @vendor = Vendor.new
+
+    end
+
     def create_vendor
-      params_v = params.require(:create_vendor).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
+      #@vendor = Vendor.new(new_vendor_params)
+      params_v = params.require(:vendor).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
 
       @email = params_v[:email]
       @name = params_v[:name]
@@ -58,6 +64,7 @@ class AdminsController < ApplicationController
           address.vendor_id = vendor.vendor_id
           if address.valid?
             address.save
+            @vendorL = Vendor.all.order(params[:sort])
             render :management
             return
           else
@@ -117,6 +124,12 @@ class AdminsController < ApplicationController
     def admin_params
       params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating)
     end
-    
+
+  #Only allow a trusted parameter "white list" through.
+    def new_vendor_params
+      #Fetch task attributes, along with nested assessment_linker attributes
+      params.fetch(:vendor).permit(:email, :name, :address, :city, :postcode, :region, :term)
+    end
+
   end
   

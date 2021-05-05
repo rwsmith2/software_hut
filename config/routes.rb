@@ -36,7 +36,8 @@ Rails.application.routes.draw do
   get "admin/assessments", to: "assessments#admin_index"
   get "admin/assessments/new", to: "assessments#new"
   get "admin/assessments/edit_question", to: "assessments#_edit_question"
-  get "admin/create_vendor", to: "admins#create_vendor"
+  get "admin/new_vendor", to: "admins#new_vendor"
+  post "admin/create_vendor", to: "admins#create_vendor"
 
 
   #assessment routes
@@ -65,7 +66,7 @@ Rails.application.routes.draw do
   resources :vendor_uploads
   resources :vendors
   resources :admins do
-    post :create_vendor, on: :collection
+    resources :create_vendor, on: :collection
   end
   resources :users
   
