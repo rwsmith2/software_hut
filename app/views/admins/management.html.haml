@@ -36,4 +36,4 @@
                 = render partial: 'display_vendor', locals: {vendors: @vendorL}
             
     %nav.mt-2{"aria-label" => "Page navigation"}
-        = link_to 'Create vendor', admin_create_vendor_path, class: "ajax-modal btn btn-outline-secondary", type: "button"
+        = link_to 'Create vendor', admin_new_vendor_path, class: "ajax-modal btn btn-outline-secondary", type: "button"
