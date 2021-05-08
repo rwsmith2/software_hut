@@ -34,7 +34,7 @@
             %tbody
             
             -#partial that displays all the tasks currently assigned 
-            = render partial: 'display_vendors_tasks', locals: {tasks: @tasks}
+            = render partial: 'display_vendor_tasks', locals: {tasks: @tasks}
 
         .justify-content-center
           = pagy_bootstrap_nav(@pagy).html_safe
