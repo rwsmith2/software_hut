@@ -34,14 +34,9 @@ class ApplicationController < ActionController::Base
     if current_user.is_admin?
       puts("Admin")
       admin_home_url(resource)
-      #redirect_to '/admin/home'
-      #admin_home_page(resource)
     else
       puts("Vendor")
       vendor_home_url(resource)
-      #redirect_to '/vendor/home'
-      #render "vendor/index"
-      #vendor_home_page(resource)
     end
   end
 
@@ -88,5 +83,4 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
     end
 
-  
 end

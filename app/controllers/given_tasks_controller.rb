@@ -30,6 +30,11 @@ class GivenTasksController < ApplicationController
   def update
     @given_task = GivenTask.find(params[:id])
     if @given_task.update(given_task_params)
+      assignments = Assignment.where(given_task_id: @given_task.given_task_id)
+      assignments.each do |assignment|
+        assignment.complete_by = @given_task.due_date
+        assignment.save
+      end
       #Update the priority attribute, after converting form string to int
       @given_task.update(priority: GivenTask.priority_string_to_int(given_task_params[:priority]))
       @given_task = GivenTask.joins(:task).all.select("given_task_id, task_title")
@@ -83,6 +88,12 @@ class GivenTasksController < ApplicationController
     #Validate to check if repeatable is empty
     @given_task.repeatable = GivenTask.if_empty_repeatable_set_to_0(given_task_params[:repeatable].to_i)
     if @given_task.save
+      latest_given_task_id = (GivenTask.last).given_task_id
+      assignments = Assignment.where(given_task_id: latest_given_task_id)
+      assignments.each do |assignment|
+        assignment.complete_by = @given_task.due_date
+        assignment.save
+      end
       params[:given_task][:assignments_attributes].each_value do |value|
         vendor = Vendor.find(value[:vendor_id])
         user = vendor.user
