@@ -15,7 +15,7 @@ class Question < ApplicationRecord
   belongs_to :assessment, optional: true
   accepts_nested_attributes_for :answers, allow_destroy: true
 
-  validate_associated :answer
+  validates_associated :answer
   validates :question_text, presence: true, length: { in: 5..100}
   validate :validate_answer_count
 
