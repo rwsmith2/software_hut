@@ -72,7 +72,7 @@ class AdminsController < ApplicationController
     end
 
     def management
-      @vendorL = Vendor.all.order(params[:sort])
+      @vendor = Vendor.all.order(params[:sort])
       
     end
 
@@ -140,6 +140,15 @@ class AdminsController < ApplicationController
       end
     end
 
+    #/admin/search_vendors
+    def search_vendors
+      puts "searching for vendor in admin controller" 
+      #Create a list of tasks matching the search query
+      @vendor = Vendor.where("company_name LIKE ?","%#{params[:search][:company_name]}%")
+      #render a view in the admin view folder
+      render 'vendor_search_refresh'
+    end
+
     def update
       @vendorSelected = Vendor.find(params[:id])
       if @vendorSelected.update_attributes(admin_params)
@@ -154,8 +163,7 @@ class AdminsController < ApplicationController
       redirect_to posts_url, notice: 'Post was successfully destroyed.'
     end
 
-    def search
-    end
+    
   
     def search_result
       #@posts = Post.where("title = ?", params[:search][:title]).where("private_post = 'f'")

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get "admin/assessments/new", to: "assessments#new"
   get "admin/assessments/edit_question", to: "assessments#_edit_question"
   get "admin/new_vendor", to: "admins#new_vendor"
+  post "admin/search_vendors", to: "admins#search_vendors"
   post "admin/create_vendor", to: "admins#create_vendor"
 
 

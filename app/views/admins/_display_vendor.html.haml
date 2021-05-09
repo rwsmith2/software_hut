@@ -1,8 +1,17 @@
-%tr
-    -@vendorL.each do |vendor|
+-# partial that displays the list of vendors and their information
+
+%table.table.table-hover
+    %tr
+        %th Vendor ID
+        %th Vendor Company Name
+        %th Company Number 
+        %th Incomplete Tasks
+    
+    - @vendor.each do |vendor|
+        -@vendorT = Vendor.find_by(vendor_id: vendor.vendor_id)
         %tr
-            %td= vendor.vendor_id
-            %td= vendor.company_name
-            %td= vendor.company_number
+            %td= @vendorT.vendor_id
+            %td= @vendorT.company_name
+            %td= @vendorT.company_number
             %td= Assignment.where(vendor_id: vendor.vendor_id, complete: false).count
-            %td= link_to 'Edit', admin_admin_edit_path(:vendor_id => vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button"
+            %td= link_to 'Edit', admin_admin_edit_path(:vendor_id => vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button" 
