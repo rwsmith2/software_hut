@@ -24,4 +24,9 @@ class Vendor < ApplicationRecord
   validates :company_name, presence: true
   validates :company_number, presence: true
 
+  def self.get_vendor_name(vendor_id)
+    vendor = Vendor.find_by(vendor_id: vendor_id)
+    return vendor.company_name
+  end
+
 end

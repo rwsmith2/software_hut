@@ -18,6 +18,8 @@ class Task < ApplicationRecord
 
 
   accepts_nested_attributes_for :assessment_linker, allow_destroy: true
-  validates :task_title, :task_description, :estimation, presence: true
+  validates :task_title, :estimation, presence: true
+  validates :task_title, length: { in: 5..100}, uniqueness: { case_sensitive: false }
+  validates :estimation, numericality: { only_integer: true, greater_than: 0 }
 
 end

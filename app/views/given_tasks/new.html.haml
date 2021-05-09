@@ -6,6 +6,11 @@
 
 //Javascript used to format the date picker, part of the 'bootstrap-datepicker-rails' gem   
 :javascript
+  var date = new Date();
+  date.setDate((new Date()).getDate()-1);
+
   $(document).ready(function(){
-    $('.datepicker').datepicker({format: 'dd-mm-yyyy'});
+    $('.datepicker').datepicker({
+      format: 'dd-mm-yyyy',
+      startDate: date});
   });

@@ -3,8 +3,13 @@
 
 = simple_form_for @assessment, defaults: {input_html: {class: 'form-control'}} do |f|
   //Show error notifications at the top of the page
-  = f.error_notification
-  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  //= f.error_notification
+  //= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+  - if @assessment.errors.any?
+    .alert.alert-danger 
+      - @assessment.errors.full_messages.each do |message| 
+        = message
+        %br
   //Header including the back and save button
   .card-header.d-flex.justify-content-between.align-items-center
     =link_to 'Back', admin_assessments_path(), class: "btn btn-danger"

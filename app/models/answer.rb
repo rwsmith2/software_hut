@@ -15,4 +15,6 @@
 class Answer < ApplicationRecord
   belongs_to :question, optional: true
   has_many :vendor_answers
+
+  validates :answer_text, presence: true, length: { in: 5..100}
 end

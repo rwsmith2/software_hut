@@ -19,7 +19,7 @@
             .row.mb-3
                 %label.col-sm-2.col-form-label{:for => "inputEmail3"} Vendor Email
                 .col-sm-10
-                    %input#inputEmail3.form-control{:type => "email", :placeholder => @user.email}/
+                    %input#inputEmail3.form-control{:type => "email", :value => @user.email}/
 
             -# company name and number
             .row.mb-3
@@ -34,19 +34,21 @@
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "initialScore"} Initial Score
                 .col-sm-3
-                    = f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, placeholder: "Initial Score" 
+                    //= f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, placeholder: "Initial Score" 
+                    = f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, value: @vendorSelected.initial_score
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "creditRating"} Credit Rating
                 .col-sm-3
-                    = f.input_field :credit_rating, as: :integer, input_html: {id: "creditRatingTxt"}, placeholder: "Credit Rating" 
+                    = f.input_field :credit_rating, as: :integer, input_html: {id: "creditRatingTxt"}, value: @vendorSelected.credit_rating
             .row.mb-2
                 %label.col-sm-2.col-form-label{:for => "kpi"} KPI
                 .col-sm-3
-                    = f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, placeholder: "KPI"  
+                    //= f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, placeholder: "KPI"  
+                    = f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, value: @vendorSelected.kpi
             .row.mb-5
                 %label.col-sm-2.col-form-label{:for => "riskRating"} Risk Rating
                 .col-sm-3
-                    = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, placeholder: "Risk Rating"  
+                    = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, value: @vendorSelected.risk_rating
             
             -# button group
             .flex-row

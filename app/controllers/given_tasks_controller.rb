@@ -30,7 +30,7 @@ class GivenTasksController < ApplicationController
   def update
     @given_task = GivenTask.find(params[:id])
     if @given_task.update(given_task_params)
-      assignments = Assignment.where(given_task_id: @given_task.given_task_id)
+      assignments = Assignment.where(given_task_id: @given_task.given_task_id, complete_by: @given_task.due_date).select(:vendor_id).distinct
       assignments.each do |assignment|
         assignment.complete_by = @given_task.due_date
         assignment.save
@@ -84,7 +84,8 @@ class GivenTasksController < ApplicationController
     @given_task.priority = GivenTask.priority_string_to_int(given_task_params[:priority])
     @given_task.set_date = Date.today
     #Convert string to date
-    @given_task.due_date  = Date.strptime(given_task_params[:due_date],  "%d-%m-%Y")
+    #@given_task.due_date  = Date.strptime(given_task_params[:due_date],  "%d-%m-%Y")
+    @given_task.due_date  = given_task_params[:due_date]
     #Validate to check if repeatable is empty
     @given_task.repeatable = GivenTask.if_empty_repeatable_set_to_0(given_task_params[:repeatable].to_i)
     if @given_task.save
@@ -104,6 +105,7 @@ class GivenTasksController < ApplicationController
       end
       render 'given_task_success_create'
     else
+      puts(@given_task.errors.inspect)
       render 'given_task_failure'
     end
   end

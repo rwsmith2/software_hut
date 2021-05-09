@@ -72,7 +72,12 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to admin_tasks_path, notice: 'Task was successfully created'
     else
-      render :new
+      # @task = Task.new
+      @task.build_assessment_linker
+      @assessments = Assessment.all.select("assessment_id, assessment_title")
+      @pagy, @tasks = pagy(Task.all, items: 10)
+      @selected= Task.first
+      render :index
     end
   end
 

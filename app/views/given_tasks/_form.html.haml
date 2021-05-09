@@ -13,6 +13,12 @@
       //Form body
       .modal-body.overflow-auto     
         .input-group.mb-3     
+          - if @given_task.errors.any?
+            .alert.alert-danger 
+              - @given_task.errors.full_messages.each do |message| 
+                - puts(message)
+                = message
+                %br
           .input-group-prepend
             %span#basic-addon-taskname.input-group-text 
               = icon 'fas', 'user-clock'

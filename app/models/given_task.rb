@@ -23,6 +23,7 @@ class GivenTask < ApplicationRecord
   accepts_nested_attributes_for :assignments, allow_destroy: true
 
   validates :due_date, :repeatable, :priority, presence: true
+  validate :validate_no_repeat_associations, :validate_date_input 
 
   #Takes int input and returns the string version(because its stored as int in the db)
   def self.priority_int_to_string(integer_input)
@@ -56,5 +57,25 @@ class GivenTask < ApplicationRecord
     return repeatable_input
   end
 
+  def validate_no_repeat_associations
+    if self.assignments.size > 0
+      already_added = Set.new
+      self.assignments.each do |a|
+        if already_added.include?(a.vendor_id)
+          errors.add(:assignments, "- Vendor #{Vendor.get_vendor_name(a.vendor_id)} is repeated")
+        else
+          already_added << a.vendor_id
+        end
+      end
+    end
+  end
+
+  def validate_date_input 
+    puts(self.due_date.to_s)
+    d = Date.strptime(self.due_date.to_s, "%Y-%m-%d") rescue nil
+    if d.nil? 
+      errors.add(:given_task, "- Invalid due date")
+    end
+  end
 
 end
