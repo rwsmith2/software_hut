@@ -21,4 +21,8 @@
             = f.input :postcode, label: 'Postcode', as: :string, input_html: { value: @postcode }
         = f.input :region, label: 'Country/Region', as: :string, input_html: { value: @region }
         -# = f.input :terms, label: 'Agree to terms and conditions', as: :boolean 
-        = f.submit 'Create Vendor', class: "ajax-modal btn btn-outline-secondary"
+        %ul.pagination.justify-content-center
+          %li 
+            = f.submit 'Create Vendor', class: "ajax-modal btn btn-primary"
+          %li
+            = link_to 'Back', admin_management_path(), class: "btn btn-primary"
