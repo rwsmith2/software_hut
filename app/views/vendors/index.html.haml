@@ -43,19 +43,21 @@
                 %th Link
             -# Listing all set tasks for the vendor    
             -@tasks.each do |givenTask|
+                -@task = Task.find_by(task_id: givenTask.task_id)
+                -@assessment_link = AssessmentLinker.find_by(task_id: @task.task_id)
                 %tr
                 - if givenTask.due_date < DateTime.now 
-                    -@task = Task.find_by(task_id: givenTask.task_id)
                     %td= @task.task_title 
                     %td= @task.task_description
                     %td= givenTask.set_date
                     %td{:style => "font-weight:bold; color:red"}= givenTask.due_date
+                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id), class: "list-group-item list-group-item-action", type: "button" 
                 - else
-                    -@task = Task.find_by(task_id: givenTask.task_id)
                     %td= @task.task_title
                     %td= @task.task_description
                     %td= givenTask.set_date
                     %td= givenTask.due_date
+                    %td= link_to "Link", assessments_questions_path(assessment_id: @assessment_link.assessment_id) 
                 
                     
 
