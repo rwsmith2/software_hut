@@ -27,6 +27,13 @@ class AssessmentsController < ApplicationController
     @question = Question.where("assessment_id=?", @assessment.assessment_id).count
     @questionsCoun = @question/3.0
   end
+
+  def questions_review
+    # 1 is triage assessment
+    @page, @questions = pagy(Question.where("assessment_id=?", 1), items: 4)
+    @question = Question.where("assessment_id=?", 1).count
+    @questionsCoun = @question/4.0
+  end
   
   #GET /admin/assessments/new
   def new 
