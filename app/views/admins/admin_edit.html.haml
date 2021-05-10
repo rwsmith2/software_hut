@@ -54,5 +54,6 @@
             .flex-row
                 = f.submit "Update" , class: "btn btn-primary"
                 = link_to 'Back ', :back, class: "btn btn-primary"
+                = link_to 'Destroy', vendor_delete_path(@vendorSelected),method: :delete, data: { confirm: 'Are you sure, assigned tasks will be effected?' }, class: "btn btn-danger", type: "button"
 
 

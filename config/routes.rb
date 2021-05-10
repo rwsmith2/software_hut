@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   #vendor routes
   get "vendor/home" => "vendors#index"
   get "vendor_answers", to: "assessments#index"
+  get "vendor_delete", to: "vendors#delete_vendor"
 
   #admin routes
   get "admin/home", to: "admins#index"
