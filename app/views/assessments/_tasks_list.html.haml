@@ -5,9 +5,9 @@
   //If statement checks if there are any tasks to display
   - if tasks != nil
     //Loops through each task, creating a link which will fetch the selected task when clicked
-    - tasks.each do |tasks|
-      -@task = Task.find_by(task_id: tasks.task_id)
-      -@assessment_link = AssessmentLinker.find_by(task_id: tasks.task_id)
+    - tasks.each do |task|
+      -@task = Task.find_by(task_id: task.task_id)
+      -@assessment_link = AssessmentLinker.find_by(task_id: task.task_id)
       = link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id), class: "list-group-item list-group-item-action", type: "button" 
   - else
     No tasks available

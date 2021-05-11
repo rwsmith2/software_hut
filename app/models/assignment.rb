@@ -17,4 +17,11 @@ class Assignment < ApplicationRecord
   has_many :vendor_answers,  dependent: :destroy
   belongs_to :given_task
   belongs_to :vendor
+
+  def check_if_already_answered
+    if self.vendor_answers.size != 0
+      return true
+    end
+    return false
+  end
 end

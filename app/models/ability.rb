@@ -41,7 +41,7 @@ class Ability
       can [:read, :new, :create, :update, :edit, :show], Vendor
     else
       can [:read, :select_task], Task
-      can [:read, :select_assessment], Assessment
+      can [:read, :select_assessment, :save_questions], Assessment
     end
   end
 end

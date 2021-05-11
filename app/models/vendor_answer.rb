@@ -14,7 +14,7 @@
 #  fk_rails_...  (assignment_id => assignments.assignment_id) ON DELETE => cascade
 #
 class VendorAnswer < ApplicationRecord
-  belongs_to :assignments
-  belongs_to :answers
+  belongs_to :assignment
+  belongs_to :answer
 end
 

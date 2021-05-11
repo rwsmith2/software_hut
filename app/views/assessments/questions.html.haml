@@ -2,35 +2,26 @@
 .card
   .card-header
     Assessment page
-  .card-body
+  .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 70vh"}
     -# this form is to display the assessment questions and answers
-    = simple_form_for VendorAnswer.new do |f|
-      - if @questions != nil
-        %table.table
-          %tbody
-            %tr
-            - @questions.each do |que|
+    = simple_form_for @assignment, url: assessments_save_questions_path(), method: :post, remote: true do |f|
+      = f.simple_fields_for :vendor_answers do |answer|
+        - if @questions != nil
+          %table.table
+            %tbody
               %tr
-                %th= que.question_text
-                - @answers1 = Answer.where(question_id: que.question_id)
-                - @answers1.each do |ans|
+              - @questions.each do |que|
+                %tr
+                  %th= que.question_text
+                  - @answers1 = Answer.where(question_id: que.question_id)
                   %tr
                     %td
-                      %input{ type: "radio"}
-                      = ans.answer_text
-      -# displaying the progress bar and 
-      -# increment it based on question tab number
-      %ul.pagination.justify-content-center
-        .col-md-4
-          .progress
-            .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
-      %ul.pagination.justify-content-center
-        -#pagination for numbering multiple pages (tabs)
-        = pagy_bootstrap_nav(@page).html_safe
+                      = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id
+
       %ul.pagination.justify-content-center
         %li 
           = f.button :submit, "Save", class: 'btn btn-outline-primary', :disabled => 'disabled'
-          = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
 
       %nav.mt-2{"aria-label" => "Page navigation"}
         = link_to 'Back to home page', vendors_path, class: "btn page-link", type: "button"

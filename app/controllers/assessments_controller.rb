@@ -21,11 +21,49 @@ class AssessmentsController < ApplicationController
   end
 
   def questions
-    # 1 is triage assessment
     @assessment = Assessment.find(params[:assessment_id])
-    @page, @questions = pagy(Question.where("assessment_id=?", @assessment.assessment_id), items: 3)
-    @question = Question.where("assessment_id=?", @assessment.assessment_id).count
-    @questionsCoun = @question/3.0
+    @assignment = Assignment.find(params[:assignment_id])
+
+    @vendor = Vendor.find_by(user_id: current_user)
+
+    @questions = Question.where("assessment_id=?", @assessment.assessment_id)
+
+    session[:return_to] ||= request.referer
+    session[:assignment_id] = params[:assignment_id]
+    session[:assessment_id] = params[:assessment_id]
+  end
+
+  def save_questions
+    @assignment = Assignment.find(session[:assignment_id])
+    @assessment = Assessment.find(session[:assessment_id])
+
+    @answered_all = true
+
+    #Loops through checking to see if all questions are answered
+    params.each do |answer|
+      if answer[1] == ""
+        @answered_all = false
+      end
+    end
+
+    #If true save the answers
+    if(@answered_all == true)
+      params.each do |answer|
+        if(Assessment.is_number?(answer[1]))
+          puts(answer[1])
+          @vendor_answer = VendorAnswer.new
+          @vendor_answer.assignment_id = session[:assignment_id]
+          @vendor_answer.answer_id = answer[1]
+          @vendor_answer.save
+        end
+      end
+      #Redirect to questions review
+      #redirect_to vendor_home_path, notice: 'Answers saved'
+    else
+      #If all answers aren't saved, give a pop up
+      render "save_error", status: :bad_request
+    end
+
   end
 
   def questions_review
@@ -134,6 +172,12 @@ class AssessmentsController < ApplicationController
     params.fetch(:assessment, {}).permit(:id, :assessment_title,
      questions_attributes: [:id, :question_text, :_destroy,
       answers_attributes: [:id, :answer_text, :additional_response, :upload_needed ,:_destroy]])
+  end
+
+  def assessment_submit_params
+    #Fetch params for assessment, including nested attributes for questions and answers
+    params.fetch(:assignment, {}).permit(:id, 
+     questions_attributes: [:id, :answer_id])
   end
 
   

@@ -21,6 +21,10 @@ class Assessment < ApplicationRecord
     end
   end
 
+  def self.is_number? string
+    true if Float(string) rescue false
+  end
+
 
   
 end

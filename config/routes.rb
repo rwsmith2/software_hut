@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'completedtasks/index', to: "completedtasks#index"
   get "assessments/triage", to: "assessments#triage"
   get "assessments/questions_review", to: "assessments#questions_review"
+  post "assessments/save_questions", to: "assessments#save_questions"
 
   #task routes
   get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'
