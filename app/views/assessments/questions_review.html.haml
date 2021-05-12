@@ -10,10 +10,18 @@
           %tbody
             %tr
             - @questions.each do |que|
+            - puts que.question_id
               %tr
                 %th= que.question_text
                 %tr
-                  %td= "answer"
+                  - answers = Answer.where(question_id: que.question_id)
+                  - answers.each do |ans|
+                  - @assessment_link = @assessments
+                    - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id)
+                    - vendor_answer.each do |vend_ans|
+                    - @assig = vendor_answer
+                      - if vend_ans.answer_id == ans.answer_id
+                        %td= ans.answer_text
       -# displaying the progress bar and 
       -# increment it based on question tab number
       %ul.pagination.justify-content-center
@@ -25,8 +33,7 @@
         = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
         %li 
-          = f.button :submit, "Save", class: 'btn btn-outline-primary', :disabled => 'disabled'
           = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
-
+          = link_to "Back", :back, class: 'btn btn-outline-primary'
       %nav.mt-2{"aria-label" => "Page navigation"}
-        = link_to 'Back to main assessment page', assessments_index_path, class: "btn page-link", type: "button"
+        = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"

@@ -43,7 +43,7 @@
             -@tasks.each do |givenTask|
                 -@task = Task.find_by(task_id: givenTask.task_id)
                 -@assessment_link = AssessmentLinker.find_by(task_id: @task.task_id)
-                - @assignment = Assignment.find_by(assignment_id: givenTask.assignment_id)
+                -@assignment = Assignment.find_by(assignment_id: givenTask.assignment_id)
                 %tr
                 - if givenTask.due_date < DateTime.now 
                     %td= @task.task_title 

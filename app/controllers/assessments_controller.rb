@@ -23,7 +23,6 @@ class AssessmentsController < ApplicationController
   def questions
     @assessment = Assessment.find(params[:assessment_id])
     @assignment = Assignment.find(params[:assignment_id])
-
     @vendor = Vendor.find_by(user_id: current_user)
 
     @questions = Question.where("assessment_id=?", @assessment.assessment_id)
@@ -58,19 +57,20 @@ class AssessmentsController < ApplicationController
         end
       end
       #Redirect to questions review
-      #redirect_to vendor_home_path, notice: 'Answers saved'
+      redirect_to assessments_review_url, notice: 'answers saved'
     else
       #If all answers aren't saved, give a pop up
       render "save_error", status: :bad_request
     end
-
+    
   end
-
+  
   def questions_review
-    # 1 is triage assessment
-    @page, @questions = pagy(Question.where("assessment_id=?", 1), items: 4)
-    @question = Question.where("assessment_id=?", 1).count
+    @assessments = Assessment.find(session[:assessment_id])
+    @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
+    @question = @questions.count
     @questionsCoun = @question/4.0
+    @reviewed = true
   end
   
   #GET /admin/assessments/new
@@ -91,6 +91,11 @@ class AssessmentsController < ApplicationController
   def edit
     #Find the selected assessment
     @assessment = Assessment.find(params[:id])
+  end
+
+  def back
+    redirect_on_back_to assessments_questions_path
+    redirect_to assessments_questions_path
   end
 
   def answer_questions

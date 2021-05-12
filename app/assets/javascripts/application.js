@@ -12,3 +12,4 @@
 //= require dynamic_list.js
 //= require cocoon
 //= require bootstrap-datepicker
+//= require redirect_on_back
