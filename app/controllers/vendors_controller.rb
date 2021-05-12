@@ -4,7 +4,7 @@ class VendorsController < ApplicationController
 
     def index
       @current_nav_identifier = :vender_home
-      @answer_exists = false
+      
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)
 

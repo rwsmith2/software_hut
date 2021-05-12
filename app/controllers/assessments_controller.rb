@@ -79,8 +79,6 @@ class AssessmentsController < ApplicationController
     @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
     @question = @questions.count
     @questionsCoun = @question/4.0
-    puts "iddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-    puts @answer_exists
   end
   
   #GET /admin/assessments/new
