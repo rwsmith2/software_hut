@@ -56,8 +56,11 @@ class AssessmentsController < ApplicationController
           @vendor_answer.save
         end
       end
-      #Redirect to questions review
-      redirect_to assessments_review_url, notice: 'answers saved'
+      respond_to do |f|
+        f.html { redirect_to vendor_home_path }
+        f.js
+      end
+
     else
       #If all answers aren't saved, give a pop up
       render "save_error", status: :bad_request
@@ -93,10 +96,10 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.find(params[:id])
   end
 
-  def back
-    redirect_on_back_to assessments_questions_path
-    redirect_to assessments_questions_path
-  end
+  # def back
+  #   redirect_on_back_to assessments_questions_path
+  #   redirect_to assessments_questions_path
+  # end
 
   def answer_questions
     @assessment = Assessment.find(params[:assessment_id])

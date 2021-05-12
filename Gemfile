@@ -51,6 +51,7 @@ gem 'daemons', '1.1.9'
 gem "cocoon"
 gem 'bootstrap-datepicker-rails'
 gem 'pagy'
+gem 'turbolinks', '~> 5.2.0'
 
 group :development, :test do
   gem 'rspec-rails'
