@@ -27,6 +27,8 @@ class AdminsController < ApplicationController
     # end
 
     def index
+      @current_nav_identifier = :admin_home
+
       puts("Repeating tasks")
       today_date = Date.today
       @need_repeat_tasks = GivenTask.all
@@ -52,7 +54,6 @@ class AdminsController < ApplicationController
         end
       end
 
-      @current_nav_identifier = :index
       @user = current_user
       
       @joined = Assignment.joins(:given_task).select(:assignment_id,:complete_by,:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
@@ -72,6 +73,8 @@ class AdminsController < ApplicationController
     end
 
     def management
+      @current_nav_identifier = :admin_management
+      
       @vendor = Vendor.all.order(params[:sort])
       
     end

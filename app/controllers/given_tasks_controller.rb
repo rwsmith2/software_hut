@@ -6,6 +6,8 @@ class GivenTasksController < ApplicationController
 
   #GET /given_tasks
   def index
+    @current_nav_identifier = :given_tasks
+
     #Fetch all given tasks, joining with task table to retrieve task_title
     @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.select("given_task_id, task_title"), items: 10)
     @selected = GivenTask.first

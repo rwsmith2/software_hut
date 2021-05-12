@@ -1,7 +1,8 @@
 class ChangePasswordController < ApplicationController
   before_action :authenticate_user!
 
-  def index 
+  def index
+    @current_nav_identifier = :change_password
     
   end
 
