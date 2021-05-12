@@ -26,7 +26,8 @@
           = pagy_bootstrap_nav(@pagy).html_safe
       //Renders the show_task for the selected task
       #task_index
-        = render partial: "show_task", locals: {task: @selected}
+        - if @selected
+          = render partial: "show_task", locals: {task: @selected}
   //Right side of page which renders an empty form, to create a new task
   #new-task-panel.card.m-2.w-50.h-100
     //All the input elements will be defaulted to the form-control class
