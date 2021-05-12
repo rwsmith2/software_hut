@@ -4,7 +4,7 @@ class AdminTasksController < ApplicationController
   skip_authorization_check
 
   def index
-    @current_nav_identifier = :admin_task
+    @current_nav_identifier = :admin_tasks
   end
 
 end

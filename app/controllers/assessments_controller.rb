@@ -11,6 +11,8 @@ class AssessmentsController < ApplicationController
 
   #GET /admin/home
   def index 
+    @current_nav_identifier = :assessments_index
+
     #Gets the list of all assessments, and also creates a pagy object
     @pagy, @assessments = pagy(Assessment.all, items: 10)
     #fetch the assessment for a specific vendor
@@ -82,6 +84,8 @@ class AssessmentsController < ApplicationController
   
   #GET /admin/assessments
   def admin_index
+    @current_nav_identifier = :admin_assessments
+
     #Gets the list of all assessments, with pagy. Also selects the first assessment
     @pagy, @assessments = pagy(Assessment.all, items: 10)
     @selected= Assessment.first

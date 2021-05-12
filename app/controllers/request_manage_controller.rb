@@ -4,7 +4,7 @@ class RequestManageController < ApplicationController
     skip_authorization_check
   
     def index
-      @current_nav_identifier = :admin_requests
+      @current_nav_identifier = :request_manage
 
       @pending_vendors = Vendor.where(validated: false)
     end

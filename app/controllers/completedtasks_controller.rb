@@ -2,6 +2,8 @@ class CompletedtasksController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @current_nav_identifier = :completedtasks_index
+
     @pagy, @tasks = pagy(Task.all, items: 10)
     @task = Task.new
     @assessments = Assessment.all.select("assessment_id, assessment_title")

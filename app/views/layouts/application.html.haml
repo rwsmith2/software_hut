@@ -59,23 +59,23 @@
                       = icon 'fas', 'tasks'
                       Tasks
 
-                    = navbar_link_to admin_management_path, title: "Go to the vendor management page", identifier: :admin_venders do
+                    = navbar_link_to admin_management_path, title: "Go to the vendor management page", identifier: :admin_management do
                       = icon 'fas', 'user-circle'
                       Vendors
 
-                    = navbar_link_to admin_assessments_path, title: "Go to the assessment management page", identifier: :vender_tasks do
+                    = navbar_link_to admin_assessments_path, title: "Go to the assessment management page", identifier: :admin_assessments do
                       = icon 'fas', 'tasks'
                       Assesment Page
 
-                    = navbar_link_to given_tasks_path, title: "Go to the given task management page" do
+                    = navbar_link_to given_tasks_path, title: "Go to the given task management page", identifier: :given_tasks do
                       = icon 'fas', 'calendar-alt'
                       Given Tasks Page
 
-                    = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :admin_requests do
+                    = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :request_manage do
                       = icon 'fas', 'file-invoice'
                       Account Requests
                     
-                    = navbar_link_to change_password_path, title: "Go to the change password page" do
+                    = navbar_link_to change_password_path, title: "Go to the change password page", identifier: :change_password do
                       = icon 'fas', 'cogs'
                       Change password
                       
@@ -88,19 +88,19 @@
                       = icon 'fas', 'home'
                       Home
 
-                    -#= navbar_link_to assessments_index_path, title: "Go to the vender tasks page", identifier: :vender_tasks do
+                    -#= navbar_link_to assessments_index_path, title: "Go to the vender tasks page", identifier: :assessments_index do
                       = icon 'fas', 'tasks'
                       Assesment Page
 
-                    = navbar_link_to completedtasks_index_path, title: "Go to completed tasks page", identifier: :completed_tasks do
+                    = navbar_link_to completedtasks_index_path, title: "Go to completed tasks page", identifier: :completedtasks_index do
                       = icon 'fas', 'tasks'
                       Completed Tasks
 
-                    = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page" do
+                    = navbar_link_to edit_vendor_path(current_user.user_id), title: "Go to the admin settings page", identifier: :edit_vendor do
                       = icon 'fas', 'cogs'
                       Profile
                     
-                    = navbar_link_to change_password_path, title: "Go to the change password page" do
+                    = navbar_link_to change_password_path, title: "Go to the change password page", identifier: :change_password do
                       = icon 'fas', 'cogs'
                       Change password
 
