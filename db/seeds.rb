@@ -40,12 +40,16 @@ task2 = Task.create(task_title: "Example Task 2", task_description: "B nice Task
 task3 = Task.create(task_title: "Upload vendor certificate", task_description: "Upload your new vendor certificate", estimation: "1", user_id: user2.user_id)
 task4 = Task.create(task_title: "Quotation", task_description: "Request new quotation", estimation: "1", user_id: user2.user_id)
 task5 = Task.create(task_title: "Triage", task_description: "Do triage assessment", estimation: "40", user_id: user2.user_id)
-# Given task + assign tasks
 
+puts task5.inspect
+
+# Given task + assign tasks
 given_task1 = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01",priority: "2",repeatable: "7", task_id: task5.task_id)
 given_task2 = GivenTask.create(set_date: "2021-04-20", due_date: "2021-05-20",priority: "1", repeatable: "5", task_id: task2.task_id)
 given_task3 = GivenTask.create(set_date: "2021-04-17", due_date: "2021-05-05",priority: "3", repeatable: "12", task_id: task3.task_id)
 given_task4 = GivenTask.create(set_date: "2021-04-17", due_date: "2021-05-05",priority: "3", repeatable: "12", task_id: task4.task_id)
+
+puts given_task4.inspect
 
 # Assign tasks
 assignment1 = Assignment.create(vendor_id: vendor1.vendor_id, given_task_id: given_task1.given_task_id)
@@ -54,12 +58,22 @@ assignment3 = Assignment.create(complete: "true",vendor_id: vendor2.vendor_id, g
 assignment4 = Assignment.create(vendor_id: vendor2.vendor_id, given_task_id: given_task4.given_task_id)
 assignment5 = Assignment.create(complete: "true",vendor_id: vendor2.vendor_id, given_task_id: given_task3.given_task_id)
 
+puts assignment5.inspect
+
 # Assessment
-assessment1 = Assessment.create(assessment_title: "Triage questions")
-assessment2 = Assessment.create(assessment_title: "First assessment for new vendors")
-assessment3 = Assessment.create(assessment_title: "Second assessment for new vendors")
-assessment4 = Assessment.create(assessment_title: "Third assessment for new vendors")
-assessment5 = Assessment.create(assessment_title: "For water supplier")
+assessment1 = Assessment.new(assessment_title: "Triage questions")
+assessment2 = Assessment.new(assessment_title: "First assessment for new vendors")
+assessment3 = Assessment.new(assessment_title: "Second assessment for new vendors")
+assessment4 = Assessment.new(assessment_title: "Third assessment for new vendors")
+assessment5 = Assessment.new(assessment_title: "For water supplier")
+
+assessment2.save(:validate => false)
+assessment3.save(:validate => false)
+assessment4.save(:validate => false)
+assessment1.save(:validate => false)
+assessment5.save(:validate => false)
+
+puts assessment5.inspect
 
 # Assessment linker
 assessment_linker1 = AssessmentLinker.create(task_id: task5.task_id, assessment_id: assessment1.assessment_id)
@@ -68,31 +82,60 @@ assessment_linker3 = AssessmentLinker.create(task_id: task3.task_id, assessment_
 assessment_linker4 = AssessmentLinker.create(task_id: task2.task_id, assessment_id: assessment4.assessment_id)
 assessment_linker5 = AssessmentLinker.create(task_id: task1.task_id, assessment_id: assessment5.assessment_id)
 
+puts assessment_linker5.inspect
+
 # Assessment questions
-question1 = Question.create(question_text: "Are you eligible of ..?", assessment_id: assessment1.assessment_id)
-question2 = Question.create(question_text: "Could you do ..?", assessment_id: assessment1.assessment_id)
-question3 = Question.create(question_text: "What do you think of ..?", assessment_id: assessment1.assessment_id)
-question4 = Question.create(question_text: "How will you ..?", assessment_id: assessment1.assessment_id)
-question5 = Question.create(question_text: "Will you do ..?", assessment_id: assessment1.assessment_id)
-question6 = Question.create(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
-question7 = Question.create(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
-question8 = Question.create(question_text: "How often do..?", assessment_id: assessment1.assessment_id)
-question9 = Question.create(question_text: "How many ..?", assessment_id: assessment1.assessment_id)
-question10 = Question.create(question_text: "Where was ..?", assessment_id: assessment1.assessment_id)
-question11 = Question.create(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
-question12 = Question.create(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
-question13 = Question.create(question_text: "Are you eligible of ..?", assessment_id: assessment1.assessment_id)
-question14 = Question.create(question_text: "Could you do ..?", assessment_id: assessment1.assessment_id)
-question15 = Question.create(question_text: "What do you think of ..?", assessment_id: assessment1.assessment_id)
-question16 = Question.create(question_text: "How will you ..?", assessment_id: assessment1.assessment_id)
-question17 = Question.create(question_text: "Will you do ..?", assessment_id: assessment1.assessment_id)
-question18 = Question.create(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
-question19 = Question.create(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
-question20 = Question.create(question_text: "How often do..?", assessment_id: assessment1.assessment_id)
-question21 = Question.create(question_text: "How many ..?", assessment_id: assessment1.assessment_id)
-question22 = Question.create(question_text: "Where was ..?", assessment_id: assessment1.assessment_id)
-question23 = Question.create(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
-question24 = Question.create(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
+question1 = Question.new(question_text: "Are you eligible of ..?", assessment_id: assessment1.assessment_id)
+question2 = Question.new(question_text: "Could you do ..?", assessment_id: assessment1.assessment_id)
+question3 = Question.new(question_text: "What do you think of ..?", assessment_id: assessment1.assessment_id)
+question4 = Question.new(question_text: "How will you ..?", assessment_id: assessment1.assessment_id)
+question5 = Question.new(question_text: "Will you do ..?", assessment_id: assessment1.assessment_id)
+question6 = Question.new(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
+question7 = Question.new(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
+question8 = Question.new(question_text: "How often do..?", assessment_id: assessment1.assessment_id)
+question9 = Question.new(question_text: "How many ..?", assessment_id: assessment1.assessment_id)
+question10 = Question.new(question_text: "Where was ..?", assessment_id: assessment1.assessment_id)
+question11 = Question.new(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
+question12 = Question.new(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
+question13 = Question.new(question_text: "Are you eligible of ..?", assessment_id: assessment1.assessment_id)
+question14 = Question.new(question_text: "Could you do ..?", assessment_id: assessment1.assessment_id)
+question15 = Question.new(question_text: "What do you think of ..?", assessment_id: assessment1.assessment_id)
+question16 = Question.new(question_text: "How will you ..?", assessment_id: assessment1.assessment_id)
+question17 = Question.new(question_text: "Will you do ..?", assessment_id: assessment1.assessment_id)
+question18 = Question.new(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
+question19 = Question.new(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
+question20 = Question.new(question_text: "How often do..?", assessment_id: assessment1.assessment_id)
+question21 = Question.new(question_text: "How many ..?", assessment_id: assessment1.assessment_id)
+question22 = Question.new(question_text: "Where was ..?", assessment_id: assessment1.assessment_id)
+question23 = Question.new(question_text: "When was  ..?", assessment_id: assessment1.assessment_id)
+question24 = Question.new(question_text: "What do you think ..?", assessment_id: assessment1.assessment_id)
+
+question1.save(:validate => false)
+question2.save(:validate => false)
+question3.save(:validate => false)
+question4.save(:validate => false)
+question5.save(:validate => false)
+question6.save(:validate => false)
+question7.save(:validate => false)
+question8.save(:validate => false)
+question9.save(:validate => false)
+question10.save(:validate => false)
+question11.save(:validate => false)
+question12.save(:validate => false)
+question13.save(:validate => false)
+question14.save(:validate => false)
+question15.save(:validate => false)
+question16.save(:validate => false)
+question17.save(:validate => false)
+question18.save(:validate => false)
+question19.save(:validate => false)
+question20.save(:validate => false)
+question21.save(:validate => false)
+question22.save(:validate => false)
+question23.save(:validate => false)
+question24.save(:validate => false)
+
+puts question24.inspect
 
 # Answers
 answer1 = Answer.create(answer_text: "Yes", question_id: question1.question_id)
@@ -168,5 +211,6 @@ answer68 = Answer.create(answer_text: "Good", question_id: question24.question_i
 answer69 = Answer.create(answer_text: "Neutral", question_id: question24.question_id)
 answer70 = Answer.create(answer_text: "Not good", question_id: question24.question_id)
 
+puts answer70.inspect
 
 #Assignment.create(complete: false,vendor_id: "1",given_task_id: "1")
