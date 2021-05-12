@@ -14,9 +14,20 @@
                 %tr
                   %th= que.question_text
                   - @answers1 = Answer.where(question_id: que.question_id)
+                  - @answers1.each do |ans|
+                    - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id)
+                    - vendor_answer.each do |vend_ans|
+                      - if vend_ans.answer_id == ans.answer_id
+                        - @choose = ans
+                        - @answer_exists = true
+                      - else 
+                        - @answer_exists = false
                   %tr
                     %td
-                      = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id
+                      - if @answer_exists
+                        = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id, checked: @choose.answer_id
+                      - else 
+                        = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id
 
       %ul.pagination.justify-content-center
         %li 

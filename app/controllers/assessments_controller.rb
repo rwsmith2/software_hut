@@ -59,7 +59,7 @@ class AssessmentsController < ApplicationController
         end
       end
       respond_to do |f|
-        f.html { redirect_to vendor_home_path }
+        f.html { redirect_to assessments_review_path(@vendor_answer)  }
         f.js
       end
 
@@ -75,7 +75,7 @@ class AssessmentsController < ApplicationController
     @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
     @question = @questions.count
     @questionsCoun = @question/4.0
-    @reviewed = true
+    @answer_exists = false
   end
   
   #GET /admin/assessments/new
