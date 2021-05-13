@@ -29,7 +29,7 @@
             %a.dropdown-item= link_to "Defualt"
 
 -#main content of page
-.card-body
+.card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
     %table.table.table-hover       
         -#non overdue table
         %thead
@@ -45,26 +45,17 @@
                 -@assessment_link = AssessmentLinker.find_by(task_id: @task.task_id)
                 -@assignment = Assignment.find_by(assignment_id: givenTask.assignment_id)
                 %tr
-                - if givenTask.due_date < DateTime.now 
+                
                     %td= @task.task_title 
                     %td= @task.task_description
                     %td= givenTask.set_date
-                    %td{:style => "font-weight:bold; color:red"}= givenTask.due_date
-                    -puts(@assignment.inspect)
-                    - puts(@assignment.check_if_already_answered)
-                    - if @assignment.check_if_already_answered
-                        %td Review answers needed
+                    - if givenTask.due_date < DateTime.now 
+                        %td{:style => "font-weight:bold; color:red"}= givenTask.due_date
+                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id), class: "list-group-item list-group-item-action list-group-item-danger", type: "button" 
                     - else
-                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id), class: "list-group-item list-group-item-action", type: "button" 
-                - else
-                    %td= @task.task_title
-                    %td= @task.task_description
-                    %td= givenTask.set_date
-                    %td= givenTask.due_date
-                    - if @assignment.check_if_already_answered
-                        %td Review answers needed
-                    - else
-                        %td= link_to "Go", assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id) 
+                        %td= givenTask.due_date
+                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id), class: "list-group-item list-group-item-action", type: "button"
+
                   
                       
 

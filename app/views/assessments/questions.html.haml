@@ -6,6 +6,10 @@
   .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 70vh"}
     -# this form is to display the assessment questions and answers
     = simple_form_for @assignment, url: assessments_save_questions_path(), method: :post do |f|
+      - if @error != ""
+        .alert.alert-danger 
+          = @error
+          %br
       = f.simple_fields_for :vendor_answers do |answer|
         - if @questions != nil
           %table.table
@@ -16,24 +20,16 @@
                   %th= que.question_text
                   - @answers1 = Answer.where(question_id: que.question_id)
                   - @answers1.each do |ans|
-                    - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id)
+                    - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id, assignment_id: session[:assignment_id])
                     - vendor_answer.each do |vend_ans|
                       - if vend_ans.answer_id == ans.answer_id
                         - @choose = ans
-                        - @answer_exists = true
-                      - else 
-                        - @answer_exists = false
                   %tr
                     %td
-                      - if @answer_exists
+                      - if @assignment.check_if_already_answered
                         = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id, checked: @choose.answer_id
                       - else 
                         = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id
-              - @answ = VendorAnswer.where(assignment_id: params[:assignment_id])
-              - @assig = Assignment.where(vendor_id: @vendor_assignment.first.vendor_id)
-              - puts "after"
-              - @joined = VendorAnswer.joins(:assignment).where(assignment_id: params[:assignment_id])
-              - @joined.delete_all
       %ul.pagination.justify-content-center
         %li 
           = f.button :submit, "Submit", class: 'btn btn-outline-primary'

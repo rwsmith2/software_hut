@@ -29,6 +29,11 @@ class AssessmentsController < ApplicationController
     @vendor = Vendor.find_by(user_id: current_user)
     @questions = Question.where("assessment_id=?", @assessment.assessment_id)
     @vendor_assignment = Assignment.where(vendor_id: @vendor.vendor_id)
+    if params[:error] != nil
+      @error = params[:error]
+    else
+      @error = ""
+    end
 
     session[:return_to] ||= request.referer
     session[:assignment_id] = params[:assignment_id]
@@ -36,12 +41,13 @@ class AssessmentsController < ApplicationController
   end
 
   def save_questions
-
     @assignment = Assignment.find(session[:assignment_id])
     @assessment = Assessment.find(session[:assessment_id])
 
     @answered_all = true
     @answer_exists = false
+    
+    @previous_answers = VendorAnswer.find_by(assignment_id: session[:assignment_id])
     
     #Loops through checking to see if all questions are answered
     params.each do |answer|
@@ -50,26 +56,29 @@ class AssessmentsController < ApplicationController
       end
     end
 
-    #If true save the answers
-    if(@answered_all == true)
-      params.each do |answer|
-        if(Assessment.is_number?(answer[1]))
-          puts(answer[1])
-          @vendor_answer = VendorAnswer.new
-          @vendor_answer.assignment_id = session[:assignment_id]
-          @vendor_answer.answer_id = answer[1]
-          @vendor_answer.save
-        end
-      end
-      respond_to do |f|
-        f.html { redirect_to assessments_review_path(@vendor_answer)  }
-        f.js
-        @answer_exists = true
-      end
 
+    #If already answered, delete the previous answers, as they will be replaced
+    if(@assignment.check_if_already_answered)
+      delete_answers = VendorAnswer.where(assignment_id: session[:assignment_id])
+      delete_answers.delete_all
+    end
+
+    params.each do |answer|
+      if(Assessment.is_number?(answer[1]))
+
+        @vendor_answer = VendorAnswer.new
+        @vendor_answer.assignment_id = session[:assignment_id]
+        @vendor_answer.answer_id = answer[1]
+        @vendor_answer.save
+      end
+    end
+
+    if(@answered_all == true)
+      redirect_to assessments_review_path(@vendor_answer)
     else
       #If all answers aren't saved, give a pop up
-      render "save_error", status: :bad_request
+      @error = "Please answer all questions"
+      redirect_to assessments_questions_path(assignment_id: session[:assignment_id], assessment_id: session[:assessment_id], error: @error)
     end
     
   end
