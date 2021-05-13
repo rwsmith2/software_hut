@@ -10,7 +10,6 @@
           %tbody
             %tr
             - @questions.each do |que|
-            - puts que.question_id
               %tr
                 %th= que.question_text
                 %tr
@@ -36,4 +35,5 @@
           = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
       %nav.mt-2{"aria-label" => "Page navigation"}
+
         = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"

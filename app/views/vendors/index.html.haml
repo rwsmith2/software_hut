@@ -64,7 +64,7 @@
                     - if @assignment.check_if_already_answered
                         %td Review answers needed
                     - else
-                        %td= link_to "Link", assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id) 
+                        %td= link_to "Go", assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id) 
                   
                       
 

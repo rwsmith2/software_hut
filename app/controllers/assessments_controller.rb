@@ -11,6 +11,7 @@ class AssessmentsController < ApplicationController
 
   #GET /admin/home
   def index 
+    @answer_exists = false
     @current_nav_identifier = :assessments_index
 
     #Gets the list of all assessments, and also creates a pagy object
@@ -26,8 +27,8 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.find(params[:assessment_id])
     @assignment = Assignment.find(params[:assignment_id])
     @vendor = Vendor.find_by(user_id: current_user)
-
     @questions = Question.where("assessment_id=?", @assessment.assessment_id)
+    @vendor_assignment = Assignment.where(vendor_id: @vendor.vendor_id)
 
     session[:return_to] ||= request.referer
     session[:assignment_id] = params[:assignment_id]
@@ -35,11 +36,13 @@ class AssessmentsController < ApplicationController
   end
 
   def save_questions
+
     @assignment = Assignment.find(session[:assignment_id])
     @assessment = Assessment.find(session[:assessment_id])
 
     @answered_all = true
-
+    @answer_exists = false
+    
     #Loops through checking to see if all questions are answered
     params.each do |answer|
       if answer[1] == ""
@@ -59,8 +62,9 @@ class AssessmentsController < ApplicationController
         end
       end
       respond_to do |f|
-        f.html { redirect_to vendor_home_path }
+        f.html { redirect_to assessments_review_path(@vendor_answer)  }
         f.js
+        @answer_exists = true
       end
 
     else
@@ -75,7 +79,6 @@ class AssessmentsController < ApplicationController
     @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
     @question = @questions.count
     @questionsCoun = @question/4.0
-    @reviewed = true
   end
   
   #GET /admin/assessments/new
