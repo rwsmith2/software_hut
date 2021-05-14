@@ -36,10 +36,13 @@ class VendorsController < ApplicationController
     end
 
     def destroy
-      @vendor = Vendor.find(v_params[:vendor_id])
-      puts "vendor" + @vendor.company_name
-      @vendor.destroy
-      flash.alert = 'Post was successfully destroyed.js.haml'
+      @vendor_destroy = Vendor.find(params[:id])
+      @vendor_destroy.destroy
+      redirect_to admin_tasks_path, notice: 'Task was successfully destroyed.'
+      # @vendor = Vendor.find(v_params[:vendor_id])
+      # puts "vendor" + @vendor.company_name
+      # @vendor.destroy
+      # flash.alert = 'Post was successfully destroyed.js.haml'
     end
 
     def delete_vendor
