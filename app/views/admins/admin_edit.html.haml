@@ -55,6 +55,6 @@
                 = f.submit "Update" , class: "btn btn-primary"
                 = link_to 'Back ', :back, class: "btn btn-primary"
                 //Goes to Vendor controller destroy method
-                = link_to 'Destroy', @vendorSelected ,method: :delete, data: { confirm: 'Are you sure, assigned tasks will be effected?' }, class: "btn btn-danger", type: "button"
+                = link_to 'Destroy', @vendorSelected ,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", type: "button"
 
 

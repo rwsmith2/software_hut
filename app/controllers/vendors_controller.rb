@@ -38,7 +38,7 @@ class VendorsController < ApplicationController
     def destroy
       @vendor_destroy = Vendor.find(params[:id])
       @vendor_destroy.destroy
-      redirect_to admin_tasks_path, notice: 'Task was successfully destroyed.'
+      redirect_to admin_management_path, notice: 'Vendor was successfully destroyed.'
       # @vendor = Vendor.find(v_params[:vendor_id])
       # puts "vendor" + @vendor.company_name
       # @vendor.destroy
