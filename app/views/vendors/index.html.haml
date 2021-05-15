@@ -51,10 +51,10 @@
                     %td= givenTask.set_date
                     - if givenTask.due_date < DateTime.now 
                         %td{:style => "font-weight:bold; color:red"}= givenTask.due_date
-                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id), class: "list-group-item list-group-item-action list-group-item-danger", type: "button" 
+                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id)
                     - else
                         %td= givenTask.due_date
-                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id), class: "list-group-item list-group-item-action", type: "button"
+                        %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id)
 
                   
                       

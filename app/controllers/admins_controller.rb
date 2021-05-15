@@ -87,6 +87,12 @@ class AdminsController < ApplicationController
       render :admin_edit
     end
 
+    def show_vendor_answer
+      puts "In show vendor answer controller--"
+      @assignment = Assignment.find(params[:assignment_id])
+      render :vendor_answers
+    end
+
     def new_vendor
       @vendor = Vendor.new
 
@@ -166,7 +172,6 @@ class AdminsController < ApplicationController
       redirect_to posts_url, notice: 'Post was successfully destroyed.'
     end
 
-    
   
     def search_result
       #@posts = Post.where("title = ?", params[:search][:title]).where("private_post = 'f'")
@@ -188,6 +193,10 @@ class AdminsController < ApplicationController
     def new_vendor_params
       #Fetch task attributes, along with nested assessment_linker attributes
       params.fetch(:vendor).permit(:email, :name, :address, :city, :postcode, :region, :term)
+    end
+
+    def assignment_params
+      params.fetch(:assignment).permit(:assignment_id)
     end
 
   end

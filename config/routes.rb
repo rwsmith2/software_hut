@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get "admin/home", to: "admins#index"
   get "admin/management" => "admins#management"
   get "admin/admin_edit" => "admins#edit_vendor"
+  get "admin/vendor_answers", to: "admins#show_vendor_answer"
   get "admin/settings", to: "admins#settings"
   get "admin/tasks", to: "tasks#index"
   get "admin/tasks/assign", to: "tasks#assign"
