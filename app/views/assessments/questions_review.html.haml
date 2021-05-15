@@ -21,6 +21,14 @@
                     - @assig = vendor_answer
                       - if vend_ans.answer_id == ans.answer_id
                         %td= ans.answer_text
+                      - if vend_ans.upload_needed == true
+                        %ul.pagination.justify-content-center
+                          %li 
+                            = f.label "Upload your certificates: ", :style => "font-weight:bold" 
+                                %br
+                                %br
+                                = f.file_field :image
+                                %br
       -# displaying the progress bar and 
       -# increment it based on question tab number
       %ul.pagination.justify-content-center
