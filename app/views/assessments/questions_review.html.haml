@@ -29,13 +29,7 @@
                             %br
                             = f.file_field :image
                             %br
-      -# displaying the progress bar and 
-      -# increment it based on question tab number
-      %ul.pagination.justify-content-center
-        .col-md-4
-          .progress
-            .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
-      %ul.pagination.justify-content-center
+     
         -#pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
