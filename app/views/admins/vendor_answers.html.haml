@@ -1,12 +1,14 @@
 -#
     page to show the vendors responses and answers to questions 
 
-%br 
 
+%br 
 -#move to controller
 -@givenTask = GivenTask.find_by(given_task_id: @assignment.given_task_id)
 -@task = Task.find_by(task_id: @givenTask.task_id)
--@vendor_answers = VendorAnswer.where(assignment_id: @assignment.given_task_id)
+-@assessmentLinker = AssessmentLinker.find_by(task_id: @task.task_id)
+-@assessment = Assessment.find_by(assessment_id: @assessmentLinker.assessment_id)
+-@questions = Question.where(assessment_id: @assessmentLinker.assessment_id)
 
 .card-header
     %h1 Vendor Answer
@@ -14,12 +16,13 @@
     %h3= @task.task_title
 
 .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
-    -if @vendor_answer != nil
-        -@vendor_answer.each do |answers|
-            -@answer = Answer.where(answer_id: @vendor_answer.answer_id)
-            -@answer.each do |answer|
-                %h3 Hello
-            %h1 Answer
+    %p= @assessmentLinker.assessment_id
+    %p= @assessment.assessment_id
+    %p= @questions.count
+    -@questions.each do |question|
+        %h1 hello
+        %h4= question.question_text
+        
 
 
 
