@@ -8,7 +8,7 @@
 -@task = Task.find_by(task_id: @givenTask.task_id)
 -@assessmentLinker = AssessmentLinker.find_by(task_id: @task.task_id)
 -@assessment = Assessment.find_by(assessment_id: @assessmentLinker.assessment_id)
--@questions = Question.where(assessment_id: @assessmentLinker.assessment_id)
+-@questions = Question.where(assessment_id: @assessment.assessment_id)
 
 .card-header
     %h1 Vendor Answer
