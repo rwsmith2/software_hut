@@ -69,13 +69,13 @@ RSpec.describe GivenTask, type: :model do
   #Testing priority_int_to_string function
   describe '#priority_int_to_string' do
 
-    it 'convert 0 to low' do 
-      string = GivenTask.priority_int_to_string(0)
+    it 'convert 1 to low' do 
+      string = GivenTask.priority_int_to_string(1)
       expect(string).to eq "Low"
     end
 
-    it 'convert 2 to high' do 
-      string = GivenTask.priority_int_to_string(2)
+    it 'convert 3 to high' do 
+      string = GivenTask.priority_int_to_string(3)
       expect(string).to eq "High"
     end
 
@@ -94,29 +94,29 @@ RSpec.describe GivenTask, type: :model do
   #Testing priority_string_to_int function
   describe '#priority_string_to_int' do
 
-    it 'convert Low to 0' do 
+    it 'convert Low to 1' do 
       string = GivenTask.priority_string_to_int("Low")
-      expect(string).to eq 0
+      expect(string).to eq 1
     end
 
-    it 'convert High to 2' do 
+    it 'convert High to 3' do 
       string = GivenTask.priority_string_to_int("High")
+      expect(string).to eq 3
+    end
+
+    it 'convert Medium to 2' do 
+      string = GivenTask.priority_string_to_int("Medium")
       expect(string).to eq 2
     end
 
-    it 'convert Medium to 1' do 
-      string = GivenTask.priority_string_to_int("Medium")
-      expect(string).to eq 1
-    end
-
-    it 'convert random word to 1' do 
+    it 'convert random word to 2' do 
       string = GivenTask.priority_string_to_int("RANDOM")
-      expect(string).to eq 1
+      expect(string).to eq 2
     end
 
-    it 'convert number to 1' do 
+    it 'convert number to 2' do 
       string = GivenTask.priority_string_to_int(234234)
-      expect(string).to eq 1
+      expect(string).to eq 2
     end
 
   end
