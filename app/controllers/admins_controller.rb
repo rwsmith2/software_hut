@@ -75,7 +75,7 @@ class AdminsController < ApplicationController
     def management
       @current_nav_identifier = :admin_management
       
-      @vendor = Vendor.all.order(params[:sort])
+      @pagy, @vendor = pagy(Vendor.all.order(params[:sort]), items: 10)
       
     end
 

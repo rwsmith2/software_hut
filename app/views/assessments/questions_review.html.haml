@@ -1,4 +1,4 @@
-- content_for :title, ''
+- content_for :title, 'Review Questions'
 .card
   .card-header
     Assessment page
@@ -25,10 +25,10 @@
                         %ul.pagination.justify-content-center
                           %li 
                             = f.label "Upload your certificates: ", :style => "font-weight:bold" 
-                                %br
-                                %br
-                                = f.file_field :image
-                                %br
+                            %br
+                            %br
+                            = f.file_field :image
+                            %br
       -# displaying the progress bar and 
       -# increment it based on question tab number
       %ul.pagination.justify-content-center
@@ -43,5 +43,4 @@
           = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
       %nav.mt-2{"aria-label" => "Page navigation"}
-
         = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
