@@ -98,8 +98,9 @@ class AdminsController < ApplicationController
       @vendor_answer = VendorAnswer.find_by(params[:answer_id])
       @file = @vendor_answer.vendor_upload
       puts @vendor_answer.answer_id
-      send_data @file.data, type: @file.content_type, disposition: 'inline'
-      render :vendor_answers
+      puts @vendor_answer.vendor_upload
+      
+      send_data url_for(@vendor_answer.vendor_upload), type: @vendor_answer.content_type, disposition: 'inline'
     end
 
     def new_vendor
