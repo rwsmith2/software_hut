@@ -7,10 +7,9 @@ class VendorsController < ApplicationController
       
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)
-
       #query to get all tasks and assignments for the given vendor
       @joined = Assignment.joins(:given_task).select(:due_date, :set_date, :given_task_id, :task_id, :assignment_id)
-      @tasks = @joined.where(vendor_id: @vendor.vendor_id, complete: false).order(params[:sort])
+      @pagy, @tasks = pagy(@joined.where(vendor_id: @vendor.vendor_id, complete: false).order(params[:sort]), items: 10)
       @tasksCount = Assignment.where(vendor_id: @vendor.vendor_id, complete: false).count 
 
       puts ("date: " + DateTime.now.to_s )

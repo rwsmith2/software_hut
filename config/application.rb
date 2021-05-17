@@ -39,6 +39,8 @@ module Team9Project
       domain:               'student-app.demo.shefcompsci.org.uk',
     }
 
+    config.assets.initialize_on_precompile = false
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
