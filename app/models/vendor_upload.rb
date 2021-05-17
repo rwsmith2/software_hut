@@ -15,5 +15,5 @@
 class VendorUpload < ApplicationRecord
   belongs_to :assignments
   belongs_to :uploads
-  has_one_attached :image
+  has_one_attached :document
 end
