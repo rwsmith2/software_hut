@@ -60,6 +60,8 @@ Rails.application.routes.draw do
   get 'change_password', to: "change_password#index"
   match 'change_password/update', to: 'change_password#update', via: [:post]
 
+  get 'admins/download', to: 'admins#download_file'
+
   #resources
   resources :assessments do
     resources :questions do

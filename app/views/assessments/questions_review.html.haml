@@ -1,7 +1,7 @@
-- content_for :title, 'Review Questions'
+- content_for :title, ''
 .card
   .card-header
-    Assessment Review
+    Assessment page
   .card-body
     -# this form is to display the assessment questions and answers
     = simple_form_for VendorAnswer.new do |f|
@@ -12,7 +12,6 @@
             - @questions.each do |que|
               %tr
                 %th= que.question_text
-                %td
                 %tr
                   - answers = Answer.where(question_id: que.question_id)
                   - answers.each do |ans|
@@ -22,20 +21,14 @@
                     - @assig = vendor_answer
                       - if vend_ans.answer_id == ans.answer_id
                         %td= ans.answer_text
-                      - else
-                        %td
                       - if ans.upload_needed == true
-                        %td= f.file_field :image
-                      - else 
-                        %td
-
-
-      -# displaying the progress bar and 
-      -# increment it based on question tab number
-      -# %ul.pagination.justify-content-center
-      -#   .col-md-4
-      -#     .progress
-      -#       .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
+                        %ul.pagination.justify-content-center
+                          %li 
+                            = f.label "Upload your certificates: ", :style => "font-weight:bold" 
+                            %br
+                            %br
+                            = f.file_field :image
+                            %br
       %ul.pagination.justify-content-center
         -#pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@page).html_safe
@@ -43,6 +36,4 @@
         %li
           = f.button :submit, "Submit", class: 'btn btn-outline-primary'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
-      -# %nav.mt-2{"aria-label" => "Page navigation"}
-      -#   = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
       
