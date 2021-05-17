@@ -109,6 +109,12 @@ Capybara.configure do |config|
   config.match = :prefer_exact
 end
 
+# This sets Capybara up to use a REMOTE Selenium server
+Capybara.javascript_driver = :selenium_remote_chrome
+Capybara.register_driver "selenium_remote_chrome".to_sym do |app|
+  Capybara::Selenium::Driver.new(app, browser: :remote, url: "http://172.19.192.1:4444/wd/hub", desired_capabilities: :chrome)
+end
+
 def wait_for_ajax
   Timeout.timeout(Capybara.default_max_wait_time) do
     loop do
