@@ -69,8 +69,11 @@ describe 'Create/Edit tasks' do
     click_button 'Create!'
     click_link 'Task00'
     click_link 'Edit'
-    fill_in 'Description', with: 'A great task'
-    click_button 'Update Task'
+    sleep(1)
+    modal = find("#modalWindow")
+    modal.fill_in 'Description', with: 'A great task'
+    modal.click_button 'Update Task'
+    sleep(1)
     click_link 'Task00'
     expect(page).to have_content 'A great task'
 
@@ -102,9 +105,9 @@ describe 'Create/Edit tasks' do
     select 'Assessment questions', from: 'task_assessment_linker_attributes_assessment_id'
     click_button 'Create!'
     click_link 'Task00'
-    click_link 'Destroy'
-    # TODO
-    # browser alert
+    accept_alert do
+      click_link 'Destroy'
+    end
 
   end
 

@@ -57,7 +57,7 @@ describe 'Delete vendor' do
     expect(page).to have_content '1455'
   end
 
-  specify 'I can delete a vendor account from the system', :js => "Browser alert need to solve" do
+  specify 'I can delete a vendor account from the system', :js => true do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)
@@ -72,11 +72,10 @@ describe 'Delete vendor' do
     click_button 'Log in'
     click_link 'Vendors'
     click_link 'Edit/View'
-    click_link 'Destroy'
-    page.driver.browser.switch_to.alert.accept
-    # TODO
-    # browser alert
-    # expect(page).to have_content '1455'
+    accept_alert do
+      click_link 'Destroy'
+    end
+    expect(page).to have_no_content '1455'
 
   end
 

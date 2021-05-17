@@ -92,8 +92,8 @@ describe 'View account requests' do
     click_link 'MM Quality'
     click_link 'Reject'
 
-    new_vendor1 = Vendor.find(vendor1.id)
-    expect(new_vendor1).to be_nil
+    new_vendor1 = Vendor.where(vendor_id: vendor1.id)
+    expect(new_vendor1.count).to eq(0)
   end
 
 end

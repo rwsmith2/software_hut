@@ -35,11 +35,14 @@ describe 'Assign tasks' do
     click_link 'Tasks'
     click_link 'Example Task 1'
     click_link 'Assign'
-    fill_in 'given_task_due_date', with: '25-12-2021'
-    fill_in 'given_task_repeatable', with: '0'
-    select 'Low', from: 'given_task_priority'
-    select 'MM Quality', from: 'given_task_assignments_attributes_0_vendor_id'
-    click_button 'Assign Tasks'
+    sleep(1)
+    modal = find("#modalWindow")
+    modal.fill_in 'given_task_due_date', with: '25-12-2021'
+    modal.fill_in 'given_task_repeatable', with: '0'
+    modal.select 'Low', from: 'given_task_priority'
+    modal.select 'MM Quality', from: 'given_task_assignments_attributes_0_vendor_id'
+    modal.click_button 'Assign Tasks'
+    sleep(1)
     click_link 'Given Tasks Page'
     expect(page).to have_content 'Example Task 1'
   end
@@ -63,11 +66,14 @@ describe 'Assign tasks' do
     click_link 'Tasks'
     click_link 'Example Task 1'
     click_link 'Assign'
-    fill_in 'given_task_due_date', with: '25-12-2021'
-    fill_in 'given_task_repeatable', with: '5'
-    select 'Low', from: 'given_task_priority'
-    select 'MM Quality', from: 'given_task_assignments_attributes_0_vendor_id'
-    click_button 'Assign Tasks'
+    sleep(1)
+    modal = find("#modalWindow")
+    modal.fill_in 'given_task_due_date', with: '25-12-2021'
+    modal.fill_in 'given_task_repeatable', with: '5'
+    modal.select 'Low', from: 'given_task_priority'
+    modal.select 'MM Quality', from: 'given_task_assignments_attributes_0_vendor_id'
+    modal.click_button 'Assign Tasks'
+    sleep(1)
     click_link 'Given Tasks Page'
     click_link '1 - Example Task 1'
     expect(page).to have_content 'Repeats every 5 days'
@@ -92,8 +98,11 @@ describe 'Assign tasks' do
     click_link 'Tasks'
     click_link 'Example Task 1'
     click_link 'Edit'
-    fill_in 'Description', with: 'A great task'
-    click_button 'Update Task'
+    sleep(1)
+    modal = find("#modalWindow")
+    modal.fill_in 'Description', with: 'A great task'
+    modal.click_button 'Update Task'
+    sleep(1)
     click_link 'Example Task 1'
     expect(page).to have_content 'A great task'
     
