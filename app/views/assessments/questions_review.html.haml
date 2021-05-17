@@ -21,7 +21,7 @@
                     - @assig = vendor_answer
                       - if vend_ans.answer_id == ans.answer_id
                         %td= ans.answer_text
-                      - if vend_ans.upload_needed == true
+                      - if ans.upload_needed == true
                         %ul.pagination.justify-content-center
                           %li 
                             = f.label "Upload your certificates: ", :style => "font-weight:bold" 
@@ -31,16 +31,17 @@
                             %br
       -# displaying the progress bar and 
       -# increment it based on question tab number
-      %ul.pagination.justify-content-center
-        .col-md-4
-          .progress
-            .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
+      -# %ul.pagination.justify-content-center
+      -#   .col-md-4
+      -#     .progress
+      -#       .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
       %ul.pagination.justify-content-center
         -#pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
-        %li 
-          = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
+        %li
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
-      %nav.mt-2{"aria-label" => "Page navigation"}
-        = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
+      -# %nav.mt-2{"aria-label" => "Page navigation"}
+      -#   = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
+      

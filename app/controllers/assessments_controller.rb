@@ -172,7 +172,6 @@ class AssessmentsController < ApplicationController
     @vendor_answers = VendorAnswer.new(vendor_answers)
   end
 
-
   private
   #Setter methods to set the assessment object
   def set_assessment
