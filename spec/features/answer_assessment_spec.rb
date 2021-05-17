@@ -16,7 +16,7 @@ describe 'Answer assessment' do
     expect(page).to have_content 'Assessments'
   end
 
-  specify 'I can fill in and submit my answers', :skip => true do
+  specify 'I can fill in and submit my answers', :skip => 'Not clear what will happen finally' do
     # Vendor User
     user = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
     vendor = Vendor.create(user_id: user.user_id, company_name: "MM Quality", company_number: "1455", validated: true)

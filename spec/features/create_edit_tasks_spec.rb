@@ -69,11 +69,11 @@ describe 'Create/Edit tasks' do
     click_button 'Create!'
     click_link 'Task00'
     click_link 'Edit'
-    sleep(1)
+    sleep(0.5)
     modal = find("#modalWindow")
     modal.fill_in 'Description', with: 'A great task'
     modal.click_button 'Update Task'
-    sleep(1)
+    sleep(0.5)
     click_link 'Task00'
     expect(page).to have_content 'A great task'
 
