@@ -37,7 +37,7 @@ describe 'View account requests' do
     expect(page).to have_content 'Dairy prod'
   end
 
-  specify 'I can view the details of a account request', :skip => "JS required" do
+  specify 'I can view the details of a account request', :js => true do
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
     
@@ -55,7 +55,7 @@ describe 'View account requests' do
     expect(page).to have_content 'Sheffield'
   end
 
-  specify 'I can accept an request', :skip => "JS required" do
+  specify 'I can accept an request', :js => true do
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
 
@@ -76,7 +76,7 @@ describe 'View account requests' do
     
   end
 
-  specify 'I can reject an request', :skip => "JS required" do
+  specify 'I can reject an request', :js => true do
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
 

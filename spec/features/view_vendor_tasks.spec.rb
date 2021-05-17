@@ -65,7 +65,7 @@ describe 'View vendors tasks as a vendor' do
   end
 
   # should
-  specify 'I can sort the tasks on my task list by order of due date', :skip => "JS required" do
+  specify 'I can sort the tasks on my task list by order of due date', :js => true do
 
   end
 

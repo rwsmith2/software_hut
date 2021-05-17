@@ -17,7 +17,7 @@ describe 'Assign tasks' do
     expect(page).to have_content 'New Task'
   end
 
-  specify 'I can assign a task to a vendor', :skip => "JS required" do
+  specify 'I can assign a task to a vendor', :js => true do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)
@@ -45,7 +45,7 @@ describe 'Assign tasks' do
   end
 
   # should
-  specify 'I can assign repeatable chaser tasks, which repeat yearly/quarterly/etc', :skip => "JS required" do
+  specify 'I can assign repeatable chaser tasks, which repeat yearly/quarterly/etc', :js => true do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)
@@ -74,7 +74,7 @@ describe 'Assign tasks' do
   end
   
   # should
-  specify 'I can edit a task', :skip => "JS required" do
+  specify 'I can edit a task', :js => true do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)

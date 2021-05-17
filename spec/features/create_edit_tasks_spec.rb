@@ -43,7 +43,7 @@ describe 'Create/Edit tasks' do
   end
 
   # js required
-  specify 'I can edit a task', :skip => "JS required" do
+  specify 'I can edit a task', :js => true do
     # Admin User
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
@@ -77,7 +77,7 @@ describe 'Create/Edit tasks' do
   end
 
   # js required
-  specify 'I can delete a task', :skip => "JS required" do
+  specify 'I can delete a task', :js => true do
     # Admin User
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
