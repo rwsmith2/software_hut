@@ -37,4 +37,6 @@ class User < ApplicationRecord
   belongs_to :admin, optional: true
   belongs_to :vendor, optional: true
   accepts_nested_attributes_for :vendor, allow_destroy: true
+
+  has_many :tasks, dependent: :destroy
 end

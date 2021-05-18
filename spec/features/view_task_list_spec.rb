@@ -30,7 +30,7 @@ describe 'View task list' do
   end
 
   # should
-  specify 'I can search for specific vendors', :js => true do
+  specify 'I can search for specific vendors', :js => true, :skip => 'Not implemented' do
 
   end
 

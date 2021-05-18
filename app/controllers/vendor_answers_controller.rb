@@ -14,7 +14,7 @@ class VendorAnswersController < ApplicationController
       puts "Thanks for answering the questions"
       redirect_to vendor_home_path 
     else 
-      @vendor_answer.update(vendor_upload: :image)
+      @vendor_answer.update(vendor_upload: :document)
       puts "Thanks for answering the questions (attchement)"
       redirect_to vendor_home_path 
     end

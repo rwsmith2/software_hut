@@ -7,11 +7,15 @@
         %th Company Number 
         %th Incomplete Tasks
     
-    - @vendor.each do |vendor|
-        -@vendorT = Vendor.find_by(vendor_id: vendor.vendor_id)
-        %tr
-            %td= @vendorT.vendor_id
-            %td= @vendorT.company_name
-            %td= @vendorT.company_number
-            %td= Assignment.where(vendor_id: vendor.vendor_id, complete: false).count
-            %td= link_to 'Edit/View', admin_admin_edit_path(:vendor_id => vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button" 
+    - if @vendor != nil
+        - @vendor.each do |vendor|
+            -@vendorT = Vendor.find_by(vendor_id: vendor.vendor_id)
+            %tr
+                %td= @vendorT.vendor_id
+                %td= @vendorT.company_name
+                %td= @vendorT.company_number
+                %td= Assignment.where(vendor_id: vendor.vendor_id, complete: false).count
+                %td= link_to 'Edit/View', admin_admin_edit_path(:vendor_id => vendor.vendor_id), class: "ajax-modal btn btn-outline-secondary", type: "button" 
+    -else    
+        No Vendors (try refreshing the page)
+        

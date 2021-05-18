@@ -57,7 +57,7 @@ describe 'Delete vendor' do
     expect(page).to have_content '1455'
   end
 
-  specify 'I can delete a vendor account from the system', :js => true, :skip => 'UnexpectedAlertOpenError need to be solved' do
+  specify 'I can delete a vendor account from the system, TODO: fix double confirm popups', :js => true do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)
@@ -65,6 +65,30 @@ describe 'Delete vendor' do
     user2 = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
     vendor = Vendor.create(user_id: user2.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
     address = Address.create(vendor_id: vendor.vendor_id, city_town: "Sheffield", country: "Sheffield", house_name: "67", postcode: "S1 CBQ")
+
+    visit '/users/sign_in'
+    fill_in 'Email', with: 'domin@gmail.com'
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
+    click_link 'Vendors'
+    click_link 'Edit/View'
+    accept_alert do
+      click_link 'Destroy'
+    end
+    expect(page).to have_no_content '1455'
+
+  end
+
+  specify 'I can delete a vendor account from the system while the vendor has been assigned tasks, TODO: fix double confirm popups', :js => true do
+    # Admin User
+    user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
+    Admin.create(user_id: user.user_id)
+    # Vendor User
+    user2 = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
+    vendor = Vendor.create(user_id: user2.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
+    address = Address.create(vendor_id: vendor.vendor_id, city_town: "Sheffield", country: "Sheffield", house_name: "67", postcode: "S1 CBQ")
+
+    task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user2.user_id)
 
     visit '/users/sign_in'
     fill_in 'Email', with: 'domin@gmail.com'

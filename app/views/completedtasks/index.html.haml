@@ -19,6 +19,7 @@
             %th Date Completed
             %th Mark as complete
         %tr
+        -# get the completed tasks
         -@tasks.each do |task|
             %tr
                 %td= task.task_title
