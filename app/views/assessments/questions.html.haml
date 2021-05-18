@@ -1,4 +1,3 @@
-
 - content_for :title, ''
 .card
   .card-header
@@ -27,7 +26,6 @@
                   %tr
                     %td
                       - if @assignment.check_if_already_answered
-                        //= answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id
                         = f.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id, checked: @choose.answer_id
                       - else 
                         = answer.input_field :answer_id, as: :radio_buttons, collection: @answers1, label_method: :answer_text, value_method: :answer_id, name: que.question_id
