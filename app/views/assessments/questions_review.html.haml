@@ -1,11 +1,7 @@
-- content_for :title, ''
+- content_for :title, 'Review Questions'
 .card
   .card-header
-<<<<<<< HEAD
-    Assessment page
-=======
-    Questions Review page
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
+    Assessment Review page
   .card-body
     -# this form is to display the assessment questions and answers
     = simple_form_for VendorAnswer.new do |f|
@@ -25,38 +21,22 @@
                     - @assig = vendor_answer
                       - if vend_ans.answer_id == ans.answer_id
                         %td= ans.answer_text
-<<<<<<< HEAD
-=======
+                      - else
+                        %td
                       -# if the answer chosen requires upload, then show upload button                      
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
                       - if ans.upload_needed == true
-                        %ul.pagination.justify-content-center
-                          %li 
-                            = f.label "Upload your certificates: ", :style => "font-weight:bold" 
-                            %br
-                            %br
-                            = f.file_field :image
-                            %br
-<<<<<<< HEAD
-=======
-      -# displaying the progress bar and 
-      -# increment it based on question tab number
-      %ul.pagination.justify-content-center
-        .col-md-4
-          .progress
-            .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
+                        - @answerUpdate = vend_ans.answer_id
+                        - @assigUpdate = vend_ans.assignment_id
+                        %td= f.input :image
+                      - else
+                        %td
+
+      
       %ul.pagination.justify-content-center
         -#pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@page).html_safe
       %ul.pagination.justify-content-center
         %li 
-          = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
-<<<<<<< HEAD
       
-=======
-      %nav.mt-2{"aria-label" => "Page navigation"}
-
-        = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
->>>>>>> fe985b787335d72eddaba78259581eff13df1349

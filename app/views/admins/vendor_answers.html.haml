@@ -32,8 +32,8 @@
                     - if ans.upload_needed == true
                         %p= vend_ans.answer_id
                         %p= vend_ans.vendor_upload
-                        
-                        =image_tag(url_for(vend_ans.vendor_upload), width: 300)
+                        - if vend_ans.vendor_upload.attached?
+                            = image_tag(url_for(vend_ans.vendor_upload), width: 300)
                         %P= link_to 'Download', admins_download_path(vend_ans.answer_id), disable_with: 'Downloading...'
     
                         
