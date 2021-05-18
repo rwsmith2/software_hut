@@ -26,7 +26,6 @@ describe 'View vendors tasks as a vendor' do
     answer2 = Answer.create(answer_text: "No", question_id: question.question_id)
     
 
-    
     visit '/users/sign_in'
     fill_in 'Email', with: 'mmq1@gmail.com'
     fill_in 'Password', with: 'password'
@@ -65,7 +64,7 @@ describe 'View vendors tasks as a vendor' do
   end
 
   # should
-  specify 'I can sort the tasks on my task list by order of due date', :js => true do
+  specify 'I can sort the tasks on my task list by order of due date', :js => true, :skip => 'Not implemented' do
 
   end
 
