@@ -57,7 +57,7 @@ describe 'Delete vendor' do
     expect(page).to have_content '1455'
   end
 
-  specify 'I can delete a vendor account from the system', :js => true, :skip => 'UnexpectedAlertOpenError need to be solved' do
+  specify 'I can delete a vendor account from the system, TODO: fix double confirm popups', :js => true do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)
