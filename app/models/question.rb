@@ -24,4 +24,11 @@ class Question < ApplicationRecord
       errors.add(:answers, "- Need 1 or more answers")
     end
   end
+
+  def self.get_question_from_answer(answer_id)
+    question_id = Answer.find(answer_id).question_id
+    question = Question.find(question_id)
+    return question
+  end
+
 end

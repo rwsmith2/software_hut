@@ -4,7 +4,6 @@
 # Table name: vendor_answers
 #
 #  id            :bigint           not null, primary key
-#  vendor_upload :binary
 #  answer_id     :integer
 #  assignment_id :integer
 #
@@ -14,11 +13,11 @@
 #  fk_rails_...  (assignment_id => assignments.assignment_id) ON DELETE => cascade
 #
 class VendorAnswer < ApplicationRecord
-  has_one_attached :document
+  has_one_attached :upload
   belongs_to :assignment
   belongs_to :answer
 
-  validates :document, presence: true, if: :required_upload?
+  validates :upload, presence: true, if: :required_upload?
 
   def self.get_answer_data(answer_id)
     answer_data = Answer.joins(:question).where("answer_id=?", answer_id)

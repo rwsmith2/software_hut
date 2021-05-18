@@ -96,11 +96,9 @@ class AdminsController < ApplicationController
     def download_file
       puts 'in the download controller'
       @vendor_answer = VendorAnswer.find_by(params[:answer_id])
-      @file = @vendor_answer.vendor_upload
-      puts @vendor_answer.answer_id
-      puts @vendor_answer.vendor_upload
       
-      send_data url_for(@vendor_answer.vendor_upload), type: @vendor_answer.content_type, disposition: 'inline'
+      link_to "Download", @vendor_answer.upload, download:@vendor_answer.upload
+
     end
 
     def new_vendor

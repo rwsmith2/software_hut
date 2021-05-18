@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_124649) do
+ActiveRecord::Schema.define(version: 2021_05_18_130627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,7 +145,6 @@ ActiveRecord::Schema.define(version: 2021_05_18_124649) do
   create_table "vendor_answers", force: :cascade do |t|
     t.integer "answer_id"
     t.integer "assignment_id"
-    t.binary "vendor_upload"
   end
 
   create_table "vendor_uploads", force: :cascade do |t|

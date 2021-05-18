@@ -1,42 +1,42 @@
 -#
     page to show the vendors responses and answers to questions 
 
+.card
+    .card-header
+        %h2 Vendor Answers
+        %br
+        %h3= @task.task_title
 
-%br 
--#move to controller
--@givenTask = GivenTask.find_by(given_task_id: @assignment.given_task_id)
--@task = Task.find_by(task_id: @givenTask.task_id)
--@assessmentLinker = AssessmentLinker.find_by(task_id: @task.task_id)
--@assessment = Assessment.find_by(assessment_id: @assessmentLinker.assessment_id)
--@questions = Question.where(assessment_id: @assessment.assessment_id)
+    .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
+        %p
+            %span.font-weight-bold> Assignment ID:&nbsp;
+            = @assignment.assignment_id 
+        %p 
+            %span.font-weight-bold> Task Name:&nbsp;
+            = Task.get_task_name(@assignment.given_task.task_id)
 
-
-.card-header
-    %h1 Vendor Answer
-    %br
-    %h3= @task.task_title
-
-.card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
-    - if @questions != nil
-        - @questions.each do |que|
-            %h5= que.question_text + ":"
-            - answers = Answer.where(question_id: que.question_id)
-            - answers.each do |ans|
-                - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id)
-                - vendor_answer.each do |vend_ans|
-                    - if vend_ans.answer_id == ans.answer_id
-                        %li= ans.answer_text
-                    - else
-                        %li{:style => "color:#FF0000"} No answer
-                    
-                    - if ans.upload_needed == true
-                        %p= vend_ans.answer_id
-                        %p= vend_ans.vendor_upload
-                        
-                        =image_tag(url_for(vend_ans.vendor_upload), width: 300)
-                        %P= link_to 'Download', admins_download_path(vend_ans.answer_id), disable_with: 'Downloading...'
-    
-                        
+        %p 
+            %span.font-weight-bold> Task Description:&nbsp;
+            = Task.get_task_description(@assignment.given_task.task_id)
+        %p 
+            %span.font-weight-bold> Assessment Results:&nbsp;
+        - if @assignment.vendor_answers != nil
+            %table.table
+                %tbody
+                    %tr
+                    - @assignment.vendor_answers.each do |answer|
+                        %tr
+                            %th= Question.get_question_from_answer(answer.answer_id).question_text + ":"
+                            %td
+                            %td 
+                        %tr  
+                            %td= Answer.get_answer(answer.answer_id).answer_text
+                            %td
+                            -if answer.upload.attached?
+                                - link_title = "Download (" + answer.upload.content_type + ")"
+                                %td= link_to link_title, rails_blob_path(answer.upload, disposition: "Link")
+                            -else
+                                %td Nothing attached
 
 
 

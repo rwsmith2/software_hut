@@ -17,4 +17,9 @@ class Answer < ApplicationRecord
   has_many :vendor_answers
 
   validates :answer_text, presence: true, length: { in: 2..100}
+
+  def self.get_answer(answer_id)
+    answer = Answer.find(answer_id)
+    return answer
+  end
 end

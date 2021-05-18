@@ -22,4 +22,14 @@ class Task < ApplicationRecord
   validates :task_title, length: { in: 5..100}, uniqueness: { case_sensitive: false }
   validates :estimation, numericality: { only_integer: true, greater_than: 0 }
 
+  def self.get_task_name(task_id)
+    task_name = Task.find(task_id).task_title
+    return task_name
+  end
+
+  def self.get_task_description(task_id)
+    task_description = Task.find(task_id).task_description
+    return task_description
+  end
+
 end

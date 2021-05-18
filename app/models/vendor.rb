@@ -29,4 +29,9 @@ class Vendor < ApplicationRecord
     return vendor.company_name
   end
 
+  def self.get_vendor_id(user_id)
+    vendor = Vendor.find_by(user_id: user_id)
+    return vendor.vendor_id
+  end
+
 end

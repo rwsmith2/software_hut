@@ -11,7 +11,8 @@ class CompletedtasksController < ApplicationController
     @task.build_assessment_linker
     # fetch the completed tasks that are specifically assigned to the logged in vendor
     @selected= Task.first  
-    @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:task_title, :due_date, :set_date, :complete).where("complete=true")
+    @user = current_user
+    @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:task_title, :due_date, :set_date, :complete).where("complete=true AND vendor_id= ?", Vendor.get_vendor_id(@user.user_id))
     @tasks = @joined.order(params[:sort])
     render :index
 

@@ -1,4 +1,4 @@
-- content_for :title, ''
+- content_for :title, 'Review Questions'
 .card
   .card-header
     Questions Review page
@@ -14,25 +14,23 @@
         %tbody
           - @assignment.vendor_answers.build if @assignment.vendor_answers.empty?
           = f.simple_fields_for :vendor_answers, @assignment.vendor_answers do |answer|
-              - answer_data = (VendorAnswer.get_answer_data(answer.object.answer_id)).first
-              - question_data = (VendorAnswer.get_question_data(answer_data.question_id)).first
-              %tr
-                %th= question_data.question_text
+            - answer_data = (VendorAnswer.get_answer_data(answer.object.answer_id)).first
+            - question_data = (VendorAnswer.get_question_data(answer_data.question_id)).first
+            %tr
+              %th= question_data.question_text
+              %td
+              %td
+            %tr
+              %td= answer_data.answer_text
+              %td= answer_data.additional_response
+              - if answer_data.upload_needed == true
+                %td= answer.file_field :upload
+              - else
                 %td
-                %td
-              %tr
-                %td= answer_data.answer_text
-                %td= answer_data.additional_response
-                - if answer_data.upload_needed == true
-                  %td= answer.file_field :document
-                - else
-                  %td
-                %br
+              %br
 
       %ul.pagination.justify-content-center
         %li 
           = f.button :submit, "Submit", class: 'btn btn-outline-primary'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
-      -# %nav.mt-2{"aria-label" => "Page navigation"}
-
-      -#   = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
+      

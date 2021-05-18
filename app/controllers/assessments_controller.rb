@@ -225,7 +225,7 @@ class AssessmentsController < ApplicationController
   end
 
   def submit_params
-    params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :document])
+    params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :upload])
   end
   
 
