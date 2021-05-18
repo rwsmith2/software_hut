@@ -27,7 +27,7 @@
                       - if ans.upload_needed == true
                         - @answerUpdate = vend_ans.answer_id
                         - @assigUpdate = vend_ans.assignment_id
-                        %td= f.input :image
+                        %td= f.input :upload, label: "Upload a file of type image"
                       - else
                         %td
 

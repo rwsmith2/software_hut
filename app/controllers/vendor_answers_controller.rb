@@ -19,7 +19,7 @@ class VendorAnswersController < ApplicationController
 
   end
   def update_params
-    params.require(:vendor_answer).permit(@answerUpdate, @assigUpdate, :image)
+    params.require(:vendor_answer).permit(@answerUpdate, @assigUpdate, :upload)
   end
 
 end

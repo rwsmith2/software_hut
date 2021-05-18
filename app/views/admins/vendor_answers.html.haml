@@ -32,9 +32,9 @@
                     - if ans.upload_needed == true
                         %p= vend_ans.answer_id
                         %p
-                        - if vend_ans.image.attached?
-                            = image_tag(url_for(vend_ans.image), width: 300)
-                        %P= link_to 'Download', vend_ans.image, download:vend_ans.image
+                        - if vend_ans.upload.attached?
+                            = image_tag(url_for(vend_ans.upload), width: 300)
+                        %P= link_to 'Download', vend_ans.upload, download:vend_ans.upload
     
                         
 

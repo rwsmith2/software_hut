@@ -97,7 +97,7 @@ class AdminsController < ApplicationController
       puts 'in the download controller'
       @vendor_answer = VendorAnswer.find_by(params[:answer_id])
       
-      link_to "Download", @vendor_answer.image, download:@vendor_answer.image
+      link_to "Download", @vendor_answer.upload, download:@vendor_answer.upload
 
     end
 
