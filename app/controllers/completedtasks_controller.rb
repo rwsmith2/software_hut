@@ -4,16 +4,8 @@ class CompletedtasksController < ApplicationController
   def index
     @current_nav_identifier = :completedtasks_index
 
-    @pagy, @tasks = pagy(Task.all, items: 10)
-    @task = Task.new
-    @assessments = Assessment.all.select("assessment_id, assessment_title")
-    #User .build_attribute_name, as it is a has_one association
-    @task.build_assessment_linker
-    # fetch the completed tasks that are specifically assigned to the logged in vendor
-    @selected= Task.first  
-    @user = current_user
-    @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:task_title, :due_date, :set_date, :complete).where("complete=true AND vendor_id= ?", Vendor.get_vendor_id(@user.user_id))
-    @tasks = @joined.order(params[:sort])
+    @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:assignment_id, :task_title, :due_date, :set_date, :complete).where("complete=true AND vendor_id= ?", Vendor.get_vendor_id(current_user.user_id))
+    @pagy, @tasks = pagy(@joined.order(params[:sort]), items: 10)
     render :index
 
   end

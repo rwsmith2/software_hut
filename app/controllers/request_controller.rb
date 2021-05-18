@@ -1,6 +1,6 @@
 class RequestController < ApplicationController
 
-    skip_authorization_check
+    before_action :authenticate_user!
   
     def index
       @current_nav_identifier = :login

@@ -96,19 +96,11 @@ class AssessmentsController < ApplicationController
   def submit
     @assignment = Assignment.find(session[:assignment_id])
     if @assignment.update(submit_params)
-      puts("ATTATCHED")
       @assignment.complete_assignment()
       redirect_to vendor_home_path, notice: 'Assessment was successfully updated.'
     else
-      puts("TEST")
       render :questions_review
     end
-    
-
-    @uploaded_all = true
-
-    puts(params.inspect)
-
   end
   
   #GET /admin/assessments/new
@@ -133,15 +125,6 @@ class AssessmentsController < ApplicationController
     @assessment = Assessment.find(params[:id])
   end
 
-  # def back
-  #   redirect_on_back_to assessments_questions_path
-  #   redirect_to assessments_questions_path
-  # end
-
-  def answer_questions
-    @assessment = Assessment.find(params[:assessment_id])
-    @questions = Questions.find(params[:assessment_id])
-  end
 
   #POST /assessments/search
   def search

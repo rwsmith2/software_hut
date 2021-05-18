@@ -2,7 +2,7 @@
 .card
   .card-header
     Questions Review page
-  .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 70vh"}
+  .card-body.scrollable.overflow-auto{style: "overflow-y: scroll; max-height: 70vh"}
     -# this form is to display the assessment questions and answers
     = simple_form_for @assignment, url: assessments_submit_path(), method: :post do |f|
       - if @assignment.errors.any?
@@ -27,7 +27,7 @@
                 %td= answer.file_field :upload
               - else
                 %td
-              %br
+              
 
       %ul.pagination.justify-content-center
         %li 

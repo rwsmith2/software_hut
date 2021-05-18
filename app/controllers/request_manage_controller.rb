@@ -1,8 +1,6 @@
 class RequestManageController < ApplicationController
     before_action :authenticate_user!
 
-    skip_authorization_check
-  
     def index
       @current_nav_identifier = :request_manage
 

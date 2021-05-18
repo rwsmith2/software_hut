@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_130627) do
+ActiveRecord::Schema.define(version: 2021_05_18_200009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,13 +112,6 @@ ActiveRecord::Schema.define(version: 2021_05_18_130627) do
     t.string "task_title", null: false
     t.string "task_description"
     t.integer "estimation", null: false
-    t.integer "user_id"
-  end
-
-  create_table "uploads", primary_key: "upload_id", id: :serial, force: :cascade do |t|
-    t.integer "upload_type"
-    t.string "upload_description"
-    t.integer "answer_id"
   end
 
   create_table "users", primary_key: "user_id", id: :serial, force: :cascade do |t|
@@ -147,12 +140,6 @@ ActiveRecord::Schema.define(version: 2021_05_18_130627) do
     t.integer "assignment_id"
   end
 
-  create_table "vendor_uploads", force: :cascade do |t|
-    t.integer "upload_id"
-    t.binary "data"
-    t.integer "assignment_id"
-  end
-
   create_table "vendors", primary_key: "vendor_id", id: :serial, force: :cascade do |t|
     t.string "company_name", null: false
     t.integer "company_number", null: false
@@ -174,11 +161,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_130627) do
   add_foreign_key "assignments", "vendors", primary_key: "vendor_id", on_delete: :cascade
   add_foreign_key "given_tasks", "tasks", primary_key: "task_id", on_delete: :cascade
   add_foreign_key "questions", "assessments", primary_key: "assessment_id"
-  add_foreign_key "tasks", "users", primary_key: "user_id"
-  add_foreign_key "uploads", "answers", primary_key: "answer_id", on_delete: :cascade
   add_foreign_key "vendor_answers", "answers", primary_key: "answer_id"
   add_foreign_key "vendor_answers", "assignments", primary_key: "assignment_id", on_delete: :cascade
-  add_foreign_key "vendor_uploads", "assignments", primary_key: "assignment_id", on_delete: :cascade
-  add_foreign_key "vendor_uploads", "uploads", primary_key: "upload_id"
   add_foreign_key "vendors", "users", primary_key: "user_id", on_delete: :cascade
 end

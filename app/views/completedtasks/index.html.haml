@@ -1,37 +1,34 @@
-.card-header
-%h3 Completed Tasks
-%br
-    -#sort by
-    .dropdown
-        %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-            Sort By
-        .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
-            %a.dropdown-item= link_to "A-Z" , :sort => "task_title"
-            %a.dropdown-item= link_to "Recently Completed", :sort => "due_date desc"
-            %a.dropdown-item= link_to "Date Assigned" , :sort => "set_date"
-
-.card.mb-3
-    %table.table.table-hover
-        -# display completed tasks
-        %tr
-            %th Task
-            %th Date Assigned
-            %th Date Completed
-            %th Mark as complete
-        %tr
-        -# get the completed tasks
-        -@tasks.each do |task|
-            %tr
-                %td= task.task_title
-                %td= task.set_date
-                %td= task.due_date
-                %td
-                    %input{:name => "name1", :type => "checkbox", :checked => true}>/
-                    \ 
+.card   
+    .card-header
+        %h3 Completed Tasks
             
+    .card.mb-3
+        -#sort by
+        .dropdown.ml-3
+            %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                Sort By
+            .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
+                %a.dropdown-item= link_to "A-Z" , :sort => "task_title"
+                %a.dropdown-item= link_to "Recently Completed", :sort => "due_date desc"
+                %a.dropdown-item= link_to "Date Assigned" , :sort => "set_date"
+        %br
+        %table.table.table-hover
+            -# display completed tasks
+            %tr
+                %th Task
+                %th Date Assigned
+                %th Mark as complete
+            %tr
+            -# get the completed tasks
+            -@tasks.each do |task|
+                %tr
+                    %td= task.task_title
+                    %td= task.set_date
+                    %td= link_to "View Assessment", admin_vendor_answers_path(assignment_id:  task.assignment_id)
 
-    %br
-    %div
-    %ul.pagination.justify-content-center
-        %li
-            %button.btn.btn-primary.w-20{:type => "button"} Save Changes
+        %ul.pagination.justify-content-center
+            -#pagination for numbering multiple pages (tabs)
+            = pagy_bootstrap_nav(@pagy).html_safe
+
+                
+
