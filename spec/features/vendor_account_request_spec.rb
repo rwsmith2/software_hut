@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Register vendor' do
+describe 'Vendor account request' do
 
   specify 'I can navigate to the request form from login page' do
     visit '/users/sign_in'

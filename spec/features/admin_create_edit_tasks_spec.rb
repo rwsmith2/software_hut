@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Create/Edit tasks' do
+describe 'Admin create/Edit tasks' do
 
   specify 'I can navigate to the task management page' do
     # Admin User

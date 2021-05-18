@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Create assessments' do
+describe 'Admin create assessments' do
   # could
   specify 'I upload a new assessment by a csv file' do
     # Vendor User

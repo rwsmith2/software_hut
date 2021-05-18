@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Change password' do
+describe 'User change password' do
 
   specify 'I can navigate to the change password page' do
     # Admin User

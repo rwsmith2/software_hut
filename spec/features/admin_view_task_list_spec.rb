@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'View task list' do
+describe 'Admin view task list' do
 
   specify 'I can navigate to the task list page from homepage as an admin' do
     # Admin User

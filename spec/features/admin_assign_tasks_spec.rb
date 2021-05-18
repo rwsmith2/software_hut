@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Assign tasks' do
+describe 'Admin assign tasks' do
 
   specify 'I can navigate to the task management page from homepage' do
     # Admin User

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Login' do
+describe 'User login' do
 
   specify 'I can login as an admin' do
     # Admin User

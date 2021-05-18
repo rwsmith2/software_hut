@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Delete vendor' do
+describe 'Admin vendor management' do
 
   specify 'I can navigate to the vendor accounts management page' do
     # Admin User

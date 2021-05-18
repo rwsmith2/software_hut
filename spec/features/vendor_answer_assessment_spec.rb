@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Answer assessment' do
+describe 'Vendor answer assessment' do
 
   specify 'I can navigate to a assessment page from dashboard' do
     # Admin User
@@ -56,5 +56,7 @@ describe 'Answer assessment' do
 
     vendor_answer2 = VendorAnswer.where(answer_id: answer2.answer_id)
     expect(vendor_answer2.count).to eq(0)
+
+    expect(page).to have_no_content 'Example Task 1'
   end
 end

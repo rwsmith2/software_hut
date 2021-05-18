@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'View account requests' do
+describe 'Admin account requests management' do
 
   specify 'I can navigate to the request management page from homepage' do
     # Admin User
