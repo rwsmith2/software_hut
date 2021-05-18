@@ -48,6 +48,13 @@ describe 'Answer assessment' do
     click_link 'Example Task 1'
     choose 'Yes'
     click_button 'Submit' 
-    expect(page).to have_content 'Review answers needed'
+    click_button 'Submit'
+
+
+    vendor_answer1 = VendorAnswer.where(answer_id: answer1.answer_id)
+    expect(vendor_answer1.count).to eq(1)
+
+    vendor_answer2 = VendorAnswer.where(answer_id: answer2.answer_id)
+    expect(vendor_answer2.count).to eq(0)
   end
 end

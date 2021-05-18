@@ -13,7 +13,7 @@
       - if @info_msg
         .alert.alert-success{:role => "alert"}
           = @info_msg
-            
+      -# this form is to change the users password      
       = simple_form_for :update, url: change_password_update_path, method: :post do |f|
         = f.input :newpass, label: 'New password', as: :string, input_html: {'type': 'password'}
         = f.input :reppass, label: 'Repeat password', as: :string, input_html: {'type': 'password'}

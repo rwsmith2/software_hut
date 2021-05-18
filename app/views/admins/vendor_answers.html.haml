@@ -8,7 +8,8 @@
 -@task = Task.find_by(task_id: @givenTask.task_id)
 -@assessmentLinker = AssessmentLinker.find_by(task_id: @task.task_id)
 -@assessment = Assessment.find_by(assessment_id: @assessmentLinker.assessment_id)
--@questions = Question.where(assessment_id: @assessmentLinker.assessment_id)
+-@questions = Question.where(assessment_id: @assessment.assessment_id)
+
 
 .card-header
     %h1 Vendor Answer
@@ -16,13 +17,26 @@
     %h3= @task.task_title
 
 .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
-    %p= @assessmentLinker.assessment_id
-    %p= @assessment.assessment_id
-    %p= @questions.count
-    -@questions.each do |question|
-        %h1 hello
-        %h4= question.question_text
-        
+    - if @questions != nil
+        - @questions.each do |que|
+            %h5= que.question_text + ":"
+            - answers = Answer.where(question_id: que.question_id)
+            - answers.each do |ans|
+                - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id)
+                - vendor_answer.each do |vend_ans|
+                    - if vend_ans.answer_id == ans.answer_id
+                        %li= ans.answer_text
+                    - else
+                        %li{:style => "color:#FF0000"} No answer
+                    
+                    - if ans.upload_needed == true
+                        %p= vend_ans.answer_id
+                        %p= vend_ans.vendor_upload
+                        
+                        =image_tag(url_for(vend_ans.vendor_upload), width: 300)
+                        %P= link_to 'Download', admins_download_path(vend_ans.answer_id), disable_with: 'Downloading...'
+    
+                        
 
 
 

@@ -43,7 +43,7 @@ describe 'Create/Edit tasks' do
   end
 
   # js required
-  specify 'I can edit a task', :skip => "JS required" do
+  specify 'I can edit a task', :js => true do
     # Admin User
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
@@ -69,15 +69,18 @@ describe 'Create/Edit tasks' do
     click_button 'Create!'
     click_link 'Task00'
     click_link 'Edit'
-    fill_in 'Description', with: 'A great task'
-    click_button 'Update Task'
+    wait_for_ajax
+    modal = find("#modalWindow")
+    modal.fill_in 'Description', with: 'A great task'
+    modal.click_button 'Update Task'
+    wait_for_ajax
     click_link 'Task00'
     expect(page).to have_content 'A great task'
 
   end
 
   # js required
-  specify 'I can delete a task', :skip => "JS required" do
+  specify 'I can delete a task', :js => true do
     # Admin User
     user1 = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user1.user_id)
@@ -102,9 +105,9 @@ describe 'Create/Edit tasks' do
     select 'Assessment questions', from: 'task_assessment_linker_attributes_assessment_id'
     click_button 'Create!'
     click_link 'Task00'
-    click_link 'Destroy'
-    # TODO
-    # browser alert
+    accept_alert do
+      click_link 'Destroy'
+    end
 
   end
 

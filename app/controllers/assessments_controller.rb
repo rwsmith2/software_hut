@@ -84,6 +84,7 @@ class AssessmentsController < ApplicationController
   end
   
   def questions_review
+    puts "Question review"
     @assessments = Assessment.find(session[:assessment_id])
     @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
     @question = @questions.count
