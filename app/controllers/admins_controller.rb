@@ -1,8 +1,6 @@
 class AdminsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_admin
     
-    skip_authorization_check
   
     # def repeat_tasks
     #   today_date = Date.today
@@ -56,7 +54,7 @@ class AdminsController < ApplicationController
 
       @user = current_user
       
-      @joined = Assignment.joins(:given_task).select(:assignment_id,:complete_by,:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority)
+      @joined = Assignment.joins(:given_task).select(:assignment_id,:complete_by,:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority).where("complete=false")
 
       @pagy, @tasks = pagy(@joined.order(params[:sort]), items: 10)
 
@@ -88,7 +86,6 @@ class AdminsController < ApplicationController
     end
 
     def show_vendor_answer
-      puts "In show vendor answer controller--"
       @assignment = Assignment.find(params[:assignment_id])
       render :vendor_answers
     end

@@ -1,4 +1,6 @@
 class VendorAnswersController < ApplicationController
+  before_action :authenticate_user!
+
   def create 
     @assignment = Assignment.find(session[:assignment_id])
     @assessment = Assessment.find(session[:assessment_id])

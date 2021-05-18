@@ -35,13 +35,15 @@ class Ability
 
     #Check to see if the user is an admin
     if user.is_admin?
-      can [:read, :update, :create, :destroy, :edit, :select_assessment, :search, :admin_index], Assessment
-      can [:read, :update, :create, :destroy, :edit ,:select_task, :search], Task
-      can [:read, :new, :create, :select_given_task, :destroy, :edit, :update, :search], GivenTask
-      can [:read, :new, :create, :update, :edit, :show], Vendor
+      can [:manage], Assessment
+      can [:manage], Task
+      can [:manage], GivenTask
+      can [:manage], Vendor
+      can [:manage], Admin
     else
-      can [:read, :select_task], Task
-      can [:read, :select_assessment, :save_questions], Assessment
+      can [:index], Vendor
+      can [:question_review, :questions, :save_questions, :submit], Assessment
+      can [:show_vendor_answer], Admin
     end
   end
 end

@@ -40,6 +40,7 @@
                     %th Set Date
                     %th Due Date
                     %th Link
+                    %th Priority
                 -# Listing all set tasks for the vendor    
                 -@tasks.each do |task|
                     -@task = Task.find_by(task_id: task.task_id)
@@ -64,6 +65,7 @@
                                     %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
                                 -else 
                                     %td No Assessment 
+                            %td= GivenTask.priority_int_to_string(task.priority)
                       
                               
         %ul.pagination.justify-content-center
