@@ -69,7 +69,7 @@ class AssessmentsController < ApplicationController
         @vendor_answer = VendorAnswer.new
         @vendor_answer.assignment_id = session[:assignment_id]
         @vendor_answer.answer_id = answer[1]
-        @vendor_answer.save
+        @vendor_answer.save(validate: false)
       end
     end
 
@@ -86,9 +86,29 @@ class AssessmentsController < ApplicationController
   def questions_review
     puts "Question review"
     @assessments = Assessment.find(session[:assessment_id])
+    @assignment = Assignment.find(session[:assignment_id])
+    puts(@assignment.inspect)
     @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
     @question = @questions.count
     @questionsCoun = @question/4.0
+  end
+
+  def submit
+    @assignment = Assignment.find(session[:assignment_id])
+    if @assignment.update(submit_params)
+      puts("ATTATCHED")
+      @assignment.complete_assignment()
+      redirect_to vendor_home_path, notice: 'Assessment was successfully updated.'
+    else
+      puts("TEST")
+      render :questions_review
+    end
+    
+
+    @uploaded_all = true
+
+    puts(params.inspect)
+
   end
   
   #GET /admin/assessments/new
@@ -204,6 +224,9 @@ class AssessmentsController < ApplicationController
      questions_attributes: [:id, :answer_id])
   end
 
+  def submit_params
+    params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :document])
+  end
   
 
 end

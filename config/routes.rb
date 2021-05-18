@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get "assessments/triage", to: "assessments#triage"
   get "assessments/review", to: "assessments#questions_review"
   post "assessments/save_questions", to: "assessments#save_questions"
+  post "assessments/submit", to: "assessments#submit"
 
   #task routes
   get "fetch_task", to: 'tasks#select_task', as: 'fetch_task'

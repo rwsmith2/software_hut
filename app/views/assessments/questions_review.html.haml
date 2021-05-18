@@ -1,62 +1,38 @@
 - content_for :title, ''
 .card
   .card-header
-<<<<<<< HEAD
-    Assessment page
-=======
     Questions Review page
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
-  .card-body
+  .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 70vh"}
     -# this form is to display the assessment questions and answers
-    = simple_form_for VendorAnswer.new do |f|
-      - if @questions != nil
-        %table.table
-          %tbody
-            %tr
-            - @questions.each do |que|
+    = simple_form_for @assignment, url: assessments_submit_path(), method: :post do |f|
+      - if @assignment.errors.any?
+        .alert.alert-danger 
+          - @assignment.errors.full_messages.each do |message| 
+            = message
+            %br
+      %table.table
+        %tbody
+          - @assignment.vendor_answers.build if @assignment.vendor_answers.empty?
+          = f.simple_fields_for :vendor_answers, @assignment.vendor_answers do |answer|
+              - answer_data = (VendorAnswer.get_answer_data(answer.object.answer_id)).first
+              - question_data = (VendorAnswer.get_question_data(answer_data.question_id)).first
               %tr
-                %th= que.question_text
-                %tr
-                  - answers = Answer.where(question_id: que.question_id)
-                  - answers.each do |ans|
-                  - @assessment_link = @assessments
-                    - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id)
-                    - vendor_answer.each do |vend_ans|
-                    - @assig = vendor_answer
-                      - if vend_ans.answer_id == ans.answer_id
-                        %td= ans.answer_text
-<<<<<<< HEAD
-=======
-                      -# if the answer chosen requires upload, then show upload button                      
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
-                      - if ans.upload_needed == true
-                        %ul.pagination.justify-content-center
-                          %li 
-                            = f.label "Upload your certificates: ", :style => "font-weight:bold" 
-                            %br
-                            %br
-                            = f.file_field :image
-                            %br
-<<<<<<< HEAD
-=======
-      -# displaying the progress bar and 
-      -# increment it based on question tab number
-      %ul.pagination.justify-content-center
-        .col-md-4
-          .progress
-            .progress-bar.progress-bar-info.progress-bar-striped{:style => "width: " + (params[:page].to_i*100/@questionsCoun).to_s + "%"  }
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
-      %ul.pagination.justify-content-center
-        -#pagination for numbering multiple pages (tabs)
-        = pagy_bootstrap_nav(@page).html_safe
+                %th= question_data.question_text
+                %td
+                %td
+              %tr
+                %td= answer_data.answer_text
+                %td= answer_data.additional_response
+                - if answer_data.upload_needed == true
+                  %td= answer.file_field :document
+                - else
+                  %td
+                %br
+
       %ul.pagination.justify-content-center
         %li 
-          = f.button :submit, "Submit", class: 'btn btn-outline-primary', :disabled => 'disabled'
+          = f.button :submit, "Submit", class: 'btn btn-outline-primary'
           = link_to "Back", :back, class: 'btn btn-outline-primary'
-<<<<<<< HEAD
-      
-=======
-      %nav.mt-2{"aria-label" => "Page navigation"}
+      -# %nav.mt-2{"aria-label" => "Page navigation"}
 
-        = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"
->>>>>>> fe985b787335d72eddaba78259581eff13df1349
+      -#   = link_to 'Back to questions page', assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: @assig.first.assignment_id), class: "btn page-link", type: "button"

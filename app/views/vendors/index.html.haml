@@ -41,21 +41,31 @@
                     %th Due Date
                     %th Link
                 -# Listing all set tasks for the vendor    
-                -@tasks.each do |givenTask|
-                    -@task = Task.find_by(task_id: givenTask.task_id)
+                -@tasks.each do |task|
+                    -@task = Task.find_by(task_id: task.task_id)
                     -@assessment_link = AssessmentLinker.find_by(task_id: @task.task_id)
-                    -@assignment = Assignment.find_by(assignment_id: givenTask.assignment_id)
-                    %tr
-                    
-                        %td= @task.task_title 
-                        %td= @task.task_description
-                        %td= givenTask.set_date
-                        - if givenTask.due_date < DateTime.now 
-                            %td{:style => "font-weight:bold; color:red"}= givenTask.due_date
-                            %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id)
-                        - else
-                            %td= givenTask.due_date
-                            %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: givenTask.assignment_id)
+                    -@assignment = Assignment.find_by(assignment_id: task.assignment_id)
+                    -if @assignment.complete != true
+                        %tr
+                        
+                            %td= @task.task_title 
+                            %td= @task.task_description
+                            %td= task.set_date
+                            - if task.due_date < DateTime.now 
+                                %td{:style => "font-weight:bold; color:red"}= task.due_date
+                                -if !(@assessment_link).nil?
+                                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
+                                -else 
+                                    %td No Assessment 
+
+                            - else
+                                %td= task.due_date
+                                -if !(@assessment_link).nil?
+                                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
+                                -else 
+                                    %td No Assessment 
+                      
+                              
         %ul.pagination.justify-content-center
         -#pagination for numbering multiple pages (tabs)
         = pagy_bootstrap_nav(@pagy).html_safe
