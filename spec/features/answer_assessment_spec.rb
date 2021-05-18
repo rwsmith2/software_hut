@@ -16,7 +16,7 @@ describe 'Answer assessment' do
     expect(page).to have_content 'Assessments'
   end
 
-  specify 'I can fill in and submit my answers', :skip => 'Not clear what will happen finally' do
+  specify 'I can fill in and submit my answers' do
     # Vendor User
     user = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
     vendor = Vendor.create(user_id: user.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
@@ -49,7 +49,12 @@ describe 'Answer assessment' do
     choose 'Yes'
     click_button 'Submit' 
     click_button 'Submit'
-    # TODO : Not clear what will happen finally
-    expect(page).to have_content 'Review answers needed'
+
+
+    vendor_answer1 = VendorAnswer.where(answer_id: answer1.answer_id)
+    expect(vendor_answer1.count).to eq(1)
+
+    vendor_answer2 = VendorAnswer.where(answer_id: answer2.answer_id)
+    expect(vendor_answer2.count).to eq(0)
   end
 end
