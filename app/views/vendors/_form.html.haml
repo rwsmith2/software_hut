@@ -16,13 +16,6 @@
 
     -# body showing infomation that can be changed
     .card-body.overflow-auto
-      -#email of the user
-      -# .input-group.mb-3
-      -#   .input-group-prepend
-      -#     %span#basic-addon-taskname.input-group-text 
-      -#       = icon 'fas', 'at'
-      -#   = f.input_field :email, required: true, as: :string, disabled: true, input_html: {"aria-describedby": "basic-addon-taskname", "aria-label": "Email"}
-    
       -# vendor information
       = f.simple_fields_for :vendor, @user.vendor do |t|
         .input-group.mb-3
