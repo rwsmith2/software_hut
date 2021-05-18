@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Vendor view tasks' do
+describe 'Vendor task view' do
 
   specify 'I can view a list of tasks that have been assigned to me on dashboard' do
     # Vendor User

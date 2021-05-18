@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Vendor answer assessment' do
+describe 'Vendor assessment answer' do
 
   specify 'I can navigate to a assessment page from dashboard' do
     # Admin User
@@ -58,5 +58,8 @@ describe 'Vendor answer assessment' do
     expect(vendor_answer2.count).to eq(0)
 
     expect(page).to have_no_content 'Example Task 1'
+  end
+
+  specify 'I can upload files as required', :skip => 'Not implemented' do
   end
 end

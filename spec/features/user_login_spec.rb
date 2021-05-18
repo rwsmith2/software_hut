@@ -4,7 +4,7 @@ describe 'User login' do
 
   specify 'I can login as an admin' do
     # Admin User
-    user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
+    user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true)
     Admin.create(user_id: user.user_id)
 
     visit '/users/sign_in'
