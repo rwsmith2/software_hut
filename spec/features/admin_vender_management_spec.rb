@@ -17,7 +17,7 @@ describe 'Admin vendor management' do
     expect(page).to have_no_content '1455'
   end
 
-  specify 'I can add a vendor account from the system, TODO: page error', :js => true do
+  specify 'I can add a vendor account from the system', :js => true do
     make_test_data
 
     visit '/users/sign_in'

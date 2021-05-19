@@ -114,8 +114,10 @@ class AdminsController < ApplicationController
       @postcode = params_v[:postcode]
       @region = params_v[:region]
 
-      user = User.new(email: @email, password: SecureRandom.hex(8), user_name: @email, is_admin: false)
-      vendor = Vendor.new(company_name: @name, company_number: "0", validated: false)
+      password = SecureRandom.hex(8)
+
+      user = User.new(email: @email, password: password, user_name: @email, is_admin: false)
+      vendor = Vendor.new(company_name: @name, company_number: "0", validated: true)
       address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
 
       if user.valid?
@@ -126,8 +128,9 @@ class AdminsController < ApplicationController
           address.vendor_id = vendor.vendor_id
           if address.valid?
             address.save
-            @vendorL = Vendor.all.order(params[:sort])
-            render :management
+            RequestMailer.with(email: @email, name: @name, password: password).accepted_email.deliver_now
+
+            redirect_to :admin_management
             return
           else
             user.destroy
@@ -142,6 +145,7 @@ class AdminsController < ApplicationController
         @error_obj = user
       end
 
+      render :new_vendor
     end
  
     def create
