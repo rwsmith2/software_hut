@@ -16,7 +16,7 @@ require 'rails_helper'
 
 RSpec.describe Address, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
-  user = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
+  user = User.create(email: "mmq2@gmail.com", password: "password", user_name: "mmq2@gmail.com", is_admin: false)
   vendor = Vendor.create(user_id: user.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
   address = Address.create(vendor_id: vendor.vendor_id, city_town: "Sheffield", country: "Sheffield", house_name: "67", postcode: "S1 CBQ")
   

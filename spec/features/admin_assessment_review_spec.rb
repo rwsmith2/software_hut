@@ -45,7 +45,7 @@ describe 'Admin assessment review' do
     address = Address.create(vendor_id: vendor.vendor_id, city_town: "Sheffield", country: "Sheffield", house_name: "67", postcode: "S1 CBQ")
 
     # task
-    task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user.user_id)
+    task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
     given_task = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01",priority: "2",repeatable: "7", task_id: task.task_id)
     
     # assessment

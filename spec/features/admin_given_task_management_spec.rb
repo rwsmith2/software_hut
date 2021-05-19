@@ -9,7 +9,7 @@ describe 'Admin given task management' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Given Tasks Page'
+    click_link 'Given Tasks'
 
     click_link 'Edit'
     wait_for_ajax
@@ -18,7 +18,7 @@ describe 'Admin given task management' do
     click_button 'Assign Tasks'
     wait_for_ajax
 
-    click_link 'Given Tasks Page'
+    click_link 'Given Tasks'
     expect(page).to have_content 'Repeats every 10 days'
   end
 
@@ -29,7 +29,7 @@ describe 'Admin given task management' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Given Tasks Page'
+    click_link 'Given Tasks'
     
     accept_alert do
       click_link 'Destroy'
@@ -51,8 +51,8 @@ describe 'Admin given task management' do
     address = Address.create(vendor_id: vendor.vendor_id, city_town: "Sheffield", country: "Sheffield", house_name: "67", postcode: "S1 CBQ")
     
     # task
-    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user_admin.user_id)
-    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1", user_id: user_admin.user_id)
+    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
+    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1")
     given_task1 = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01", priority: "2", repeatable: "7", task_id: task1.task_id)
     given_task2 = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01", priority: "2", repeatable: "7", task_id: task2.task_id)
 

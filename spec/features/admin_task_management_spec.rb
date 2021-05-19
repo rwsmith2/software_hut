@@ -98,7 +98,7 @@ describe 'Admin task management' do
     modal.click_button 'Assign Tasks'
     wait_for_ajax
 
-    click_link 'Given Tasks Page'
+    click_link 'Given Tasks'
     expect(page).to have_content 'Example Task 1'
   end
 
@@ -124,7 +124,7 @@ describe 'Admin task management' do
     modal.click_button 'Assign Tasks'
     wait_for_ajax
 
-    click_link 'Given Tasks Page'
+    click_link 'Given Tasks'
     click_link '1 - Example Task 1'
     expect(page).to have_content 'Repeats every 5 days'
   end
@@ -154,7 +154,7 @@ describe 'Admin task management' do
     modal.click_button 'Assign Tasks'
     wait_for_ajax
 
-    click_link 'Given Tasks Page'
+    click_link 'Given Tasks'
     expect(page).to have_content '2 vendors assigned'
   end
 
@@ -173,8 +173,8 @@ describe 'Admin task management' do
     address2 = Address.create(vendor_id: vendor2.vendor_id, city_town: "Cambridge", country: "UK", house_name: "Store 51", postcode: "C1 4LS")
     
     # task
-    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user_admin.user_id)
-    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1", user_id: user_admin.user_id)
+    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
+    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1")
 
     # assessment
     assessment = Assessment.new(assessment_title: "Assessment questions")
@@ -198,8 +198,8 @@ describe 'Admin task management' do
     address2 = Address.create(vendor_id: vendor2.vendor_id, city_town: "Cambridge", country: "UK", house_name: "Store 51", postcode: "C1 4LS")
     
     # task
-    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user_admin.user_id)
-    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1", user_id: user_admin.user_id)
+    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
+    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1")
     given_task1 = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01", priority: "2", repeatable: "7", task_id: task1.task_id)
     given_task2 = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01", priority: "2", repeatable: "7", task_id: task2.task_id)
 

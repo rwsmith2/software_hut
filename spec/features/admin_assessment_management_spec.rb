@@ -10,7 +10,7 @@ describe 'Admin assessment management' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
 
     click_link 'Create'
 
@@ -31,7 +31,7 @@ describe 'Admin assessment management' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
 
     click_link 'Assessment 1'
     wait_for_ajax
@@ -55,7 +55,7 @@ describe 'Admin assessment management' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
 
     click_link 'Assessment 1'
     wait_for_ajax

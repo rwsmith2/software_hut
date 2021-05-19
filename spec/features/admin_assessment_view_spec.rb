@@ -10,7 +10,7 @@ describe 'Admin assessment view' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
   end
 
   specify 'I can view a list of assessments' do
@@ -20,7 +20,7 @@ describe 'Admin assessment view' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
 
     expect(page).to have_content 'Assessment 1'
     expect(page).to have_content 'Assessment 2'
@@ -33,7 +33,7 @@ describe 'Admin assessment view' do
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
 
     click_link 'Assessment 1'
     wait_for_ajax

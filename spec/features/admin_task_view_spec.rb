@@ -65,8 +65,8 @@ describe 'Admin task view' do
     Admin.create(user_id: user_admin.user_id)
     
     # task
-    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user_admin.user_id)
-    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1", user_id: user_admin.user_id)
+    task1 = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
+    task2 = Task.create(task_title: "Example Task 2", task_description: "A good Task", estimation: "1")
 
     # assessment
     assessment = Assessment.new(assessment_title: "Assessment questions")
