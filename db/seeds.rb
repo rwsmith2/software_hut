@@ -349,17 +349,3 @@ lq14_a3 = Answer.create(upload_needed: "true", answer_text: "Yes, for all change
 lq14_a4 = Answer.create(upload_needed: "true", answer_text: "Yes, for all changes using a change management tool.", additional_response: "Please provide the latest change management procedure/policy and technologies used." , question_id: lq14.question_id)
 
 
-
-# lq2.save(:validate => false)
-# lq3.save(:validate => false)
-# lq4.save(:validate => false)
-# lq5.save(:validate => false)
-# lq6.save(:validate => false)
-# lq7.save(:validate => false)
-# lq8.save(:validate => false)
-# lq9.save(:validate => false)
-# lq10.save(:validate => false)
-# lq11.save(:validate => false)
-# lq12.save(:validate => false)
-# lq13.save(:validate => false)
-# lq14.save(:validate => false)
