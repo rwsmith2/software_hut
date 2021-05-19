@@ -8,6 +8,11 @@
         %p
             %span.font-weight-bold> Assignment ID:&nbsp;
             = @assignment.assignment_id 
+
+        %p
+            %span.font-weight-bold> Vendor:&nbsp;
+            = Vendor.get_vendor_name(@assignment.vendor_id)
+
         %p 
             %span.font-weight-bold> Task Name:&nbsp;
             = Task.get_task_name(@assignment.given_task.task_id)
@@ -15,25 +20,45 @@
         %p 
             %span.font-weight-bold> Task Description:&nbsp;
             = Task.get_task_description(@assignment.given_task.task_id)
-        %p 
-            %span.font-weight-bold> Assessment Results:&nbsp;
+
+        -if can?(:verify, Admin) 
+            = simple_form_for @assignment, url: admin_verify_assignment_path ,defaults: {input_html: {class: 'form-control'}} do |f|
+                %p
+                    %span.font-weight-bold> Please verify assignment:
+                .row.justify-content-start
+                    .col-1= f.input_field :verified, as: :boolean
+                    .col-3= f.button :submit, 'Verify!', class: 'btn btn-primary d-flex'
+            %br
+        
+        
         - if @assignment.vendor_answers != nil
+            %p 
+                %span.font-weight-bold> Assessment Results:&nbsp;
             %table.table
                 %tbody
                     %tr
                     - @assignment.vendor_answers.each do |answer|
+                        - answer_data = Answer.get_answer(answer.answer_id)
                         %tr
-                            %th= Question.get_question_from_answer(answer.answer_id).question_text + ":"
-                            %td
-                            %td 
+                            %th{colspan: 3}= Question.get_question_from_answer(answer.answer_id).question_text + ":"
+                        %tr.table-borderless
+                            %td= answer_data.answer_text
+                            %td{colspan: 2}= answer_data.additional_response
                         %tr  
-                            %td= Answer.get_answer(answer.answer_id).answer_text
-                            %td
                             -if answer.upload.attached?
                                 - link_title = "Download (" + answer.upload.content_type + ")"
                                 %td= link_to link_title, rails_blob_path(answer.upload, disposition: "Link")
                             -else
                                 %td Nothing attached
+
+                            -if !(answer.comment.nil? || answer.comment == "")
+                               
+                                %td{colspan: 2}= answer.comment
+                            -else
+                                %td{colspan: 2} No comments
+
+        
+
 
 
 

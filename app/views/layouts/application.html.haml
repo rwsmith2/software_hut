@@ -71,6 +71,10 @@
                       = icon 'fas', 'user-circle'
                       Vendors
 
+                    = navbar_link_to admin_completed_assignments_path, title: "Go to the completed assignments page", identifier: :completed_tasks do
+                      = icon 'fas', 'clipboard-check'
+                      Completed Tasks
+
                     = navbar_link_to request_manage_path, title: "Go to the account requests managment page", identifier: :request_manage do
                       = icon 'fas', 'file-invoice'
                       Account Requests

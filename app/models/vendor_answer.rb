@@ -4,6 +4,7 @@
 # Table name: vendor_answers
 #
 #  id            :bigint           not null, primary key
+#  comment       :string
 #  answer_id     :integer
 #  assignment_id :integer
 #
@@ -18,6 +19,7 @@ class VendorAnswer < ApplicationRecord
   belongs_to :answer
 
   validates :upload, presence: true, if: :required_upload?
+  validates :comment, presence: true, length: { in: 10..1000}, if: :required_comment?
 
   def self.get_answer_data(answer_id)
     answer_data = Answer.joins(:question).where("answer_id=?", answer_id)
@@ -31,6 +33,10 @@ class VendorAnswer < ApplicationRecord
 
   def required_upload?
     Answer.find(self.answer_id).upload_needed
+  end
+
+  def required_comment?
+    Answer.find(self.answer_id).comment_needed
   end
 
 

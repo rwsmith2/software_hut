@@ -31,6 +31,7 @@
           data: {association_insertion_node: '.questions', association_insertion_method: :append}
       //Scrollable card body contianing all question field partials
       .scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 55vh"}
+        %h6 To include a mandatory upload for an answer, tick the left box. To include a mandatory comment, tick the right box.
         #questions.card  
           %ul.questions.list-group.list-group-flush.border
             //Simple fields for each question object, rendering the questions fields partial and passing the question form object through

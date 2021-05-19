@@ -7,7 +7,7 @@ class VendorsController < ApplicationController
       @user = current_user
       @vendor = Vendor.find_by(user_id: @user.user_id)
       #query to get all tasks and assignments for the given vendor
-      @joined = Assignment.joins(:given_task).select(:priority,  :due_date, :set_date, :given_task_id, :task_id, :assignment_id)
+      @joined = Assignment.joins(:given_task).select(:priority,  :due_date, :set_date, :given_task_id, :task_id, :assignment_id, :complete_by)
       @pagy, @tasks = pagy(@joined.where(vendor_id: @vendor.vendor_id, complete: false).order(params[:sort]), items: 10)
       @tasksCount = Assignment.where(vendor_id: @vendor.vendor_id, complete: false).count 
       @overdueTask = @tasks.where('due_date >= ?' , DateTime.now)

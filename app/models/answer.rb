@@ -4,6 +4,7 @@
 #
 #  additional_response :string
 #  answer_text         :string           not null
+#  comment_needed      :boolean
 #  upload_needed       :boolean          default(FALSE)
 #  answer_id           :integer          not null, primary key
 #  question_id         :integer
@@ -22,4 +23,17 @@ class Answer < ApplicationRecord
     answer = Answer.find(answer_id)
     return answer
   end
+
+  def self.what_is_needed(answer_id)
+    answer = Answer.find(answer_id)
+    if(answer.comment_needed && answer.upload_needed)
+      return ("An upload and a comment is required for this question.")
+    elsif(answer.comment_needed)
+      return("A comment is required for this question.")
+    elsif(answer.upload_needed)
+      return("An upload is required for this question.")
+    end
+    return false
+  end
+  
 end

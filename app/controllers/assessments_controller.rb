@@ -184,24 +184,19 @@ class AssessmentsController < ApplicationController
     #Fetch params for assessment, including nested attributes for questions and answers
     params.fetch(:assessment, {}).permit(:assessment_title,
      questions_attributes: [:question_id, :question_text, :_destroy,
-      answers_attributes: [:answer_id, :answer_text, :additional_response, :upload_needed, :_destroy]])
+      answers_attributes: [:answer_id, :answer_text, :additional_response, :upload_needed,:comment_needed, :_destroy]])
   end
 
   def assessment_update_params
     #Fetch params for assessment, including nested attributes for questions and answers
     params.fetch(:assessment, {}).permit(:id, :assessment_title,
      questions_attributes: [:id, :question_text, :_destroy,
-      answers_attributes: [:id, :answer_text, :additional_response, :upload_needed ,:_destroy]])
+      answers_attributes: [:id, :answer_text, :additional_response, :upload_needed, :comment_needed ,:_destroy]])
   end
 
-  def assessment_submit_params
-    #Fetch params for assessment, including nested attributes for questions and answers
-    params.fetch(:assignment, {}).permit(:id, 
-     questions_attributes: [:id, :answer_id])
-  end
 
   def submit_params
-    params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :upload])
+    params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :upload, :comment])
   end
   
 end

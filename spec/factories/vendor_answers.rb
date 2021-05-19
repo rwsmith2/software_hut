@@ -3,6 +3,7 @@
 # Table name: vendor_answers
 #
 #  id            :bigint           not null, primary key
+#  comment       :string
 #  answer_id     :integer
 #  assignment_id :integer
 #

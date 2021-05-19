@@ -2,9 +2,9 @@
 .card
   .card-header
     Questions Review page
-  .card-body.scrollable.overflow-auto{style: "overflow-y: scroll; max-height: 70vh"}
+  .card-body.scrollable.overflow-auto{style: "overflow-y: scroll; max-height: 70vh;"}
     -# this form is to display the assessment questions and answers
-    = simple_form_for @assignment, url: assessments_submit_path(), method: :post do |f|
+    = simple_form_for @assignment, url: assessments_submit_path(), method: :post, defaults: {input_html: {class: 'form-control'}} do |f|
       - if @assignment.errors.any?
         .alert.alert-danger 
           - @assignment.errors.full_messages.each do |message| 
@@ -17,16 +17,24 @@
             - answer_data = (VendorAnswer.get_answer_data(answer.object.answer_id)).first
             - question_data = (VendorAnswer.get_question_data(answer_data.question_id)).first
             %tr
-              %th= question_data.question_text
-              %td
-              %td
-            %tr
+              %th{colspan: 3}= question_data.question_text
+
+            %tr.table-borderless
               %td= answer_data.answer_text
-              %td= answer_data.additional_response
-              - if answer_data.upload_needed == true
-                %td= answer.file_field :upload
-              - else
-                %td
+              %td{colspan: 2}= answer_data.additional_response
+
+            
+            %tr
+              %td= answer.file_field :upload
+              %td{colspan: 2}= answer.input_field :comment, as: :text, input_html: {}, label: false, placeholder: "Comments...", rows:2, cols: 90
+
+            - upload_or_comment = Answer.what_is_needed(answer.object.answer_id)
+            - if upload_or_comment != false
+              %tr.table-borderless
+                %td{colspan: 3}= upload_or_comment
+            
+
+
               
 
       %ul.pagination.justify-content-center

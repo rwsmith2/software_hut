@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_200009) do
+ActiveRecord::Schema.define(version: 2021_05_19_182105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_200009) do
     t.string "additional_response"
     t.integer "question_id"
     t.boolean "upload_needed", default: false
+    t.boolean "comment_needed"
   end
 
   create_table "assessment_linkers", force: :cascade do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_200009) do
     t.integer "vendor_id", null: false
     t.integer "given_task_id", null: false
     t.date "complete_by"
+    t.boolean "verified", default: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -138,6 +140,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_200009) do
   create_table "vendor_answers", force: :cascade do |t|
     t.integer "answer_id"
     t.integer "assignment_id"
+    t.string "comment"
   end
 
   create_table "vendors", primary_key: "vendor_id", id: :serial, force: :cascade do |t|

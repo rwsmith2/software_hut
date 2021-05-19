@@ -4,6 +4,7 @@
 #
 #  complete      :boolean          default(FALSE)
 #  complete_by   :date
+#  verified      :boolean          default(FALSE)
 #  assignment_id :integer          not null, primary key
 #  given_task_id :integer          not null
 #  vendor_id     :integer          not null

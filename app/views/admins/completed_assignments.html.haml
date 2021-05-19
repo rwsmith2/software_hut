@@ -1,0 +1,32 @@
+.card   
+    .card-header
+        %h3 Completed Assignments
+            
+    .card.mb-3
+        %br
+        %table.table.table-hover
+            -# display completed tasks
+            %tr 
+                %th Assignment
+                %th Task
+                %th Vendor 
+                %th Date Assigned
+                %th Priority
+                %th Mark as complete
+            %tr
+            -# get the completed tasks
+            -@tasks.each do |task|
+                %tr
+                    %td= task.assignment_id
+                    %td= task.task_title
+                    %td= Vendor.get_vendor_name(task.vendor_id)
+                    %td= task.set_date
+                    %td= GivenTask.priority_int_to_string(task.priority)
+                    %td= link_to "View", admin_vendor_answers_path(assignment_id:  task.assignment_id)
+
+        %ul.pagination.justify-content-center
+            -#pagination for numbering multiple pages (tabs)
+            = pagy_bootstrap_nav(@pagy).html_safe
+
+                
+

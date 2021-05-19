@@ -49,6 +49,7 @@ class AdminsController < ApplicationController
     end
 
     def show_vendor_answer
+      session[:assignment_id] = params[:assignment_id]
       @assignment = Assignment.find(params[:assignment_id])
       render :vendor_answers
     end
@@ -59,9 +60,29 @@ class AdminsController < ApplicationController
 
     end
 
+    def completed
+      @current_nav_identifier = :completed_tasks
+      @joined= Assignment.joins(:given_task).merge(GivenTask.joins(:task)).select(:assignment_id, :task_title, :due_date, :set_date, :complete, :priority, :vendor_id).where("complete=true AND verified= false")
+      @pagy, @tasks = pagy(@joined.order(params[:sort]), items: 10)
+      render :completed_assignments
+    end
+
+
+
+    def verify
+      @assignment = Assignment.find(session[:assignment_id])
+      if @assignment.update(verify_params)
+        render :vendor_answers
+      else
+        render :vendor_answers
+      end
+    end
+
     def new_vendor
       @vendor = Vendor.new
     end
+
+    
 
     def create_vendor
       params_v = params.require(:vendor).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
@@ -156,6 +177,10 @@ class AdminsController < ApplicationController
 
     def assignment_params
       params.fetch(:assignment).permit(:assignment_id)
+    end
+
+    def verify_params
+      params.fetch(:assignment).permit(:assignment_id, :verified)
     end
 
   end
