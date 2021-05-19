@@ -20,9 +20,6 @@ class VendorsController < ApplicationController
 
     end
 
-    def edit
-      @current_nav_identifier = :edit_vendor
-    end
 
     #/vendor/search
     def search
@@ -41,20 +38,6 @@ class VendorsController < ApplicationController
       redirect_to admin_management_path 
     end
 
-    def delete_vendor
-      @vendor = Vendor.find(del_params[:vendor_id])
-      puts "vendor" + @vendor.company_name
-      @vendor.destroy
-      flash.alert = 'Vendor Destroyed'
-    end
-
-    def update
-      if @vendor.update(vendor_params)
-        redirect_to edit_vendor_path, notice: 'Vendor Settings were successfully updated.'
-      else
-        render :edit
-      end
-    end
 
     private
     # Use callbacks to share common setup or constraints between actions.
@@ -71,7 +54,4 @@ class VendorsController < ApplicationController
       params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating, user_attributes: [:user_name, :email, :user_id])
     end
 
-    def del_params
-      params.require(:vendor)
-    end
 end
