@@ -37,10 +37,11 @@
                 %tr
                     %th Task
                     %th Description
-                    %th Set Date
-                    %th Due Date
+                    %th Set 
+                    %th Due 
                     %th Link
                     %th Priority
+                    %th Estimation(mins)
                 -# Listing all set tasks for the vendor    
                 -@tasks.each do |task|
                     -@task = Task.find_by(task_id: task.task_id)
@@ -66,6 +67,7 @@
                                 -else 
                                     %td No Assessment 
                             %td= GivenTask.priority_int_to_string(task.priority)
+                            %td= Task.get_task_estimation(task.task_id)
                       
                               
         %ul.pagination.justify-content-center

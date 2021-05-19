@@ -27,4 +27,9 @@ class Task < ApplicationRecord
     return task_description
   end
 
+  def self.get_task_estimation(task_id)
+    task_estimation = Task.find(task_id).estimation
+    return task_estimation
+  end
+
 end
