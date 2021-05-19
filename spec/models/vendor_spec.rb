@@ -70,4 +70,20 @@ RSpec.describe Vendor, type: :model do
       expect(vendor.vendor_id).to eq vendor.vendor_id
     end
   end
+
+  describe "get_vendor_name" do
+    it 'has get_vendor_name' do
+      user = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
+      vendor = Vendor.create(user_id: user.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
+      expect(Vendor.get_vendor_name(vendor.vendor_id)).to eq(vendor.company_name)
+    end
+  end
+
+  describe "get_vendor_id" do
+    it 'has get_vendor_id' do
+      user = User.create(email: "mmq1@gmail.com", password: "password", user_name: "mmq1@gmail.com", is_admin: false)
+      vendor = Vendor.create(user_id: user.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
+      expect(Vendor.get_vendor_id(user.user_id)).to eq(vendor.vendor_id)
+    end
+  end
 end

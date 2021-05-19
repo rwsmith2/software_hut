@@ -56,10 +56,10 @@ given_task4 = GivenTask.create(set_date: "2021-04-17", due_date: "2021-05-05",pr
 puts given_task4.inspect
 
 # Assign tasks
-assignment1 = Assignment.create(vendor_id: vendor1.vendor_id, given_task_id: given_task1.given_task_id)
-assignment2 = Assignment.create(vendor_id: vendor2.vendor_id, given_task_id: given_task1.given_task_id)
+assignment1 = Assignment.create(vendor_id: vendor1.vendor_id, given_task_id: given_task1.given_task_id, complete_by: "2021-05-13")
+assignment2 = Assignment.create(vendor_id: vendor2.vendor_id, given_task_id: given_task1.given_task_id, complete_by: "2021-06-02")
 assignment3 = Assignment.create(complete: "true",vendor_id: vendor2.vendor_id, given_task_id: given_task2.given_task_id)
-assignment4 = Assignment.create(vendor_id: vendor2.vendor_id, given_task_id: given_task4.given_task_id)
+assignment4 = Assignment.create(vendor_id: vendor2.vendor_id, given_task_id: given_task4.given_task_id, complete_by: "2021-06-01")
 assignment5 = Assignment.create(complete: "true",vendor_id: vendor2.vendor_id, given_task_id: given_task3.given_task_id)
 
 
@@ -245,8 +245,8 @@ light_task = Task.create(task_title: "Light Questions", task_description: "Pleas
 
 given_task_light = GivenTask.create(set_date: "2021-04-17", due_date: "2021-06-06",priority: "3", repeatable: "0", task_id: light_task.task_id)
 
-light_assignment_vendor3 = Assignment.create(complete: "false",vendor_id: vendor3.vendor_id, given_task_id: given_task_light.given_task_id)
-light_assignment_vendor3 = Assignment.create(complete: "false",vendor_id: vendor2.vendor_id, given_task_id: given_task_light.given_task_id)
+light_assignment_vendor3 = Assignment.create(complete: "false",vendor_id: vendor3.vendor_id, given_task_id: given_task_light.given_task_id,complete_by: "2021-06-16")
+light_assignment_vendor3 = Assignment.create(complete: "false",vendor_id: vendor2.vendor_id, given_task_id: given_task_light.given_task_id,complete_by: "2021-09-13")
 
 light_assessment = Assessment.new(assessment_title: "Light Supplier Assessment")
 light_assessment.save(:validate => false)

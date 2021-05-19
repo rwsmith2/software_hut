@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-describe 'Answer assessment' do
+describe 'Vendor assessment answer' do
 
   specify 'I can navigate to a assessment page from dashboard' do
     # Admin User
     user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
     Admin.create(user_id: user.user_id)
-    Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user.user_id)
+    Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
 
     visit '/users/sign_in'
     fill_in 'Email', with: 'domin@gmail.com'
     fill_in 'Password', with: 'password'
     click_button 'Log in'
-    click_link 'Assessment Page'
+    click_link 'Assessments'
     expect(page).to have_content 'Assessments'
   end
 
@@ -22,7 +22,7 @@ describe 'Answer assessment' do
     vendor = Vendor.create(user_id: user.user_id, company_name: "MM Quality", company_number: "1455", validated: true)
     address = Address.create(vendor_id: vendor.vendor_id, city_town: "Sheffield", country: "Sheffield", house_name: "67", postcode: "S1 CBQ")
 
-    task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user.user_id)
+    task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
     
     given_task = GivenTask.create(set_date: "2021-04-25", due_date: "2021-05-01",priority: "2",repeatable: "7", task_id: task.task_id)
     
@@ -56,5 +56,10 @@ describe 'Answer assessment' do
 
     vendor_answer2 = VendorAnswer.where(answer_id: answer2.answer_id)
     expect(vendor_answer2.count).to eq(0)
+
+    expect(page).to have_no_content 'Example Task 1'
+  end
+
+  specify 'I can upload files as required', :skip => 'Not implemented' do
   end
 end

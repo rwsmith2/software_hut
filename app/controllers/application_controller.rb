@@ -32,10 +32,8 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if current_user.is_admin?
-      puts("Admin")
       admin_home_url(resource)
     else
-      puts("Vendor")
       vendor_home_url(resource)
     end
   end
@@ -66,16 +64,6 @@ class ApplicationController < ActionController::Base
     def ie_warning
       return redirect_to(ie_warning_path) if request.user_agent.to_s =~ /MSIE [6-7]/ && request.user_agent.to_s !~ /Trident\/7.0/
     end
-
-    # def set_user
-    #   if current_user != nil
-    #     if current_user.is_admin?
-    #       @admin = Admin.find(user_id: current_user)
-    #     else
-    #       @vendor = Vendor.find(user_id: current_user)
-    #     end
-    #   end
-    # end
 
   protected
     def configure_permitted_parameters

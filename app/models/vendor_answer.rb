@@ -30,7 +30,6 @@ class VendorAnswer < ApplicationRecord
   end
 
   def required_upload?
-    puts(self.inspect)
     Answer.find(self.answer_id).upload_needed
   end
 

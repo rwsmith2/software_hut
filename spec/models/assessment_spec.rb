@@ -12,7 +12,7 @@ RSpec.describe Assessment, type: :model do
   user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
   Admin.create(user_id: user.user_id)
 
-  task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user.user_id)
+  task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
   assesment = Assessment.create(assessment_title: "Triage questions")
   question = Question.create(question_text: "Are you eligible of ..?", assessment_id: assesment.assessment_id)
   answer = Answer.create(additional_response: "Good",answer_text: "Yes", question_id: question.question_id)

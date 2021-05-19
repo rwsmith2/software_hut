@@ -1,17 +1,13 @@
 class ChangePasswordController < ApplicationController
   before_action :authenticate_user!
-
   def index
     @current_nav_identifier = :change_password
-    
   end
 
   def update
     params_v = params.require(:update).permit(:newpass, :reppass)
-    
     newpass = params_v[:newpass]
     reppass = params_v[:reppass]
-
     if newpass == reppass
       current_user.password = newpass
       if current_user.valid?

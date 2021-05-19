@@ -6,7 +6,7 @@
   -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
   -# Need to swap to the first one, when we reset da db
   -# - if assignment.complete_by < DateTime.now 
-  - if assignment.due_date < DateTime.now 
+  - if assignment.complete_by < DateTime.now 
     %tr
       %td{:style => "font-weight:bold; color:crimson"}= @vendor.company_name
       %td{:style => "font-weight:bold; color:crimson"}= GivenTask.priority_int_to_string(assignment.priority)

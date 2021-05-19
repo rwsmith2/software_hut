@@ -14,7 +14,7 @@ RSpec.describe Task, type: :model do
   # Admin User
   user = User.create(email: "domin@gmail.com",password: "password" ,user_name: "domin@gmail.com", is_admin: true) #user_id = 2
   Admin.create(user_id: user.user_id)
-  task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1", user_id: user.user_id)
+  task = Task.create(task_title: "Example Task 1", task_description: "A nice Task", estimation: "1")
 
   assesment = Assessment.create(assessment_title: "Triage questions")
   question = Question.create(question_text: "Are you eligible of ..?", assessment_id: assesment.assessment_id)
@@ -44,12 +44,6 @@ RSpec.describe Task, type: :model do
   describe "#task_id" do
     it 'has task_id' do
       expect(task.task_id).to eq task.task_id
-    end
-  end
-
-  describe "#user_id" do
-    it 'can retrieve user_id' do
-      expect(task.user_id).to eq user.user_id
     end
   end
 end

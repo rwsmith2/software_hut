@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   #Before actions
   before_action :authenticate_user!
   before_action :set_task, only: [:edit,:destroy, :update]
-
   authorize_resource
 
   # GET /admin/tasks
@@ -12,14 +11,11 @@ class TasksController < ApplicationController
     #Get a list of all tasks and set the selected to the first task
     @pagy, @tasks = pagy(Task.all, items: 10)
     @selected= Task.first
-
     #Initialize new Task and build assessment_linker
     @task = Task.new
     @task.build_assessment_linker
-
     #List of assessments, so dropdown can populate with the values 
     @assessments = Assessment.all.select("assessment_id, assessment_title")
-
     render :index
   end
 
@@ -29,7 +25,6 @@ class TasksController < ApplicationController
     @pagy, @tasks = pagy(Task.where("task_title LIKE ?","%#{params[:search][:task_title]}%"), items: 10)
     render 'search_refresh'
   end
-
 
   # GET /tasks/new
   def new 
@@ -55,7 +50,6 @@ class TasksController < ApplicationController
       format.js
     end
   end
-
 
   # POST /tasks
   def create

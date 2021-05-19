@@ -1,40 +1,12 @@
 class AdminsController < ApplicationController
     before_action :authenticate_user!
-    
-  
-    # def repeat_tasks
-    #   today_date = Date.today
-    #   @need_repeat_tasks = GivenTask.all
-    #   @need_repeat_tasks.each do |given_task|
-    #     if given_task.repeatable > 0 && today_date >= (given_task.set_date + given_task.repeatable)
-    #       old_due_date = given_task.due_date
-    #       task_time_length = (given_task.due_date - given_task.set_date).to_i
-    #       given_task.set_date = today_date
-    #       given_task.due_date = today_date + task_time_length
-    #       given_task.save
-    #       vendors_assigned = Assignment.where(given_task_id: given_task.given_task_id, complete_by: old_due_date).select(:vendor_id).distinct
-    #       vendors_assigned.each do |new_assign|
-    #         assignment = Assignment.new
-    #         assignment.vendor_id = new_assign
-    #         assignment.complete_by = given_task.due_date
-    #         assignment.given_task_id = given_task.given_task_id
-    #         assignment.save
-    #       end
-    #     end
-    #   end
-    # end
 
     def index
       @current_nav_identifier = :admin_home
-
-      puts("Repeating tasks")
       today_date = Date.today
       @need_repeat_tasks = GivenTask.all
       @need_repeat_tasks.each do |given_task|
-        puts(today_date, " ",(given_task.set_date + given_task.repeatable))
-        puts(given_task.repeatable > 0 && today_date >= (given_task.set_date + given_task.repeatable))
         if given_task.repeatable > 0 && today_date >= (given_task.set_date + given_task.repeatable)
-          puts(given_task.given_task_id, "is getting repeated")
           old_due_date = given_task.due_date
           task_time_length = (given_task.due_date - given_task.set_date).to_i
           given_task.set_date = today_date
@@ -47,17 +19,12 @@ class AdminsController < ApplicationController
             assignment.complete_by = given_task.due_date
             assignment.given_task_id = given_task.given_task_id
             assignment.save
-            puts(assignment.vendor_id, "is getting assigned to repeated task")
           end
         end
       end
-
       @user = current_user
-      
       @joined = Assignment.joins(:given_task).select(:assignment_id,:complete_by,:due_date, :set_date, :given_task_id, :task_id, :vendor_id, :priority).where("complete=false")
-
       @pagy, @tasks = pagy(@joined.order(params[:sort]), items: 10)
-
       render :index
     end
 
@@ -72,15 +39,11 @@ class AdminsController < ApplicationController
 
     def management
       @current_nav_identifier = :admin_management
-      
       @pagy, @vendor = pagy(Vendor.all.order(params[:sort]), items: 6)
-      
     end
-
 
     def edit_vendor
       @vendorSelected = Vendor.find(params[:vendor_id])
-
       @user = User.find_by(user_id: @vendorSelected.user_id)
       render :admin_edit
     end
@@ -91,20 +54,16 @@ class AdminsController < ApplicationController
     end
 
     def download_file
-      puts 'in the download controller'
       @vendor_answer = VendorAnswer.find_by(params[:answer_id])
-      
       link_to "Download", @vendor_answer.upload, download:@vendor_answer.upload
 
     end
 
     def new_vendor
       @vendor = Vendor.new
-
     end
 
     def create_vendor
-      #@vendor = Vendor.new(new_vendor_params)
       params_v = params.require(:vendor).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
 
       @email = params_v[:email]
@@ -114,8 +73,10 @@ class AdminsController < ApplicationController
       @postcode = params_v[:postcode]
       @region = params_v[:region]
 
-      user = User.new(email: @email, password: SecureRandom.hex(8), user_name: @email, is_admin: false)
-      vendor = Vendor.new(company_name: @name, company_number: "0", validated: false)
+      password = SecureRandom.hex(8)
+
+      user = User.new(email: @email, password: password, user_name: @email, is_admin: false)
+      vendor = Vendor.new(company_name: @name, company_number: "0", validated: true)
       address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
 
       if user.valid?
@@ -126,8 +87,8 @@ class AdminsController < ApplicationController
           address.vendor_id = vendor.vendor_id
           if address.valid?
             address.save
-            @vendorL = Vendor.all.order(params[:sort])
-            render :management
+            RequestMailer.with(email: @email, name: @name, password: password).accepted_email.deliver_now
+            redirect_to :admin_management
             return
           else
             user.destroy
@@ -142,11 +103,11 @@ class AdminsController < ApplicationController
         @error_obj = user
       end
 
+      render :new_vendor
     end
  
     def create
       @task = Task.new(admin_id: current_user)
-  
       if @task.update(post_params)
         redirect_to @task, notice: 'Task was successfully created.'
       else
@@ -156,7 +117,6 @@ class AdminsController < ApplicationController
 
     #/admin/search_vendors
     def search_vendors
-      puts "searching for vendor in admin controller" 
       #Create a list of tasks matching the search query
       @vendor = Vendor.where("company_name LIKE ?","%#{params[:search][:company_name]}%")
       #render a view in the admin view folder
@@ -175,12 +135,6 @@ class AdminsController < ApplicationController
     def destroy
       @task.destroy
       redirect_to posts_url, notice: 'Post was successfully destroyed.'
-    end
-
-  
-    def search_result
-      #@posts = Post.where("title = ?", params[:search][:title]).where("private_post = 'f'")
-      #@posts = Post.where("title = '#{params[:search][:title]}'").where("private_post = 'f'")
     end
   
     private

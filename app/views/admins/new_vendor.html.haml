@@ -10,7 +10,7 @@
           - @error_obj.errors.full_messages.each do |message|
             .alert.alert-danger{:role => "alert"}
               = message
-      = simple_form_for @vendor, url: admin_create_vendor_path, method: :post, html: { novalidate: false } do |f|
+      = simple_form_for :vendor, url: admin_create_vendor_path, method: :post, html: { novalidate: false } do |f|
         = f.input :email, label: 'Email', as: :email, input_html: { value: @email }
         = f.input :name, label: 'Company name', as: :string, input_html: { value: @name }
         = f.input :address, label: 'Address', as: :string, input_html: { value: @address }

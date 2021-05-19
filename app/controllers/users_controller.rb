@@ -1,10 +1,8 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :find_user
-    
     authorize_resource
     
-  
     def edit 
       @current_nav_identifier = :users
     end
@@ -16,7 +14,7 @@ class UsersController < ApplicationController
         render :edit
       end
     end
-  
+
     private
       def find_user
         @user = User.find(params[:id])

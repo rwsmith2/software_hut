@@ -1,13 +1,11 @@
 # Controller used to handle Given Tasks
 class GivenTasksController < ApplicationController
-
   require 'date'
   authorize_resource
 
   #GET /given_tasks
   def index
     @current_nav_identifier = :given_tasks
-
     #Fetch all given tasks, joining with task table to retrieve task_title
     @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.select("given_task_id, task_title"), items: 10)
     @selected = GivenTask.first
@@ -43,7 +41,6 @@ class GivenTasksController < ApplicationController
       @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.select("given_task_id, task_title"), items: 10)
       render 'given_task_success_update'
     else
-      puts(@given_task.errors.full_messages)
       render 'given_task_failure'
     end
   end
@@ -54,10 +51,8 @@ class GivenTasksController < ApplicationController
     session[:task_id] = params[:task_id]
     @given_task =  GivenTask.new
     @given_task.assignments.build
-
     #Fetch vendors, so they can be used as collection to populate dropdown
     @vendors = Vendor.all
-    
     #False because its a modal
     render layout: false
   end
@@ -79,7 +74,6 @@ class GivenTasksController < ApplicationController
 
   # POST /given_tasks
   def create
-    puts params[:given_task][:assignments_attributes]
     @given_task = GivenTask.new(given_task_params)
     @given_task.task_id = session[:task_id]
     #Convert priority from string value to int value
@@ -107,11 +101,9 @@ class GivenTasksController < ApplicationController
       end
       render 'given_task_success_create'
     else
-      puts(@given_task.errors.inspect)
       render 'given_task_failure'
     end
   end
-
 
   private
   def given_task_params
