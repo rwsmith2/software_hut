@@ -2,6 +2,7 @@ class VendorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_vendor
 
+    #/vendor/index
     def index
       @current_nav_identifier = :vender_home
       @user = current_user
@@ -22,6 +23,7 @@ class VendorsController < ApplicationController
       render 'admin/vendor_search_refresh'
     end
 
+    #destroy vendor (used from admin)
     def destroy
       @vendor_destroy = Vendor.find(params[:id])
       @vendor_destroy.destroy

@@ -37,23 +37,28 @@ class AdminsController < ApplicationController
       @user = current_user
     end
 
+    #/admin/management 
     def management
       @current_nav_identifier = :admin_management
+      #used to display all vendors
       @pagy, @vendor = pagy(Vendor.all.order(params[:sort]), items: 6)
     end
 
+    #/admin/edit_vendor  
     def edit_vendor
       @vendorSelected = Vendor.find(params[:vendor_id])
       @user = User.find_by(user_id: @vendorSelected.user_id)
       render :admin_edit
     end
 
+    #/admin/vendor_answers
     def show_vendor_answer
       session[:assignment_id] = params[:assignment_id]
       @assignment = Assignment.find(params[:assignment_id])
       render :vendor_answers
     end
 
+    #used to download documents vendors uploaded to system
     def download_file
       @vendor_answer = VendorAnswer.find_by(params[:answer_id])
       link_to "Download", @vendor_answer.upload, download:@vendor_answer.upload

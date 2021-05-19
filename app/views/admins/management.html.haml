@@ -7,7 +7,7 @@
     .card-header
         %h3 Vendor Management
         %br
-            //Search form, allowing user to query tasks. Also includes a reset button
+            -#Search form, allowing user to query tasks. Also includes a reset button
 
             = simple_form_for :search, url: admin_search_vendors_path, method: :post, defaults: {input_html: {class: 'form-control form-check-inline col-auto'}},remote: true do |f|
                 .row.form-row.align-items-center

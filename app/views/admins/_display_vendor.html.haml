@@ -7,6 +7,7 @@
         %th Company Number
         %th Incomplete Tasks
     
+    -# display every vendor on system in a table, allowing them to be editted/viewed 
     - if @vendor != nil
         - @vendor.each do |vendor|
             -@vendorT = Vendor.find_by(vendor_id: vendor.vendor_id)
