@@ -2,6 +2,22 @@ require 'rails_helper'
 
 describe 'Admin vendor management' do
 
+  specify 'I can edit a vendor account', :js => true do
+    make_test_data
+
+    visit '/users/sign_in'
+    fill_in 'Email', with: 'domin@gmail.com'
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
+    click_link 'Vendors'
+    click_link 'Edit/View'
+    
+    fill_in "Company Name", with: "Test comp"
+    click_button 'Update'
+
+    expect(page).to have_content 'Test comp'
+  end
+
   specify 'I can delete a vendor account from the system, TODO: fix double confirm popups', :js => true do
     make_test_data
 

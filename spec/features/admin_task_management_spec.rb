@@ -2,6 +2,18 @@ require 'rails_helper'
 
 describe 'Admin task management' do
 
+  specify 'I can see a list od tasks on the dashboard' do
+    make_test_data
+
+    visit '/users/sign_in'
+    fill_in 'Email', with: 'domin@gmail.com'
+    fill_in 'Password', with: 'password'
+    click_button 'Log in'
+
+    expect(page).to have_content 'Example Task 1'
+    expect(page).to have_content 'Example Task 2'
+  end
+
   specify 'I can navigate to the task management page' do
     user_admin = User.create(email: "domin@gmail.com", password: "password", user_name: "domin@gmail.com", is_admin: true)
     Admin.create(user_id: user_admin.user_id)
