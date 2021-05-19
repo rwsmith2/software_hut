@@ -1,5 +1,4 @@
 class RequestController < ApplicationController
-
   skip_authorization_check
 
   def index
@@ -29,9 +28,7 @@ class RequestController < ApplicationController
         address.vendor_id = vendor.vendor_id
         if address.valid?
           address.save
-
           RequestMailer.with(email: @email, name: @name).welcome_email.deliver_now
-
           render :success
           return
         else
@@ -46,7 +43,6 @@ class RequestController < ApplicationController
     else
       @error_obj = user
     end
-
     @current_nav_identifier = :login
     render :index
   end

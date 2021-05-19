@@ -7,13 +7,10 @@ class AssessmentsController < ApplicationController
   before_action :set_assessment, only: [:_edit_question, :select_assessment]
   before_action :set_assessment_destroy_edit, only: [:destroy, :edit ,:update]
 
-  #authorize_resource
-
   #GET /admin/home
   def index 
     @answer_exists = false
     @current_nav_identifier = :assessments_index
-
     #Gets the list of all assessments, and also creates a pagy object
     @pagy, @assessments = pagy(Assessment.all, items: 10)
     #fetch the assessment for a specific vendor
@@ -65,7 +62,6 @@ class AssessmentsController < ApplicationController
 
     params.each do |answer|
       if(Assessment.is_number?(answer[1]))
-
         @vendor_answer = VendorAnswer.new
         @vendor_answer.assignment_id = session[:assignment_id]
         @vendor_answer.answer_id = answer[1]
@@ -84,10 +80,8 @@ class AssessmentsController < ApplicationController
   end
   
   def questions_review
-    puts "Question review"
     @assessments = Assessment.find(session[:assessment_id])
     @assignment = Assignment.find(session[:assignment_id])
-    puts(@assignment.inspect)
     @page, @questions = pagy(Question.where("assessment_id=?", @assessments.assessment_id), items: 4)
     @question = @questions.count
     @questionsCoun = @question/4.0
@@ -113,7 +107,6 @@ class AssessmentsController < ApplicationController
   #GET /admin/assessments
   def admin_index
     @current_nav_identifier = :admin_assessments
-
     #Gets the list of all assessments, with pagy. Also selects the first assessment
     @pagy, @assessments = pagy(Assessment.all, items: 10)
     @selected= Assessment.first
@@ -211,5 +204,4 @@ class AssessmentsController < ApplicationController
     params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :upload])
   end
   
-
 end

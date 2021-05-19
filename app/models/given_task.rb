@@ -71,7 +71,6 @@ class GivenTask < ApplicationRecord
   end
 
   def validate_date_input 
-    puts(self.due_date.to_s)
     d = Date.strptime(self.due_date.to_s, "%Y-%m-%d") rescue nil
     if d.nil? 
       errors.add(:given_task, "- Invalid due date")
