@@ -1,54 +1,54 @@
 class RequestController < ApplicationController
 
-    before_action :authenticate_user!
-  
-    def index
-      @current_nav_identifier = :login
-    end
+  skip_authorization_check
 
-    # POST /request/create
-    def create
-      params_v = params.require(:create).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
+  def index
+    @current_nav_identifier = :login
+  end
 
-      @email = params_v[:email]
-      @name = params_v[:name]
-      @address = params_v[:address]
-      @city = params_v[:city]
-      @postcode = params_v[:postcode]
-      @region = params_v[:region]
+  # POST /request/create
+  def create
+    params_v = params.require(:create).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
 
-      user = User.new(email: @email, password: SecureRandom.hex(8), user_name: @email, is_admin: false)
-      vendor = Vendor.new(company_name: @name, company_number: "0", validated: false)
-      address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
+    @email = params_v[:email]
+    @name = params_v[:name]
+    @address = params_v[:address]
+    @city = params_v[:city]
+    @postcode = params_v[:postcode]
+    @region = params_v[:region]
 
-      if user.valid?
-        user.save
-        vendor.user_id = user.user_id
-        if vendor.valid?
-          vendor.save
-          address.vendor_id = vendor.vendor_id
-          if address.valid?
-            address.save
+    user = User.new(email: @email, password: SecureRandom.hex(8), user_name: @email, is_admin: false)
+    vendor = Vendor.new(company_name: @name, company_number: "0", validated: false)
+    address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
 
-            RequestMailer.with(email: @email, name: @name).welcome_email.deliver_now
+    if user.valid?
+      user.save
+      vendor.user_id = user.user_id
+      if vendor.valid?
+        vendor.save
+        address.vendor_id = vendor.vendor_id
+        if address.valid?
+          address.save
 
-            render :success
-            return
-          else
-            user.destroy
-            vendor.destroy
-            @error_obj = address
-          end
+          RequestMailer.with(email: @email, name: @name).welcome_email.deliver_now
+
+          render :success
+          return
         else
           user.destroy
-          @error_obj = vendor
+          vendor.destroy
+          @error_obj = address
         end
       else
-        @error_obj = user
+        user.destroy
+        @error_obj = vendor
       end
-
-      @current_nav_identifier = :login
-      render :index
+    else
+      @error_obj = user
     end
 
+    @current_nav_identifier = :login
+    render :index
   end
+
+end
