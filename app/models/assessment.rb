@@ -19,7 +19,7 @@ class Assessment < ApplicationRecord
 
   #Validates that the assessment being created has more than 0 question
   def validate_question_count 
-    if self.questions.size <= 1
+    if self.questions.size < 1
       errors.add(:questions, "- Need 1 or more questions")
     end
   end

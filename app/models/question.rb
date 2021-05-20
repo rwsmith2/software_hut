@@ -21,7 +21,7 @@ class Question < ApplicationRecord
 
   #Validates the answer count is at least 1
   def validate_answer_count 
-    if self.answers.size <= 1
+    if self.answers.size < 1
       errors.add(:answers, "- Need 1 or more answers")
     end
   end
