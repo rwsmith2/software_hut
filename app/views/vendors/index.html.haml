@@ -58,19 +58,20 @@
               %td= task.set_date
 
               -# chcek if task is overdue (if it is highlight date)
-              - if task.complete_by < DateTime.now 
-                %td{:style => "font-weight:bold; color:red"}= task.complete_by
-                -if !(@assessment_link).nil?
-                  %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
-                -else 
-                  %td No Assessment 
+              - if task.complete_by.present?
+                - if task.complete_by < DateTime.now 
+                  %td{:style => "font-weight:bold; color:red"}= task.complete_by
+                  -if !(@assessment_link).nil?
+                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
+                  -else 
+                    %td No Assessment 
 
-              - else
-                %td= task.complete_by
-                -if !(@assessment_link).nil?
-                  %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
-                -else 
-                  %td No Assessment 
+                - else
+                  %td= task.complete_by
+                  -if !(@assessment_link).nil?
+                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
+                  -else 
+                    %td No Assessment 
 
                     
                             
