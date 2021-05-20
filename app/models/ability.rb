@@ -41,6 +41,7 @@ class Ability
       can [:manage], Vendor
       can [:manage], Admin
     else
+      #Vendor can only access these sections, vendor home, assessment answering, and reviewing their completed assignments
       can [:index], Vendor
       can [:question_review, :questions, :save_questions, :submit], Assessment
       can [:show_vendor_answer], Admin

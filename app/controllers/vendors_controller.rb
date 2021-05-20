@@ -1,3 +1,4 @@
+# Controller used to handle vendors 
 class VendorsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_vendor
@@ -36,13 +37,5 @@ class VendorsController < ApplicationController
       def set_vendor
         @user = current_user
       end
-    # Only allow a trusted parameter "white list" through.
-    def vendor_params
-      params.require(:user).permit(:user_name, :email, :user_id)
-    end
-
-    def v_params
-      params.require(:vendor).permit(:company_name, :company_number,:vendor_id,:initial_score, :credit_rating, :kpi, :risk_rating, user_attributes: [:user_name, :email, :user_id])
-    end
 
 end

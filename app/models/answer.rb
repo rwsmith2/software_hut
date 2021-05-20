@@ -19,11 +19,13 @@ class Answer < ApplicationRecord
 
   validates :answer_text, presence: true, length: { in: 2..100}
 
+  #Returns the answer object, given the answer_id
   def self.get_answer(answer_id)
     answer = Answer.find(answer_id)
     return answer
   end
 
+  #Given answer_id, returns what is needed of the vendor to complete the question
   def self.what_is_needed(answer_id)
     answer = Answer.find(answer_id)
     if(answer.comment_needed && answer.upload_needed)
@@ -33,6 +35,7 @@ class Answer < ApplicationRecord
     elsif(answer.upload_needed)
       return("An upload is required for this question.")
     end
+    #If nothing is needed, return false
     return false
   end
   

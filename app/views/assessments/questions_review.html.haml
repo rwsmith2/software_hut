@@ -1,3 +1,5 @@
+-# 
+  View for reviewing assignment answers, lets user upload and comment
 - content_for :title, 'Review Questions'
 .card
   .card-header
@@ -13,6 +15,7 @@
       %table.table
         %tbody
           - @assignment.vendor_answers.build if @assignment.vendor_answers.empty?
+          //Fields for the vendor answers connected to the assignment being reviewed
           = f.simple_fields_for :vendor_answers, @assignment.vendor_answers do |answer|
             - answer_data = (VendorAnswer.get_answer_data(answer.object.answer_id)).first
             - question_data = (VendorAnswer.get_question_data(answer_data.question_id)).first
@@ -32,10 +35,6 @@
             - if upload_or_comment != false
               %tr.table-borderless
                 %td{colspan: 3}= upload_or_comment
-            
-
-
-              
 
       %ul.pagination.justify-content-center
         %li 

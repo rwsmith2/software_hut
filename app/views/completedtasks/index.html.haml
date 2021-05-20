@@ -1,34 +1,36 @@
+-# 
+  Index view for viewing completed tasks
 .card   
-    .card-header
-        %h3 Completed Tasks
-            
-    .card.mb-3
-        -#sort by
-        .dropdown.ml-3
-            %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Sort By
-            .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
-                %a.dropdown-item= link_to "A-Z" , :sort => "task_title"
-                %a.dropdown-item= link_to "Recently Completed", :sort => "due_date desc"
-                %a.dropdown-item= link_to "Date Assigned" , :sort => "set_date"
-        %br
-        %table.table.table-hover
-            -# display completed tasks
-            %tr
-                %th Task
-                %th Date Assigned
-                %th Mark as complete
-            %tr
-            -# get the completed tasks
-            -@tasks.each do |task|
-                %tr
-                    %td= task.task_title
-                    %td= task.set_date
-                    %td= link_to "View Assessment", admin_vendor_answers_path(assignment_id:  task.assignment_id)
+  .card-header
+    %h3 Completed Tasks
+          
+  .card.mb-3
+    -#sorting options
+    .dropdown.ml-3
+      %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        Sort By
+      .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
+        %a.dropdown-item= link_to "A-Z" , :sort => "task_title"
+        %a.dropdown-item= link_to "Recently Completed", :sort => "due_date desc"
+        %a.dropdown-item= link_to "Date Assigned" , :sort => "set_date"
+    %br
+    %table.table.table-hover
+      -# display completed tasks
+      %tr
+        %th Task
+        %th Date Assigned
+        %th Mark as complete
+      %tr
+      -# get the completed tasks
+      -@tasks.each do |task|
+        %tr
+          %td= task.task_title
+          %td= task.set_date
+          %td= link_to "View Assessment", admin_vendor_answers_path(assignment_id:  task.assignment_id)
 
-        %ul.pagination.justify-content-center
-            -#pagination for numbering multiple pages (tabs)
-            = pagy_bootstrap_nav(@pagy).html_safe
+    %ul.pagination.justify-content-center
+      -#pagination for numbering multiple pages (tabs)
+      = pagy_bootstrap_nav(@pagy).html_safe
 
                 
 

@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit,:destroy, :update]
   authorize_resource
 
-  # GET /admin/tasks
+  # GET    /admin/tasks(.:format) 
   def index
     #Get a list of all tasks and set the selected to the first task
     @pagy, @tasks = pagy(Task.all, items: 10)
@@ -19,19 +19,19 @@ class TasksController < ApplicationController
     render :index
   end
 
-  #GET /tasks/search
+  #POST   /tasks/search(.:format)  
   def search
     #Create a list of tasks matching the search query
     @pagy, @tasks = pagy(Task.where("task_title LIKE ?","%#{params[:search][:task_title]}%"), items: 10)
     render 'search_refresh'
   end
 
-  # GET /tasks/new
+  # GET    /tasks/new(.:format)
   def new 
     @task = Task.new
   end
 
-  # GET /tasks/1/edit
+  # GET    /tasks/:id/edit(.:format)
   def edit
     @assessments = Assessment.all.select("assessment_id, assessment_title")
     #If the task doesn't have an assessment attached, build the assessment_linker
@@ -42,7 +42,7 @@ class TasksController < ApplicationController
     render layout: false
   end
 
-  #GET /fetch_task
+  #GET    /fetch_task(.:format) 
   def select_task
     #Fetch the selected task, and format the javascript
     @selected = Task.find(params[:task_id])
@@ -51,7 +51,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # POST /tasks
+  # GET    /tasks/new(.:format)
   def create
     if(task_params[:assessment_linker_attributes][:assessment_id]=="")
       #No assessment attached, manually add task_params
@@ -66,7 +66,6 @@ class TasksController < ApplicationController
     if @task.save
       redirect_to admin_tasks_path, notice: 'Task was successfully created'
     else
-      # @task = Task.new
       @task.build_assessment_linker
       @assessments = Assessment.all.select("assessment_id, assessment_title")
       @pagy, @tasks = pagy(Task.all, items: 10)
@@ -75,7 +74,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # PATCH /tasks/:id
+  # PATCH  /tasks/:id(.:format)
   def update
     #If no assessment attached to params
     if(task_params[:assessment_linker_attributes][:assessment_id]=="")
@@ -102,7 +101,7 @@ class TasksController < ApplicationController
     end
   end
 
-  #DELETE /tasks/:id
+  #DELETE /tasks/:id(.:format)
   def destroy
     #Fetch the selected task and destroy it
     @task_destroy = Task.find(params[:id])

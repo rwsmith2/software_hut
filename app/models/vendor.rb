@@ -24,11 +24,13 @@ class Vendor < ApplicationRecord
   validates :company_name, presence: true
   validates :company_number, presence: true
 
+  #Returns vendor company name from vendor_id input
   def self.get_vendor_name(vendor_id)
     vendor = Vendor.find_by(vendor_id: vendor_id)
     return vendor.company_name
   end
 
+  #Returns vendor id from user_id input
   def self.get_vendor_id(user_id)
     vendor = Vendor.find_by(user_id: user_id)
     return vendor.vendor_id

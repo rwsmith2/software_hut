@@ -1,6 +1,8 @@
+# Controller used to handle account requests
 class RequestController < ApplicationController
   skip_authorization_check
 
+  # GET    /request(.:format)
   def index
     @current_nav_identifier = :login
   end
@@ -27,6 +29,7 @@ class RequestController < ApplicationController
         vendor.save
         address.vendor_id = vendor.vendor_id
         if address.valid?
+          #Email the result to the vendor
           address.save
           RequestMailer.with(email: @email, name: @name).welcome_email.deliver_now
           render :success

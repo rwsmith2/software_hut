@@ -1,82 +1,82 @@
 -# 
-    Vendor Home page that displays vendor tasks needing to be complete
-    Includes: table of tasks, sorting option and progress bar
+  Vendor Home page that displays vendor tasks needing to be complete
+  Includes: table of tasks, sorting option and progress bar
 
 %br
 -# header of page with progress bar and sort options
 .card
-    .card-header
-        %h3 Vendor Home Page
-        %br 
+  .card-header
+    %h3 Vendor Home Page
+    %br 
 
-        -#progress bar section
-        - @asLeft = @tasksCount
-        %h4= "Tasks To Do: " + @asLeft.to_s 
-        - if @asLeft == 0 
-            - @asLeft=100
-        .progress
-            .progress-bar.progress-bar-info.progress-bar-striped.progress-bar-animated{:style => "width: " + (100/@asLeft).to_s + "%"  }
+    -#progress bar section
+    - @asLeft = @tasksCount
+    %h4= "Tasks To Do: " + @asLeft.to_s 
+    - if @asLeft == 0 
+      - @asLeft=100
+    .progress
+      .progress-bar.progress-bar-info.progress-bar-striped.progress-bar-animated{:style => "width: " + (100/@asLeft).to_s + "%"  }
 
-        %br
-        
-        -#sorting drop down
-        .dropdown
-            %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", |
-            "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Sort By
-            .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
-                %a.dropdown-item= link_to "Date Due", :sort => "due_date"
-                %a.dropdown-item= link_to "Date Set" , :sort => "set_date"
-                %a.dropdown-item= link_to "Defualt"
+    %br
+      
+    -#sorting drop down
+    .dropdown
+      %a#dropdownMenuLink.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", |
+      "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        Sort By
+      .dropdown-menu{"aria-labelledby" => "dropdownMenuLink"}
+        %a.dropdown-item= link_to "Date Due", :sort => "due_date"
+        %a.dropdown-item= link_to "Date Set" , :sort => "set_date"
+        %a.dropdown-item= link_to "Defualt"
 
-    -#main content of page
-    .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
-        %table.table.table-hover       
-            -#non overdue table
-            %thead
-                %tr
-                    %th Task
-                    %th Description
-                    %th Priority
-                    %th Estimation(mins)
-                    %th Set 
-                    %th Due 
-                    %th Link
+  -#main content of page
+  .card-body.scrollable.card-body.overflow-auto{style: "overflow-y: scroll; max-height: 60vh"}
+    %table.table.table-hover       
+      -#non overdue table
+      %thead
+        %tr
+          %th Task
+          %th Description
+          %th Priority
+          %th Estimation(mins)
+          %th Set 
+          %th Due 
+          %th Link
 
-                -# Listing all set tasks for the vendor    
-                -@tasks.each do |task|
-                    -@task = Task.find_by(task_id: task.task_id)
-                    -@assessment_link = AssessmentLinker.find_by(task_id: @task.task_id)
-                    -@assignment = Assignment.find_by(assignment_id: task.assignment_id)
-                    -if @assignment.complete != true
-                        %tr
-                        
-                            %td= @task.task_title 
-                            %td= @task.task_description
-                            %td= GivenTask.priority_int_to_string(task.priority)
-                            %td= Task.get_task_estimation(task.task_id)
-                            %td= task.set_date
+        -# Listing all set tasks for the vendor    
+        -@tasks.each do |task|
+          -@task = Task.find_by(task_id: task.task_id)
+          -@assessment_link = AssessmentLinker.find_by(task_id: @task.task_id)
+          -@assignment = Assignment.find_by(assignment_id: task.assignment_id)
+          -if @assignment.complete != true
+            %tr
+            
+              %td= @task.task_title 
+              %td= @task.task_description
+              %td= GivenTask.priority_int_to_string(task.priority)
+              %td= Task.get_task_estimation(task.task_id)
+              %td= task.set_date
 
-                            -# chcek if task is overdue (if it is highlight date)
-                            - if task.complete_by < DateTime.now 
-                                %td{:style => "font-weight:bold; color:red"}= task.complete_by
-                                -if !(@assessment_link).nil?
-                                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
-                                -else 
-                                    %td No Assessment 
+              -# chcek if task is overdue (if it is highlight date)
+              - if task.complete_by < DateTime.now 
+                %td{:style => "font-weight:bold; color:red"}= task.complete_by
+                -if !(@assessment_link).nil?
+                  %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
+                -else 
+                  %td No Assessment 
 
-                            - else
-                                %td= task.complete_by
-                                -if !(@assessment_link).nil?
-                                    %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
-                                -else 
-                                    %td No Assessment 
+              - else
+                %td= task.complete_by
+                -if !(@assessment_link).nil?
+                  %td= link_to @task.task_title, assessments_questions_path(assessment_id: @assessment_link.assessment_id, assignment_id: task.assignment_id)
+                -else 
+                  %td No Assessment 
 
-                      
-                              
-        %ul.pagination.justify-content-center
-        -#pagination for numbering multiple pages (tabs)
-        = pagy_bootstrap_nav(@pagy).html_safe
+                    
+                            
+    %ul.pagination.justify-content-center
+    -#pagination for numbering multiple pages (tabs)
+    = pagy_bootstrap_nav(@pagy).html_safe
 
                   
                       

@@ -20,6 +20,11 @@ The system has the following:
 * Task Scheduling
 * Email Notifying
 
+### Admin Manual
+The manual for admins using the site can be found in the Team09 google drive(I think you should have access to it).
+The manual goes through the basics of how to create assessments, assign tasks and all the other features. 
+The manual also goes through in detail how to reset the database and create new admin accounts.
+
 ### Deployment
 To deploy the system, you must install the gems using 'bundle install' in console.
 Then you must reset and start the database, using 'bundle exec rake db:drop db:create db:migrate' in console.

@@ -1,10 +1,10 @@
 -#
-    display all the vendors completed assignments/tasks
+  display all the vendors completed assignments/tasks
 -@assignments = Assignment.where(vendor_id: vendors.vendor_id, complete: true)
 - if @assignments != nil
-    - @assignments.each do |assignment|
-        -@givenTask = GivenTask.find_by(given_task_id: assignment.given_task_id)
-        -@task = Task.find_by(task_id: @givenTask.task_id)
-        = link_to @task.task_title, admin_vendor_answers_path(:assignment_id => assignment.assignment_id), class: "list-group-item list-group-item-action", type: "button" 
+  - @assignments.each do |assignment|
+    -@givenTask = GivenTask.find_by(given_task_id: assignment.given_task_id)
+    -@task = Task.find_by(task_id: @givenTask.task_id)
+    = link_to @task.task_title, admin_vendor_answers_path(:assignment_id => assignment.assignment_id), class: "list-group-item list-group-item-action", type: "button" 
 
     

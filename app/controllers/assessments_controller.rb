@@ -7,7 +7,7 @@ class AssessmentsController < ApplicationController
   before_action :set_assessment, only: [:_edit_question, :select_assessment]
   before_action :set_assessment_destroy_edit, only: [:destroy, :edit ,:update]
 
-  #GET /admin/home
+  #GET /assessments(.:format)
   def index 
     @answer_exists = false
     @current_nav_identifier = :assessments_index
@@ -20,23 +20,27 @@ class AssessmentsController < ApplicationController
     @tasks = @joined.where(vendor_id: @vendor.vendor_id)
   end
 
+  #GET    /assessments/questions(.:format)
   def questions
     @assessment = Assessment.find(params[:assessment_id])
     @assignment = Assignment.find(params[:assignment_id])
     @vendor = Vendor.find_by(user_id: current_user)
     @questions = Question.where("assessment_id=?", @assessment.assessment_id)
     @vendor_assignment = Assignment.where(vendor_id: @vendor.vendor_id)
+    #Check to see if there is an error to be displayed
     if params[:error] != nil
       @error = params[:error]
     else
       @error = ""
     end
 
+    #Save data to sessions
     session[:return_to] ||= request.referer
     session[:assignment_id] = params[:assignment_id]
     session[:assessment_id] = params[:assessment_id]
   end
 
+  #POST   /assessments/save_questions(.:format)
   def save_questions
     @assignment = Assignment.find(session[:assignment_id])
     @assessment = Assessment.find(session[:assessment_id])
@@ -79,6 +83,7 @@ class AssessmentsController < ApplicationController
     
   end
   
+  #GET    /assessments/review(.:format)
   def questions_review
     @assessments = Assessment.find(session[:assessment_id])
     @assignment = Assignment.find(session[:assignment_id])
@@ -87,6 +92,7 @@ class AssessmentsController < ApplicationController
     @questionsCoun = @question/4.0
   end
 
+  #POST   /assessments/submit(.:format)
   def submit
     @assignment = Assignment.find(session[:assignment_id])
     if @assignment.update(submit_params)
@@ -104,7 +110,7 @@ class AssessmentsController < ApplicationController
     @assessment.questions.build.answers.build
   end
   
-  #GET /admin/assessments
+  #GET /admin/assessments(.:format) 
   def admin_index
     @current_nav_identifier = :admin_assessments
     #Gets the list of all assessments, with pagy. Also selects the first assessment
@@ -196,6 +202,7 @@ class AssessmentsController < ApplicationController
 
 
   def submit_params
+    #Fetch params for submitting an assignment
     params.require(:assignment).permit(:id, vendor_answers_attributes: [:id, :upload, :comment])
   end
   

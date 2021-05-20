@@ -3,7 +3,7 @@ class GivenTasksController < ApplicationController
   require 'date'
   authorize_resource
 
-  #GET /given_tasks
+  #GET    /admin/given_tasks(.:format) 
   def index
     @current_nav_identifier = :given_tasks
     #Fetch all given tasks, joining with task table to retrieve task_title
@@ -11,7 +11,7 @@ class GivenTasksController < ApplicationController
     @selected = GivenTask.first
   end
 
-  #GET /fetch_given_task
+  #GET    /fetch_given_task(.:format)
   def select_given_task
     #Get the selected given task and format the javascript
     @selected = GivenTask.find(params[:given_task_id])
@@ -20,13 +20,13 @@ class GivenTasksController < ApplicationController
     end
   end
 
-  #GET /given_tasks/:id/edit
+  #GET    /given_tasks/:id/edit(.:format) 
   def edit
     @given_task = GivenTask.find(params[:id])
     render layout: false
   end
 
-  # PATCH /given_tasks/:id
+  # PATCH  /given_tasks/:id(.:format)
   def update
     @given_task = GivenTask.find(params[:id])
     if @given_task.update(given_task_params)
@@ -45,7 +45,7 @@ class GivenTasksController < ApplicationController
     end
   end
 
-  # GET /given_tasks/new
+  # GET    /given_tasks/new(.:format)
   def new 
     #Initialize and build new given task
     session[:task_id] = params[:task_id]
@@ -57,7 +57,7 @@ class GivenTasksController < ApplicationController
     render layout: false
   end
 
-  #DELETE /given_tasks/:id
+  #DELETE /given_tasks/:id(.:format)
   def destroy
     #Fetch given task and destroy
     @given_task_destroy = GivenTask.find(params[:id])
@@ -65,14 +65,14 @@ class GivenTasksController < ApplicationController
     redirect_to given_tasks_path, notice: 'Task was successfully destroyed.'
   end
 
-  #GET /tasks/search
+  #POST   /given_tasks/search(.:format)
   def search
     @pagy, @given_tasks = pagy(GivenTask.joins(:task).all.where('tasks.task_title LIKE ?', "%#{params[:search][:assessment_title]}%").select("given_task_id, task_title"), items:10)
     render 'search_refresh'
   end
 
 
-  # POST /given_tasks
+  # POST   /given_tasks(.:format)
   def create
     @given_task = GivenTask.new(given_task_params)
     @given_task.task_id = session[:task_id]
@@ -106,10 +106,10 @@ class GivenTasksController < ApplicationController
   end
 
   private
-  def given_task_params
-    #Fetch given task params, with nested assignment attributes
-    params.fetch(:given_task, {}).permit(:due_date, :priority, :repeatable, :task_id, 
-      assignments_attributes: [:assignment_id,:vendor_id ,:_destroy, :id])
-  end
+    def given_task_params
+      #Fetch given task params, with nested assignment attributes
+      params.fetch(:given_task, {}).permit(:due_date, :priority, :repeatable, :task_id, 
+        assignments_attributes: [:assignment_id,:vendor_id ,:_destroy, :id])
+    end
 
 end

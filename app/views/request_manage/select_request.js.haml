@@ -1,2 +1,4 @@
+-# 
+  Javascript file to change the account request being shown on the _show_request partial
 :plain
   $('#request-detail-panel').html("#{escape_javascript(render partial: 'show_request', locals: { vendor: @vendor } )}  "); 

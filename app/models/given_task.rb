@@ -57,6 +57,7 @@ class GivenTask < ApplicationRecord
     return repeatable_input
   end
 
+  #Validation to check that no vendors have been repeated in the assignment
   def validate_no_repeat_associations
     if self.assignments.size > 0
       already_added = Set.new
@@ -70,6 +71,7 @@ class GivenTask < ApplicationRecord
     end
   end
 
+  #Validates that the input is a correct date
   def validate_date_input 
     d = Date.strptime(self.due_date.to_s, "%Y-%m-%d") rescue nil
     if d.nil? 

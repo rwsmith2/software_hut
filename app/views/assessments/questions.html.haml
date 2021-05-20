@@ -1,3 +1,5 @@
+-# 
+  Index view for answering initial assingment questions
 - content_for :title, ''
 .card
   .card-header
@@ -9,6 +11,7 @@
         .alert.alert-danger 
           = @error
           %br
+      //Fields for the vendor answers attatched to the assignment
       = f.simple_fields_for :vendor_answers do |answer|
         - if @questions != nil
           %table.table
@@ -17,10 +20,12 @@
               - @questions.each do |que|
                 %tr
                   %th= que.question_text
+                  //Finds the correct answers to display
                   - @answers1 = Answer.where(question_id: que.question_id)
                   - @answers1.each do |ans|
                     - vendor_answer = VendorAnswer.where(answer_id: ans.answer_id, assignment_id: session[:assignment_id])
                     - vendor_answer.each do |vend_ans|
+                      //Checks to see if vendor already has an answer for the current question
                       - if vend_ans.answer_id == ans.answer_id
                         - @choose = ans
                   %tr

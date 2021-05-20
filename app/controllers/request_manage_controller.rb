@@ -1,11 +1,14 @@
+# Controller used to handle managing account requests
 class RequestManageController < ApplicationController
     before_action :authenticate_user!
 
+    #GET    /request_manage(.:format) 
     def index
       @current_nav_identifier = :request_manage
       @pending_vendors = Vendor.where(validated: false)
     end
 
+    #GET    /fetch_request(.:format)
     def select_request
       @vendor = Vendor.find(params[:vendor_id])
       respond_to do |format|
@@ -13,8 +16,9 @@ class RequestManageController < ApplicationController
       end
     end
 
-    #method to accept vendor requests 
+    #GET    /accept_request(.:format)
     def accept_request
+      #method to accept vendor requests 
       @vendor = Vendor.find(params[:vendor])
       @vendor.validated = true
 
@@ -33,8 +37,9 @@ class RequestManageController < ApplicationController
       end
     end
 
-    #reject vendor request
+    #GET    /reject_request(.:format)
     def reject_request
+      #reject vendor request
       @vendor = Vendor.find(params[:vendor])
       name = @vendor.company_name
       email = @vendor.user.email

@@ -1,64 +1,62 @@
 -#
-    Form that allows the admin to edit vendor settings 
-    Includes the KPI, Risk Rating and Inital Credit Score
-    Can also delte the vendor 
+  Form that allows the admin to edit vendor settings 
+  Includes the KPI, Risk Rating and Inital Credit Score
+  Can also delte the vendor 
 
 #new-task-panel.card.m-2.w-100.h-100
-    = simple_form_for @vendorSelected, url: admin_path(@vendorSelected) do |f|
+  = simple_form_for @vendorSelected, url: admin_path(@vendorSelected) do |f|
 
-        = f.error_notification
-        = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-        -#header 
-        .card-header.d-flex.justify-content-between.align-items-center.form-inputs
-            %h5.m-2 Vendor Settings 
+    -#header 
+    .card-header.d-flex.justify-content-between.align-items-center.form-inputs
+      %h5.m-2 Vendor Settings 
 
-        -#body with vendor information
-        .card-body
-            -#email
-            .row.mb-3
-                %label.col-sm-2.col-form-label{:for => "inputEmail3"} Vendor Email
-                .col-sm-10
-                    %input#inputEmail3.form-control{:type => "email", :value => @user.email}/
+    -#body with vendor information
+    .card-body
+      -#email
+      .row.mb-3
+        %label.col-sm-2.col-form-label{:for => "inputEmail3"} Vendor Email
+        .col-sm-10
+          %input#inputEmail3.form-control{:type => "email", :value => @user.email}/
 
-            -# company name and number
-            .row.mb-3
-                %label.col-sm-2.col-form-label{:for => "companyName"} Company Name
-                .col-sm-4
-                    = f.input_field :company_name, as: :text, input_html: {id: "companyNameTxt"}, placeholder: "Company Name"
-                %label.col-sm-2.col-form-label{:for => "companyNum"} Company Number
-                .col-sm-4 
-                    = f.input_field :company_number, as: :integer, input_html: {id: "companyNumberTxt"}, placeholder: "Company Number"
+      -# company name and number
+      .row.mb-3
+        %label.col-sm-2.col-form-label{:for => "companyName"} Company Name
+        .col-sm-4
+          = f.input_field :company_name, as: :text, input_html: {id: "companyNameTxt"}, placeholder: "Company Name"
+        %label.col-sm-2.col-form-label{:for => "companyNum"} Company Number
+        .col-sm-4 
+          = f.input_field :company_number, as: :integer, input_html: {id: "companyNumberTxt"}, placeholder: "Company Number"
 
-            -#Below are all the Scores/Ratings for the vendor
-            .row.mb-3
-                %label.col-sm-2.col-form-label{:for => "initialScore"} Initial Score
-                .col-sm-4
-                    //= f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, placeholder: "Initial Score" 
-                    = f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, value: @vendorSelected.initial_score
-                %label.col-sm-2.col-form-label{:for => "creditRating"} Credit Rating
-                .col-sm-4
-                    = f.input_field :credit_rating, as: :integer, input_html: {id: "creditRatingTxt"}, value: @vendorSelected.credit_rating
-            .row.mb-3
-                %label.col-sm-2.col-form-label{:for => "kpi"} KPI
-                .col-sm-4
-                    //= f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, placeholder: "KPI"  
-                    = f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, value: @vendorSelected.kpi
-                %label.col-sm-2.col-form-label{:for => "riskRating"} Risk Rating
-                .col-sm-4
-                    = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, value: @vendorSelected.risk_rating
-            .row.mb-2
-                %h6 Completed Tasks/Assessments
-            .row.mb-5
-                #task-list-panel
-                    = render partial: 'display_vendor_assessments', locals: {vendors: @vendorSelected}
+      -#Below are all the Scores/Ratings for the vendor
+      .row.mb-3
+        %label.col-sm-2.col-form-label{:for => "initialScore"} Initial Score
+        .col-sm-4
+          = f.input_field :initial_score, as: :integer, input_html: {id: "initialScoreTxt"}, value: @vendorSelected.initial_score
+        %label.col-sm-2.col-form-label{:for => "creditRating"} Credit Rating
+        .col-sm-4
+          = f.input_field :credit_rating, as: :integer, input_html: {id: "creditRatingTxt"}, value: @vendorSelected.credit_rating
+      .row.mb-3
+        %label.col-sm-2.col-form-label{:for => "kpi"} KPI
+        .col-sm-4
+          = f.input_field :kpi, as: :integer, input_html: {id: "kpiTxt"}, value: @vendorSelected.kpi
+        %label.col-sm-2.col-form-label{:for => "riskRating"} Risk Rating
+        .col-sm-4
+          = f.input_field :risk_rating, as: :integer, input_html: {id: "riskRatingTxt"}, value: @vendorSelected.risk_rating
+      .row.mb-2
+        %h6 Completed Tasks/Assessments
+      .row.mb-5
+        #task-list-panel
+          = render partial: 'display_vendor_assessments', locals: {vendors: @vendorSelected}
 
 
-            -# button group
-            .flex-row
-                = f.submit "Update" , class: "btn btn-primary"
-                = link_to 'Back ', :back, class: "btn btn-primary"
-                //Goes to Vendor controller destroy method
-                = link_to 'Destroy', @vendorSelected ,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", type: "button"
+      -# button group
+      .flex-row
+        = f.submit "Update" , class: "btn btn-primary"
+        = link_to 'Back ', :back, class: "btn btn-primary"
+        //Goes to Vendor controller destroy method
+        = link_to 'Destroy', @vendorSelected ,method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", type: "button"
 
 

@@ -18,9 +18,11 @@ class Assignment < ApplicationRecord
   has_many :vendor_answers,  dependent: :destroy
   belongs_to :given_task
   belongs_to :vendor
+
   accepts_nested_attributes_for :vendor_answers, allow_destroy: true
   validates_associated :vendor_answers
 
+  #Checks to see if the vendor has already submitted any answers
   def check_if_already_answered
     if self.vendor_answers.size != 0
       return true
@@ -28,6 +30,7 @@ class Assignment < ApplicationRecord
     return false
   end
 
+  #Sets the assignment to complete
   def complete_assignment
     self.update(complete: true)
   end

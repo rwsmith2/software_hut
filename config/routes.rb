@@ -72,14 +72,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :vendor_answers
-  resources :vendor_uploads
   resources :vendors do
     post :search, on: :collection
   end
-  resources :admins do
-    resources :create_vendor, on: :collection
-  end
+  resources :admins 
   resources :users
   
   resources :given_tasks do
@@ -98,7 +94,7 @@ Rails.application.routes.draw do
   resources :given_tasks do
     post :search, on: :collection
   end
-  resources :questions
+
 
   resources :request do
     post :create, on: :collection

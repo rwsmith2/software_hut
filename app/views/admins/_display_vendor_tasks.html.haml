@@ -1,7 +1,6 @@
 -#partial for displaying all the vendor tasks to the admin
 
 -@tasks.each do |assignment|
-  - puts(assignment.inspect)
   -@task = Task.find_by(task_id: assignment.task_id)
   -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
   

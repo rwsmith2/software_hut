@@ -16,7 +16,6 @@
           - if @given_task.errors.any?
             .alert.alert-danger 
               - @given_task.errors.full_messages.each do |message| 
-                - puts(message)
                 = message
                 %br
           .input-group-prepend
