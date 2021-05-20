@@ -62,7 +62,7 @@ describe 'Admin assessment review' do
     answer2 = Answer.create(answer_text: "No", question_id: question.question_id)
 
     # assign
-    assignment = Assignment.create(complete: "true",vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id)
+    assignment = Assignment.create(complete: "true",vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id, complete_by: "2021-05-01")
     
     # vendor answer
     VendorAnswer.create(assignment_id: assignment.assignment_id, answer_id: answer1.answer_id)

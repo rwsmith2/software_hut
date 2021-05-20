@@ -29,7 +29,7 @@ describe 'Vendor assessment answer' do
     assessment = Assessment.new(assessment_title: "Assessment questions")
     assessment.save(:validate => false)
     
-    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id)
+    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id, complete_by: "2021-05-01")
     
     assessment_linker = AssessmentLinker.create(task_id: task.task_id, assessment_id: assessment.assessment_id)
     

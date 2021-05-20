@@ -18,7 +18,7 @@ describe 'Admin vendor management' do
     expect(page).to have_content 'Test comp'
   end
 
-  specify 'I can delete a vendor account from the system, TODO: fix double confirm popups', :js => true do
+  specify 'I can delete a vendor account from the system', :js => true do
     make_test_data
 
     visit '/users/sign_in'
@@ -27,9 +27,9 @@ describe 'Admin vendor management' do
     click_button 'Log in'
     click_link 'Vendors'
     click_link 'Edit/View'
-    accept_alert do
-      click_link 'Destroy'
-    end
+    
+    click_link 'Destroy'
+
     expect(page).to have_no_content '1455'
   end
 

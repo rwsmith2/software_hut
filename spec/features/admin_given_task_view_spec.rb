@@ -28,7 +28,7 @@ describe 'Admin given task view' do
   end
 
   # should
-  specify 'I can search for a given task, TODO: search not working', js: true do
+  specify 'I can search for a given task', js: true do
     make_test_data
 
     visit '/users/sign_in'
@@ -67,8 +67,8 @@ describe 'Admin given task view' do
     assessment_linker = AssessmentLinker.create(task_id: task2.task_id, assessment_id: assessment.assessment_id)
     
     # assign
-    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task1.given_task_id)
-    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task2.given_task_id)
+    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task1.given_task_id, complete_by: "2021-05-01")
+    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task2.given_task_id, complete_by: "2021-05-01")
   end
 
 end

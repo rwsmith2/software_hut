@@ -15,7 +15,7 @@ describe 'Vendor task view' do
     assessment = Assessment.new(assessment_title: "Assessment questions")
     assessment.save(:validate => false)
     
-    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id)
+    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id, complete_by: "2021-05-01")
     
     assessment_linker = AssessmentLinker.create(task_id: task.task_id, assessment_id: assessment.assessment_id)
     
@@ -46,7 +46,7 @@ describe 'Vendor task view' do
     assessment = Assessment.new(assessment_title: "Assessment questions")
     assessment.save(:validate => false)
     
-    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id)
+    assignment = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task.given_task_id, complete_by: "2021-05-01")
     
     assessment_linker = AssessmentLinker.create(task_id: task.task_id, assessment_id: assessment.assessment_id)
     
@@ -84,9 +84,9 @@ describe 'Vendor task view' do
     assessment2.save(:validate => false)
     assessment3.save(:validate => false)
     
-    assignment1 = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task1.given_task_id)
-    assignment2 = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task2.given_task_id)
-    assignment3 = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task3.given_task_id)
+    assignment1 = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task1.given_task_id, complete_by: "2021-05-01")
+    assignment2 = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task2.given_task_id, complete_by: "2021-05-01")
+    assignment3 = Assignment.create(vendor_id: vendor.vendor_id, given_task_id: given_task3.given_task_id, complete_by: "2021-05-01")
     
     assessment_linker = AssessmentLinker.create(task_id: task1.task_id, assessment_id: assessment1.assessment_id)
     assessment_linker = AssessmentLinker.create(task_id: task2.task_id, assessment_id: assessment2.assessment_id)
