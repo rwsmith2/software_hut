@@ -28,7 +28,7 @@ class RequestManageController < ApplicationController
       password = SecureRandom.hex(8)
       @vendor.user.password = password
       
-      #check if vendor is saved to system
+      # check if vendor is saved to system
       if @vendor.save && @vendor.user.save
         RequestMailer.with(email: email, name: name, password: password).accepted_email.deliver_now
         redirect_to '/request_manage', notice: 'Request was successfully accepted'
@@ -43,7 +43,7 @@ class RequestManageController < ApplicationController
       @vendor = Vendor.find(params[:vendor])
       name = @vendor.company_name
       email = @vendor.user.email
-      #destroy vendor after
+      # destroy vendor after
       if @vendor.destroy
         RequestMailer.with(email: email, name: name).rejected_email.deliver_now
         redirect_to '/request_manage', notice: 'Request was successfully rejected'

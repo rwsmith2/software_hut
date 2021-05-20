@@ -9,6 +9,7 @@ class RequestController < ApplicationController
 
   # POST /request/create
   def create
+    # params
     params_v = params.require(:create).permit(:email, :name, :address, :address, :city, :postcode, :region, :terms)
 
     @email = params_v[:email]
@@ -18,10 +19,12 @@ class RequestController < ApplicationController
     @postcode = params_v[:postcode]
     @region = params_v[:region]
 
+    # new recored
     user = User.new(email: @email, password: SecureRandom.hex(8), user_name: @email, is_admin: false)
     vendor = Vendor.new(company_name: @name, company_number: "0", validated: false)
     address = Address.new(city_town: @city, country: @region, house_name: @address, postcode: @postcode)
 
+    # validation and save
     if user.valid?
       user.save
       vendor.user_id = user.user_id
@@ -31,6 +34,8 @@ class RequestController < ApplicationController
         if address.valid?
           #Email the result to the vendor
           address.save
+
+          # success
           RequestMailer.with(email: @email, name: @name).welcome_email.deliver_now
           render :success
           return
@@ -46,6 +51,8 @@ class RequestController < ApplicationController
     else
       @error_obj = user
     end
+
+    # error
     @current_nav_identifier = :login
     render :index
   end
