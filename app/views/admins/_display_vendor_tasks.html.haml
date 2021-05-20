@@ -5,15 +5,16 @@
     -@vendor = Vendor.find_by(vendor_id: assignment.vendor_id)
     
     -# checks if the task is past due date
-    - if assignment.complete_by < DateTime.now 
-      %tr
-        %td{:style => "font-weight:bold; color:crimson"}= @vendor.company_name
-        %td{:style => "font-weight:bold; color:crimson"}= GivenTask.priority_int_to_string(assignment.priority)
-        %td{:style => "font-weight:bold; color:crimson"}= assignment.complete_by
-        %td{:style => "font-weight:bold; color:crimson"}= @task.task_title
-    - else 
-      %tr
-        %td= @vendor.company_name
-        %td= GivenTask.priority_int_to_string(assignment.priority)
-        %td= assignment.complete_by
-        %td= @task.task_title
+    - if assignment.complete_by.present?
+      - if assignment.complete_by < DateTime.now 
+        %tr
+          %td{:style => "font-weight:bold; color:crimson"}= @vendor.company_name
+          %td{:style => "font-weight:bold; color:crimson"}= GivenTask.priority_int_to_string(assignment.priority)
+          %td{:style => "font-weight:bold; color:crimson"}= assignment.complete_by
+          %td{:style => "font-weight:bold; color:crimson"}= @task.task_title
+      - else 
+        %tr
+          %td= @vendor.company_name
+          %td= GivenTask.priority_int_to_string(assignment.priority)
+          %td= assignment.complete_by
+          %td= @task.task_title
