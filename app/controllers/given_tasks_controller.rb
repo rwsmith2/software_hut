@@ -22,6 +22,7 @@ class GivenTasksController < ApplicationController
 
   #GET    /given_tasks/:id/edit(.:format) 
   def edit
+    @editing = true
     @given_task = GivenTask.find(params[:id])
     render layout: false
   end
@@ -29,11 +30,20 @@ class GivenTasksController < ApplicationController
   # PATCH  /given_tasks/:id(.:format)
   def update
     @given_task = GivenTask.find(params[:id])
-    if @given_task.update(given_task_params)
-      assignments = Assignment.where(given_task_id: @given_task.given_task_id, complete_by: @given_task.due_date).select(:vendor_id).distinct
-      assignments.each do |assignment|
-        assignment.complete_by = @given_task.due_date
-        assignment.save
+    @given_task.due_date = given_task_params[:due_date]
+    @given_task.priority = GivenTask.priority_string_to_int(given_task_params[:priority])
+    @given_task.repeatable = GivenTask.if_empty_repeatable_set_to_0(given_task_params[:repeatable].to_i)
+    if @given_task.save
+      Assignment.where(given_task_id: @given_task.given_task_id, complete_by: @given_task.due_date).destroy_all
+      if params[:given_task][:assignments_attributes] != nil
+        params[:given_task][:assignments_attributes].each_value do |value|
+          assignment = Assignment.new
+          assignment.vendor_id = value[:vendor_id]
+          assignment.complete = false
+          assignment.given_task_id = @given_task.given_task_id
+          assignment.complete_by = @given_task.due_date
+          assignment.save
+        end
       end
       #Update the priority attribute, after converting form string to int
       @given_task.update(priority: GivenTask.priority_string_to_int(given_task_params[:priority]))
@@ -49,6 +59,7 @@ class GivenTasksController < ApplicationController
   def new 
     #Initialize and build new given task
     session[:task_id] = params[:task_id]
+    @editing = false
     @given_task =  GivenTask.new
     @given_task.assignments.build
     #Fetch vendors, so they can be used as collection to populate dropdown
@@ -110,6 +121,11 @@ class GivenTasksController < ApplicationController
       #Fetch given task params, with nested assignment attributes
       params.fetch(:given_task, {}).permit(:due_date, :priority, :repeatable, :task_id, 
         assignments_attributes: [:assignment_id,:vendor_id ,:_destroy, :id])
+    end
+
+    def given_task_params_without_assignments
+      #Fetch given task params, with nested assignment attributes
+      params.fetch(:given_task, {}).permit(:due_date, :priority, :repeatable, :task_id, assignments_attributes:[:assignment_id,:vendor_id ,:_destroy, :id])
     end
 
 end

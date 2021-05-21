@@ -59,9 +59,9 @@ class GivenTask < ApplicationRecord
 
   #Validation to check that no vendors have been repeated in the assignment
   def validate_no_repeat_associations
-    if self.assignments.size > 0
+    if self.assignments.where("complete_by = ?", self.due_date).size > 0
       already_added = Set.new
-      self.assignments.each do |a|
+      self.assignments.where("complete_by = ?", self.due_date).each do |a|
         if already_added.include?(a.vendor_id)
           errors.add(:assignments, "- Vendor #{Vendor.get_vendor_name(a.vendor_id)} is repeated")
         else
@@ -72,11 +72,16 @@ class GivenTask < ApplicationRecord
   end
 
   #Validates that the input is a correct date
-  def validate_date_input 
+  def validate_date_input
     d = Date.strptime(self.due_date.to_s, "%Y-%m-%d") rescue nil
     if d.nil? 
       errors.add(:given_task, "- Invalid due date")
     end
+  end
+
+  def latest_assignments(given_task_id)
+    latest_date = GivenTask.find(given_task_id).due_date
+    assignments.where("complete_by = ?", latest_date)
   end
 
 end

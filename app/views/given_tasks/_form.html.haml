@@ -42,9 +42,14 @@
           //Max height at 250px, so it doesn't overflow
           .card-body.overflow-auto{style: "max-height: 250px;"}
             %ul.input-group.mb-3.input_fields_wrap.questions.list-group.list-group-flush
-              //Simple fields for each assignment object, rendering the assignemnt fields partial and passing the assignment form object through
-              = f.simple_fields_for :assignments do |assignment|
-                = render 'assignment_fields', f: assignment
+              -if !(@editing)
+                //Simple fields for each assignment object, rendering the assignemnt fields partial and passing the assignment form object through
+                = f.simple_fields_for :assignments do |assignment|
+                  = render 'assignment_fields', f: assignment
+              -if (@editing)
+                //Simple fields for each assignment object, rendering the assignemnt fields partial and passing the assignment form object through
+                = f.simple_fields_for :assignments, f.object.latest_assignments(@given_task.given_task_id) do |assignment|
+                  = render 'assignment_fields', f: assignment
             .links 
               //Link to add a vendor to the assignments list
               = link_to_add_association "Add Vendor", f, :assignments, class: 'btn btn-dark'

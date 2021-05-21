@@ -24,6 +24,7 @@ The system has the following:
 The manual for admins using the site can be found in the Team09 google drive(I think you should have access to it).
 The manual goes through the basics of how to create assessments, assign tasks and all the other features. 
 The manual also goes through in detail how to reset the database and create new admin accounts.
+
 Link to manual- 'https://drive.google.com/file/d/1B44fera9Ea2fASIjLIfaOfLa88QOQKd4/view?usp=sharing'
 
 ### Deployment

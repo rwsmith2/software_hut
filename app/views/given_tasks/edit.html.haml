@@ -2,7 +2,7 @@
   Code renders partial form for editing a given task
 - content_for :title, 'Edit assigned task'
 
-= render 'form', locals: {given_task: @given_task}
+= render 'form', locals: {given_task: @given_task, editing: @editing}
 
 //Javascript used to format the date picker, part of the 'bootstrap-datepicker-rails' gem
 :javascript

@@ -28,7 +28,7 @@
         %p
           %span.font-weight-bold> Assignments:&nbsp;
           //Displays the count of assignments
-          = (given_task.assignments.count.to_s + " vendors assigned")
+          = (given_task.assignments.where("complete_by = ?", given_task.due_date).count.to_s + " vendors assigned")
     
     //Links to destroy and edit the selected given task
     .d-flex.flex-row.mt-3
